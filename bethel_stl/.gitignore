@@ -30,6 +30,13 @@
 
 /public/assets
 
+# Ignore CSS builds (generated from Tailwind)
+/app/assets/builds/*
+!/app/assets/builds/.gitkeep
+
+# Ignore node modules
+/node_modules
+
 # Ignore key files for decrypting credentials and more.
 /config/*.key
 

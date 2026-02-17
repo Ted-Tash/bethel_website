@@ -1,0 +1,1156 @@
+-# DaisyUI + Tailwind CSS Component Showcase
+-# Navigate to /dummies to see everything
+
+.min-h-screen.bg-base-200
+
+  -# ==================== NAVBAR ====================
+  .navbar.bg-base-100.shadow-lg.sticky.top-0.z-50
+    .navbar-start
+      .dropdown
+        %div{ tabindex: "0", role: "button", class: "btn btn-ghost lg:hidden" }
+          %svg.h-5.w-5{ xmlns: "http://www.w3.org/2000/svg", fill: "none", viewBox: "0 0 24 24", stroke: "currentColor" }
+            %path{ "stroke-linecap" => "round", "stroke-linejoin" => "round", "stroke-width" => "2", d: "M4 6h16M4 12h8m-8 6h16" }
+        %ul.menu.menu-sm.dropdown-content.bg-base-100.rounded-box.z-10.mt-3.w-52.p-2.shadow{ tabindex: "0" }
+          %li
+            %a Buttons
+          %li
+            %a Cards
+          %li
+            %a Forms
+          %li
+            %a Tables
+      %a.btn.btn-ghost.text-xl DaisyUI Showcase
+    .navbar-center.hidden.lg:flex
+      %ul.menu.menu-horizontal.px-1
+        %li
+          %a Buttons
+        %li
+          %a Cards
+        %li
+          %details
+            %summary More
+            %ul.bg-base-100.rounded-t-none.p-2
+              %li
+                %a Forms
+              %li
+                %a Tables
+    .navbar-end
+      .btn.btn-ghost.btn-circle
+        .indicator
+          %svg.h-5.w-5{ xmlns: "http://www.w3.org/2000/svg", fill: "none", viewBox: "0 0 24 24", stroke: "currentColor" }
+            %path{ "stroke-linecap" => "round", "stroke-linejoin" => "round", "stroke-width" => "2", d: "M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" }
+          %span.badge.badge-xs.badge-primary.indicator-item
+      .dropdown.dropdown-end
+        %div{ tabindex: "0", role: "button", class: "btn btn-ghost btn-circle avatar" }
+          .w-10.rounded-full
+            %div.bg-primary.text-primary-content.rounded-full.w-10.h-10.flex.items-center.justify-center.font-bold T
+        %ul.menu.menu-sm.dropdown-content.bg-base-100.rounded-box.z-10.mt-3.w-52.p-2.shadow{ tabindex: "0" }
+          %li
+            %a Profile
+          %li
+            %a Settings
+          %li
+            %a Logout
+
+  .container.mx-auto.p-4.max-w-7xl
+
+    -# ==================== HERO ====================
+    .hero.bg-base-100.rounded-box.my-8.shadow
+      .hero-content.text-center.py-16
+        .max-w-2xl
+          %h1.text-5xl.font-bold DaisyUI + Tailwind Showcase
+          %p.py-6.text-lg
+            Every DaisyUI component and a bunch of Tailwind utility classes all on one page.
+            This is what happens when you throw everything at the wall.
+          .flex.gap-2.justify-center.flex-wrap
+            %button.btn.btn-primary Get Started
+            %button.btn.btn-secondary Learn More
+            %button.btn.btn-accent.btn-outline Browse
+
+    -# ==================== BUTTONS ====================
+    .card.bg-base-100.shadow.my-8
+      .card-body
+        %h2.card-title.text-3xl.mb-6 Buttons
+        %h3.text-xl.font-semibold.mb-3 Brand Colors
+        .flex.flex-wrap.gap-2.mb-6
+          %button.btn Default
+          %button.btn.btn-neutral Neutral
+          %button.btn.btn-primary Primary
+          %button.btn.btn-secondary Secondary
+          %button.btn.btn-accent Accent
+          %button.btn.btn-info Info
+          %button.btn.btn-success Success
+          %button.btn.btn-warning Warning
+          %button.btn.btn-error Error
+          %button.btn.btn-ghost Ghost
+          %button.btn.btn-link Link
+
+        %h3.text-xl.font-semibold.mb-3 Outline
+        .flex.flex-wrap.gap-2.mb-6
+          %button.btn.btn-outline Outline
+          %button.btn.btn-outline.btn-primary Primary
+          %button.btn.btn-outline.btn-secondary Secondary
+          %button.btn.btn-outline.btn-accent Accent
+          %button.btn.btn-outline.btn-info Info
+          %button.btn.btn-outline.btn-success Success
+          %button.btn.btn-outline.btn-warning Warning
+          %button.btn.btn-outline.btn-error Error
+
+        %h3.text-xl.font-semibold.mb-3 Sizes
+        .flex.flex-wrap.gap-2.items-center.mb-6
+          %button.btn.btn-lg Large
+          %button.btn Medium
+          %button.btn.btn-sm Small
+          %button.btn.btn-xs Tiny
+
+        %h3.text-xl.font-semibold.mb-3 Shapes & States
+        .flex.flex-wrap.gap-2.items-center.mb-6
+          %button.btn.btn-wide Wide
+          %button.btn.btn-circle
+            %svg.h-6.w-6{ xmlns: "http://www.w3.org/2000/svg", fill: "none", viewBox: "0 0 24 24", stroke: "currentColor" }
+              %path{ "stroke-linecap" => "round", "stroke-linejoin" => "round", "stroke-width" => "2", d: "M6 18L18 6M6 6l12 12" }
+          %button.btn.btn-square
+            %svg.h-6.w-6{ xmlns: "http://www.w3.org/2000/svg", fill: "none", viewBox: "0 0 24 24", stroke: "currentColor" }
+              %path{ "stroke-linecap" => "round", "stroke-linejoin" => "round", "stroke-width" => "2", d: "M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" }
+          %button.btn.btn-disabled Disabled
+          %button.btn.btn-primary.loading.btn-square
+            %span.loading.loading-spinner
+          %button.btn.btn-soft.btn-primary Soft
+          %button.btn.btn-dash.btn-secondary Dash
+
+    -# ==================== BADGES ====================
+    .card.bg-base-100.shadow.my-8
+      .card-body
+        %h2.card-title.text-3xl.mb-6 Badges
+        .flex.flex-wrap.gap-2.mb-4
+          %span.badge Badge
+          %span.badge.badge-neutral Neutral
+          %span.badge.badge-primary Primary
+          %span.badge.badge-secondary Secondary
+          %span.badge.badge-accent Accent
+          %span.badge.badge-info Info
+          %span.badge.badge-success Success
+          %span.badge.badge-warning Warning
+          %span.badge.badge-error Error
+          %span.badge.badge-ghost Ghost
+          %span.badge.badge-outline Outline
+          %span.badge.badge-outline.badge-primary Outline Primary
+
+        %h3.text-xl.font-semibold.mb-3.mt-4 Badge Sizes
+        .flex.flex-wrap.gap-2.items-center
+          %span.badge.badge-lg.badge-primary Large
+          %span.badge.badge-md.badge-secondary Medium
+          %span.badge.badge-sm.badge-accent Small
+          %span.badge.badge-xs.badge-info Tiny
+
+    -# ==================== ALERTS ====================
+    .card.bg-base-100.shadow.my-8
+      .card-body
+        %h2.card-title.text-3xl.mb-6 Alerts
+        .flex.flex-col.gap-4
+          .alert
+            %svg.h-6.w-6.shrink-0.stroke-current{ xmlns: "http://www.w3.org/2000/svg", fill: "none", viewBox: "0 0 24 24" }
+              %path{ "stroke-linecap" => "round", "stroke-linejoin" => "round", "stroke-width" => "2", d: "M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" }
+            %span 12 unread messages. Tap to see.
+
+          .alert.alert-info
+            %svg.h-6.w-6.shrink-0.stroke-current{ xmlns: "http://www.w3.org/2000/svg", fill: "none", viewBox: "0 0 24 24" }
+              %path{ "stroke-linecap" => "round", "stroke-linejoin" => "round", "stroke-width" => "2", d: "M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" }
+            %span New software update available.
+
+          .alert.alert-success
+            %svg.h-6.w-6.shrink-0.stroke-current{ xmlns: "http://www.w3.org/2000/svg", fill: "none", viewBox: "0 0 24 24" }
+              %path{ "stroke-linecap" => "round", "stroke-linejoin" => "round", "stroke-width" => "2", d: "M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" }
+            %span Your purchase has been confirmed!
+
+          .alert.alert-warning
+            %svg.h-6.w-6.shrink-0.stroke-current{ xmlns: "http://www.w3.org/2000/svg", fill: "none", viewBox: "0 0 24 24" }
+              %path{ "stroke-linecap" => "round", "stroke-linejoin" => "round", "stroke-width" => "2", d: "M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" }
+            %span Warning: Invalid email address!
+
+          .alert.alert-error
+            %svg.h-6.w-6.shrink-0.stroke-current{ xmlns: "http://www.w3.org/2000/svg", fill: "none", viewBox: "0 0 24 24" }
+              %path{ "stroke-linecap" => "round", "stroke-linejoin" => "round", "stroke-width" => "2", d: "M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" }
+            %span Error! Task failed successfully.
+
+    -# ==================== CARDS ====================
+    .card.bg-base-100.shadow.my-8
+      .card-body
+        %h2.card-title.text-3xl.mb-6 Cards
+
+        .grid.grid-cols-1.md:grid-cols-2.lg:grid-cols-3.gap-6
+
+          -# Basic Card
+          .card.bg-base-100.border.border-base-300
+            .card-body
+              %h3.card-title Basic Card
+              %p This is a basic card with some content inside of it. Simple and clean.
+              .card-actions.justify-end
+                %button.btn.btn-primary Action
+
+          -# Image Card
+          .card.bg-base-100.border.border-base-300
+            %figure.bg-gradient-to-br.from-primary.to-secondary.h-48.flex.items-center.justify-center
+              %span.text-6xl.text-white.font-bold IMG
+            .card-body
+              %h3.card-title
+                Image Card
+                %span.badge.badge-secondary NEW
+              %p A card with a fancy gradient placeholder where an image would go.
+              .card-actions.justify-end
+                %button.btn.btn-primary Buy Now
+
+          -# Compact Card
+          .card.card-compact.bg-base-100.border.border-base-300
+            .card-body
+              %h3.card-title Compact Card
+              %p Less padding for a tighter layout.
+              .card-actions.justify-end
+                %button.btn.btn-sm.btn-ghost Details
+
+          -# Card with Badge
+          .card.bg-primary.text-primary-content
+            .card-body
+              %h3.card-title.text-primary-content Primary Card
+              %p This card uses the primary color scheme. Looking fancy!
+              .card-actions.justify-end
+                %button.btn.btn-sm Glass Style
+
+          -# Card with Stats
+          .card.bg-neutral.text-neutral-content
+            .card-body.items-center.text-center
+              %h3.card-title.text-neutral-content Centered Card
+              %p.text-neutral-content\/70 With centered content and neutral background.
+              .card-actions.justify-center
+                %button.btn.btn-primary Accept
+                %button.btn.btn-ghost Deny
+
+          -# Glass Card
+          .card.bg-base-100.border.border-base-300.shadow-xl
+            .card-body
+              %h3.card-title Shadow XL Card
+              %p This card has extra-large shadow for that floating look.
+              .card-actions.justify-end
+                .badge.badge-outline Fashion
+                .badge.badge-outline Products
+
+    -# ==================== ACCORDION / COLLAPSE ====================
+    .card.bg-base-100.shadow.my-8
+      .card-body
+        %h2.card-title.text-3xl.mb-6 Accordion / Collapse
+        .flex.flex-col.gap-2
+          .collapse.collapse-arrow.bg-base-200
+            %input{ type: "radio", name: "accordion-1", checked: true }
+            .collapse-title.font-semibold What is DaisyUI?
+            .collapse-content
+              %p DaisyUI is a component library for Tailwind CSS. It provides semantic class names like btn, card, modal etc. so you write less utility classes.
+
+          .collapse.collapse-arrow.bg-base-200
+            %input{ type: "radio", name: "accordion-1" }
+            .collapse-title.font-semibold Why use Tailwind CSS?
+            .collapse-content
+              %p Tailwind CSS is a utility-first CSS framework. It gives you low-level utility classes to build custom designs without writing CSS from scratch.
+
+          .collapse.collapse-arrow.bg-base-200
+            %input{ type: "radio", name: "accordion-1" }
+            .collapse-title.font-semibold Can I customize the theme?
+            .collapse-content
+              %p Absolutely! DaisyUI supports 30+ built-in themes and you can create custom themes with CSS variables.
+
+          .collapse.collapse-plus.bg-base-200
+            %input{ type: "radio", name: "accordion-2" }
+            .collapse-title.font-semibold Plus/minus style accordion
+            .collapse-content
+              %p This accordion uses plus/minus icons instead of arrows.
+
+    -# ==================== TABS ====================
+    .card.bg-base-100.shadow.my-8
+      .card-body
+        %h2.card-title.text-3xl.mb-6 Tabs
+
+        %h3.text-xl.font-semibold.mb-3 Basic Tabs
+        .tabs.tabs-border.mb-6
+          %input.tab{ type: "radio", name: "tabs-1", "aria-label" => "Tab 1", checked: true }
+          .tab-content.p-4
+            %p Content for Tab 1. This is the default active tab.
+          %input.tab{ type: "radio", name: "tabs-1", "aria-label" => "Tab 2" }
+          .tab-content.p-4
+            %p Content for Tab 2. Click to see this content.
+          %input.tab{ type: "radio", name: "tabs-1", "aria-label" => "Tab 3" }
+          .tab-content.p-4
+            %p Content for Tab 3. Each tab has its own content.
+
+        %h3.text-xl.font-semibold.mb-3 Boxed Tabs
+        .tabs.tabs-box
+          %a.tab Tab 1
+          %a.tab.tab-active Tab 2
+          %a.tab Tab 3
+
+        %h3.text-xl.font-semibold.mb-3.mt-6 Lifted Tabs
+        .tabs.tabs-lift
+          %a.tab Tab 1
+          %a.tab.tab-active Tab 2
+          %a.tab Tab 3
+
+    -# ==================== STATS ====================
+    .card.bg-base-100.shadow.my-8
+      .card-body
+        %h2.card-title.text-3xl.mb-6 Stats
+        .stats.shadow.w-full
+          .stat
+            .stat-figure.text-primary
+              %svg.inline-block.h-8.w-8.stroke-current{ xmlns: "http://www.w3.org/2000/svg", fill: "none", viewBox: "0 0 24 24" }
+                %path{ "stroke-linecap" => "round", "stroke-linejoin" => "round", "stroke-width" => "2", d: "M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" }
+            .stat-title Total Likes
+            .stat-value.text-primary 25.6K
+            .stat-desc 21% more than last month
+
+          .stat
+            .stat-figure.text-secondary
+              %svg.inline-block.h-8.w-8.stroke-current{ xmlns: "http://www.w3.org/2000/svg", fill: "none", viewBox: "0 0 24 24" }
+                %path{ "stroke-linecap" => "round", "stroke-linejoin" => "round", "stroke-width" => "2", d: "M13 10V3L4 14h7v7l9-11h-7z" }
+            .stat-title Page Views
+            .stat-value.text-secondary 2.6M
+            .stat-desc 14% more than last month
+
+          .stat
+            .stat-figure.text-accent
+              .avatar.online
+                .w-16.rounded-full
+                  %div.bg-accent.text-accent-content.rounded-full.w-16.h-16.flex.items-center.justify-center.text-2xl.font-bold JD
+            .stat-value 86%
+            .stat-title Tasks done
+            .stat-desc.text-secondary 31 tasks remaining
+
+    -# ==================== PROGRESS & LOADING ====================
+    .card.bg-base-100.shadow.my-8
+      .card-body
+        %h2.card-title.text-3xl.mb-6 Progress & Loading
+
+        %h3.text-xl.font-semibold.mb-3 Progress Bars
+        .flex.flex-col.gap-3.mb-6
+          %progress.progress.progress-primary.w-full{ value: "10", max: "100" }
+          %progress.progress.progress-secondary.w-full{ value: "30", max: "100" }
+          %progress.progress.progress-accent.w-full{ value: "50", max: "100" }
+          %progress.progress.progress-info.w-full{ value: "70", max: "100" }
+          %progress.progress.progress-success.w-full{ value: "90", max: "100" }
+          %progress.progress.progress-warning.w-full{ value: "45", max: "100" }
+          %progress.progress.progress-error.w-full{ value: "60", max: "100" }
+
+        %h3.text-xl.font-semibold.mb-3 Radial Progress
+        .flex.flex-wrap.gap-4.mb-6
+          .radial-progress.text-primary{ style: "--value:70; --size:5rem;" } 70%
+          .radial-progress.text-secondary{ style: "--value:45; --size:5rem;" } 45%
+          .radial-progress.text-accent{ style: "--value:90; --size:5rem;" } 90%
+
+        %h3.text-xl.font-semibold.mb-3 Loading Spinners
+        .flex.flex-wrap.gap-6.items-center
+          %span.loading.loading-spinner.loading-xs
+          %span.loading.loading-spinner.loading-sm
+          %span.loading.loading-spinner.loading-md
+          %span.loading.loading-spinner.loading-lg
+          %span.loading.loading-dots.loading-md
+          %span.loading.loading-ring.loading-md
+          %span.loading.loading-ball.loading-md
+          %span.loading.loading-bars.loading-md
+          %span.loading.loading-infinity.loading-md
+          %span.loading.loading-spinner.loading-md.text-primary
+          %span.loading.loading-spinner.loading-md.text-secondary
+          %span.loading.loading-spinner.loading-md.text-accent
+
+    -# ==================== FORM INPUTS ====================
+    .card.bg-base-100.shadow.my-8
+      .card-body
+        %h2.card-title.text-3xl.mb-6 Form Inputs
+
+        .grid.grid-cols-1.md:grid-cols-2.gap-6
+
+          .flex.flex-col.gap-4
+            %h3.text-xl.font-semibold Text Inputs
+            %label.floating-label
+              %span Name
+              %input.input.input-bordered.w-full{ type: "text", placeholder: "Name" }
+            %label.floating-label
+              %span Email
+              %input.input.input-bordered.input-primary.w-full{ type: "email", placeholder: "Email" }
+            %label.floating-label
+              %span Search
+              %input.input.input-bordered.input-secondary.w-full{ type: "text", placeholder: "Search" }
+            %input.input.input-bordered.input-accent.w-full{ type: "text", placeholder: "Accent input" }
+            %input.input.input-bordered.input-info.w-full{ type: "text", placeholder: "Info input" }
+            %input.input.input-bordered.input-success.w-full{ type: "text", placeholder: "Success input" }
+            %input.input.input-bordered.input-warning.w-full{ type: "text", placeholder: "Warning input" }
+            %input.input.input-bordered.input-error.w-full{ type: "text", placeholder: "Error input" }
+            %input.input.input-ghost.w-full{ type: "text", placeholder: "Ghost input" }
+
+          .flex.flex-col.gap-4
+            %h3.text-xl.font-semibold Input Sizes
+            %input.input.input-bordered.input-lg.w-full{ type: "text", placeholder: "Large" }
+            %input.input.input-bordered.w-full{ type: "text", placeholder: "Normal" }
+            %input.input.input-bordered.input-sm.w-full{ type: "text", placeholder: "Small" }
+            %input.input.input-bordered.input-xs.w-full{ type: "text", placeholder: "Tiny" }
+
+            %h3.text-xl.font-semibold.mt-2 Textarea
+            %textarea.textarea.textarea-bordered.w-full{ placeholder: "Write your bio here...", rows: 3 }
+            %textarea.textarea.textarea-primary.w-full{ placeholder: "Primary textarea", rows: 2 }
+
+        %h3.text-xl.font-semibold.mt-6.mb-3 Selects
+        .grid.grid-cols-1.md:grid-cols-3.gap-4.mb-6
+          %select.select.select-bordered.w-full
+            %option{ disabled: true, selected: true } Pick a framework
+            %option Rails
+            %option Django
+            %option Laravel
+            %option Express
+          %select.select.select-primary.w-full
+            %option{ disabled: true, selected: true } Pick a language
+            %option Ruby
+            %option Python
+            %option JavaScript
+          %select.select.select-secondary.select-sm.w-full
+            %option{ disabled: true, selected: true } Small select
+            %option Option 1
+            %option Option 2
+
+        %h3.text-xl.font-semibold.mb-3 Checkboxes
+        .flex.flex-wrap.gap-6.mb-6
+          .form-control
+            %label.label.cursor-pointer.gap-2
+              %span.label-text Default
+              %input.checkbox{ type: "checkbox", checked: true }
+          .form-control
+            %label.label.cursor-pointer.gap-2
+              %span.label-text Primary
+              %input.checkbox.checkbox-primary{ type: "checkbox", checked: true }
+          .form-control
+            %label.label.cursor-pointer.gap-2
+              %span.label-text Secondary
+              %input.checkbox.checkbox-secondary{ type: "checkbox" }
+          .form-control
+            %label.label.cursor-pointer.gap-2
+              %span.label-text Accent
+              %input.checkbox.checkbox-accent{ type: "checkbox", checked: true }
+          .form-control
+            %label.label.cursor-pointer.gap-2
+              %span.label-text Success
+              %input.checkbox.checkbox-success{ type: "checkbox" }
+          .form-control
+            %label.label.cursor-pointer.gap-2
+              %span.label-text Warning
+              %input.checkbox.checkbox-warning{ type: "checkbox", checked: true }
+
+        %h3.text-xl.font-semibold.mb-3 Radio Buttons
+        .flex.flex-wrap.gap-6.mb-6
+          .form-control
+            %label.label.cursor-pointer.gap-2
+              %span.label-text Default
+              %input.radio{ type: "radio", name: "radio-demo", checked: true }
+          .form-control
+            %label.label.cursor-pointer.gap-2
+              %span.label-text Primary
+              %input.radio.radio-primary{ type: "radio", name: "radio-demo" }
+          .form-control
+            %label.label.cursor-pointer.gap-2
+              %span.label-text Secondary
+              %input.radio.radio-secondary{ type: "radio", name: "radio-demo" }
+          .form-control
+            %label.label.cursor-pointer.gap-2
+              %span.label-text Accent
+              %input.radio.radio-accent{ type: "radio", name: "radio-demo" }
+
+        %h3.text-xl.font-semibold.mb-3 Toggles
+        .flex.flex-wrap.gap-6.mb-6
+          .form-control
+            %label.label.cursor-pointer.gap-2
+              %span.label-text Default
+              %input.toggle{ type: "checkbox", checked: true }
+          .form-control
+            %label.label.cursor-pointer.gap-2
+              %span.label-text Primary
+              %input.toggle.toggle-primary{ type: "checkbox", checked: true }
+          .form-control
+            %label.label.cursor-pointer.gap-2
+              %span.label-text Secondary
+              %input.toggle.toggle-secondary{ type: "checkbox" }
+          .form-control
+            %label.label.cursor-pointer.gap-2
+              %span.label-text Accent
+              %input.toggle.toggle-accent{ type: "checkbox", checked: true }
+          .form-control
+            %label.label.cursor-pointer.gap-2
+              %span.label-text Success
+              %input.toggle.toggle-success{ type: "checkbox" }
+
+        %h3.text-xl.font-semibold.mb-3 Range Sliders
+        .flex.flex-col.gap-3.mb-6
+          %input.range.range-primary{ type: "range", min: "0", max: "100", value: "40" }
+          %input.range.range-secondary.range-sm{ type: "range", min: "0", max: "100", value: "60" }
+          %input.range.range-accent.range-xs{ type: "range", min: "0", max: "100", value: "80" }
+
+        %h3.text-xl.font-semibold.mb-3 Rating
+        .flex.flex-wrap.gap-6
+          .rating
+            %input.mask.mask-star-2.bg-orange-400{ type: "radio", name: "rating-1" }
+            %input.mask.mask-star-2.bg-orange-400{ type: "radio", name: "rating-1", checked: true }
+            %input.mask.mask-star-2.bg-orange-400{ type: "radio", name: "rating-1" }
+            %input.mask.mask-star-2.bg-orange-400{ type: "radio", name: "rating-1" }
+            %input.mask.mask-star-2.bg-orange-400{ type: "radio", name: "rating-1" }
+          .rating.rating-lg
+            %input.mask.mask-heart.bg-red-400{ type: "radio", name: "rating-2" }
+            %input.mask.mask-heart.bg-red-400{ type: "radio", name: "rating-2" }
+            %input.mask.mask-heart.bg-red-400{ type: "radio", name: "rating-2", checked: true }
+            %input.mask.mask-heart.bg-red-400{ type: "radio", name: "rating-2" }
+            %input.mask.mask-heart.bg-red-400{ type: "radio", name: "rating-2" }
+
+    -# ==================== FILE INPUT ====================
+    .card.bg-base-100.shadow.my-8
+      .card-body
+        %h2.card-title.text-3xl.mb-6 File Input
+        .flex.flex-col.gap-4
+          %input.file-input.file-input-bordered.w-full.max-w-xs{ type: "file" }
+          %input.file-input.file-input-bordered.file-input-primary.w-full.max-w-xs{ type: "file" }
+          %input.file-input.file-input-bordered.file-input-secondary.file-input-sm.w-full.max-w-xs{ type: "file" }
+
+    -# ==================== TABLE ====================
+    .card.bg-base-100.shadow.my-8
+      .card-body
+        %h2.card-title.text-3xl.mb-6 Table
+        .overflow-x-auto
+          %table.table.table-zebra
+            %thead
+              %tr
+                %th #
+                %th Name
+                %th Job
+                %th Favorite Color
+                %th Status
+            %tbody
+              %tr
+                %th 1
+                %td Alice Johnson
+                %td Software Engineer
+                %td
+                  %span.badge.badge-info Blue
+                %td
+                  %span.badge.badge-success Active
+              %tr
+                %th 2
+                %td Bob Smith
+                %td Designer
+                %td
+                  %span.badge.badge-warning Orange
+                %td
+                  %span.badge.badge-success Active
+              %tr
+                %th 3
+                %td Charlie Brown
+                %td Product Manager
+                %td
+                  %span.badge.badge-error Red
+                %td
+                  %span.badge.badge-ghost Inactive
+              %tr
+                %th 4
+                %td Diana Prince
+                %td DevOps
+                %td
+                  %span.badge.badge-accent Purple
+                %td
+                  %span.badge.badge-success Active
+              %tr
+                %th 5
+                %td Eve Wilson
+                %td QA Engineer
+                %td
+                  %span.badge.badge-primary Green
+                %td
+                  %span.badge.badge-warning Pending
+
+    -# ==================== TIMELINE ====================
+    .card.bg-base-100.shadow.my-8
+      .card-body
+        %h2.card-title.text-3xl.mb-6 Timeline
+        %ul.timeline.timeline-vertical
+          %li
+            .timeline-start.timeline-box Project kickoff
+            .timeline-middle
+              %svg.h-5.w-5.fill-primary{ xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 20 20" }
+                %path{ "fill-rule" => "evenodd", d: "M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z", "clip-rule" => "evenodd" }
+            %hr.bg-primary
+          %li
+            %hr.bg-primary
+            .timeline-end.timeline-box Design phase
+            .timeline-middle
+              %svg.h-5.w-5.fill-primary{ xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 20 20" }
+                %path{ "fill-rule" => "evenodd", d: "M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z", "clip-rule" => "evenodd" }
+            %hr.bg-primary
+          %li
+            %hr.bg-primary
+            .timeline-start.timeline-box Development
+            .timeline-middle
+              %svg.h-5.w-5.fill-primary{ xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 20 20" }
+                %path{ "fill-rule" => "evenodd", d: "M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z", "clip-rule" => "evenodd" }
+            %hr
+          %li
+            %hr
+            .timeline-end.timeline-box Testing
+            .timeline-middle
+            %hr
+          %li
+            %hr
+            .timeline-start.timeline-box Launch
+            .timeline-middle
+
+    -# ==================== BREADCRUMBS ====================
+    .card.bg-base-100.shadow.my-8
+      .card-body
+        %h2.card-title.text-3xl.mb-6 Breadcrumbs
+        .breadcrumbs.text-sm
+          %ul
+            %li
+              %a Home
+            %li
+              %a Documents
+            %li
+              %a Add Document
+        .breadcrumbs.text-lg.mt-4
+          %ul
+            %li
+              %a Dashboard
+            %li
+              %a Projects
+            %li
+              %a Website Redesign
+            %li Active Sprint
+
+    -# ==================== STEPS ====================
+    .card.bg-base-100.shadow.my-8
+      .card-body
+        %h2.card-title.text-3xl.mb-6 Steps
+        %ul.steps.w-full
+          %li.step.step-primary Register
+          %li.step.step-primary Choose plan
+          %li.step.step-primary Purchase
+          %li.step Receive Product
+
+        %ul.steps.steps-vertical.mt-6.lg:steps-horizontal.w-full
+          %li.step.step-info Login
+          %li.step.step-info Verify
+          %li.step.step-info Setup
+          %li.step.step-info Done
+
+    -# ==================== AVATAR GROUP ====================
+    .card.bg-base-100.shadow.my-8
+      .card-body
+        %h2.card-title.text-3xl.mb-6 Avatars
+        .flex.flex-wrap.gap-6.items-end
+
+          -# Single avatars
+          .avatar
+            .w-24.rounded-full.bg-primary.text-primary-content.flex.items-center.justify-center.text-3xl.font-bold A
+          .avatar
+            .w-16.rounded-xl.bg-secondary.text-secondary-content.flex.items-center.justify-center.text-2xl.font-bold B
+          .avatar.online
+            .w-12.rounded-full.bg-accent.text-accent-content.flex.items-center.justify-center.text-xl.font-bold C
+          .avatar.offline
+            .w-12.rounded-full.bg-neutral.text-neutral-content.flex.items-center.justify-center.text-xl.font-bold D
+
+          -# Avatar group
+          .avatar-group.-space-x-6
+            .avatar
+              .w-12.bg-primary.text-primary-content.rounded-full.flex.items-center.justify-center.font-bold 1
+            .avatar
+              .w-12.bg-secondary.text-secondary-content.rounded-full.flex.items-center.justify-center.font-bold 2
+            .avatar
+              .w-12.bg-accent.text-accent-content.rounded-full.flex.items-center.justify-center.font-bold 3
+            .avatar.placeholder
+              .w-12.bg-neutral.text-neutral-content.rounded-full.flex.items-center.justify-center.font-bold +5
+
+    -# ==================== TOOLTIP ====================
+    .card.bg-base-100.shadow.my-8
+      .card-body
+        %h2.card-title.text-3xl.mb-6 Tooltips
+        .flex.flex-wrap.gap-4
+          .tooltip{ "data-tip" => "Default tooltip" }
+            %button.btn Default
+          .tooltip.tooltip-primary{ "data-tip" => "Primary tooltip" }
+            %button.btn.btn-primary Primary
+          .tooltip.tooltip-secondary{ "data-tip" => "Secondary tooltip" }
+            %button.btn.btn-secondary Secondary
+          .tooltip.tooltip-accent{ "data-tip" => "Accent tooltip" }
+            %button.btn.btn-accent Accent
+          .tooltip.tooltip-info{ "data-tip" => "Info tooltip" }
+            %button.btn.btn-info Info
+
+        .flex.flex-wrap.gap-4.mt-4
+          .tooltip.tooltip-top{ "data-tip" => "Top" }
+            %button.btn.btn-outline Top
+          .tooltip.tooltip-bottom{ "data-tip" => "Bottom" }
+            %button.btn.btn-outline Bottom
+          .tooltip.tooltip-left{ "data-tip" => "Left" }
+            %button.btn.btn-outline Left
+          .tooltip.tooltip-right{ "data-tip" => "Right" }
+            %button.btn.btn-outline Right
+
+    -# ==================== MODAL ====================
+    .card.bg-base-100.shadow.my-8
+      .card-body
+        %h2.card-title.text-3xl.mb-6 Modals
+        .flex.flex-wrap.gap-4
+          %button.btn.btn-primary{ onclick: "modal_1.showModal()" } Open Modal
+          %dialog#modal_1.modal
+            .modal-box
+              %h3.text-lg.font-bold Hello!
+              %p.py-4 This modal was opened with JavaScript. Press ESC or click the button below to close.
+              .modal-action
+                %form{ method: "dialog" }
+                  %button.btn Close
+
+          %button.btn.btn-secondary{ onclick: "modal_2.showModal()" } Confirmation Modal
+          %dialog#modal_2.modal
+            .modal-box
+              %h3.text-lg.font-bold Are you sure?
+              %p.py-4 This action cannot be undone. Do you want to proceed?
+              .modal-action
+                %form{ method: "dialog" }
+                  %button.btn.btn-error Delete
+                  %button.btn Cancel
+
+    -# ==================== DRAWER (inline demo) ====================
+    .card.bg-base-100.shadow.my-8
+      .card-body
+        %h2.card-title.text-3xl.mb-6 Drawer (inline)
+        .drawer
+          %input#demo-drawer.drawer-toggle{ type: "checkbox" }
+          .drawer-content
+            %label.btn.btn-primary.drawer-button{ for: "demo-drawer" } Open Drawer
+          .drawer-side
+            %label.drawer-overlay{ for: "demo-drawer" }
+            %ul.menu.bg-base-200.text-base-content.min-h-full.w-60.p-4
+              %li
+                %a Sidebar Item 1
+              %li
+                %a Sidebar Item 2
+              %li
+                %a Sidebar Item 3
+              %li
+                %a Sidebar Item 4
+
+    -# ==================== SWAP ====================
+    .card.bg-base-100.shadow.my-8
+      .card-body
+        %h2.card-title.text-3xl.mb-6 Swap
+        .flex.flex-wrap.gap-6.items-center
+          %label.swap.swap-rotate.text-4xl
+            %input{ type: "checkbox" }
+            .swap-on sun
+            .swap-off moon
+          %label.swap.swap-flip.text-4xl
+            %input{ type: "checkbox" }
+            .swap-on YES
+            .swap-off NO
+          %label.swap.text-4xl
+            %input{ type: "checkbox" }
+            .swap-on ON
+            .swap-off OFF
+
+    -# ==================== DROPDOWN ====================
+    .card.bg-base-100.shadow.my-8
+      .card-body
+        %h2.card-title.text-3xl.mb-6 Dropdown
+        .flex.flex-wrap.gap-4
+          .dropdown
+            %div{ tabindex: "0", role: "button", class: "btn m-1" } Click Dropdown
+            %ul.dropdown-content.menu.bg-base-100.rounded-box.z-10.w-52.p-2.shadow{ tabindex: "0" }
+              %li
+                %a Item 1
+              %li
+                %a Item 2
+              %li
+                %a Item 3
+          .dropdown.dropdown-hover
+            %div{ tabindex: "0", role: "button", class: "btn btn-primary m-1" } Hover Dropdown
+            %ul.dropdown-content.menu.bg-base-100.rounded-box.z-10.w-52.p-2.shadow{ tabindex: "0" }
+              %li
+                %a Item 1
+              %li
+                %a Item 2
+
+    -# ==================== MENU ====================
+    .card.bg-base-100.shadow.my-8
+      .card-body
+        %h2.card-title.text-3xl.mb-6 Menu
+        .grid.grid-cols-1.md:grid-cols-3.gap-6
+          %ul.menu.bg-base-200.rounded-box.w-full
+            %li
+              %a
+                %svg.h-5.w-5{ xmlns: "http://www.w3.org/2000/svg", fill: "none", viewBox: "0 0 24 24", stroke: "currentColor" }
+                  %path{ "stroke-linecap" => "round", "stroke-linejoin" => "round", "stroke-width" => "2", d: "M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" }
+                Homepage
+            %li
+              %a.active
+                %svg.h-5.w-5{ xmlns: "http://www.w3.org/2000/svg", fill: "none", viewBox: "0 0 24 24", stroke: "currentColor" }
+                  %path{ "stroke-linecap" => "round", "stroke-linejoin" => "round", "stroke-width" => "2", d: "M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" }
+                Portfolio
+            %li
+              %a
+                %svg.h-5.w-5{ xmlns: "http://www.w3.org/2000/svg", fill: "none", viewBox: "0 0 24 24", stroke: "currentColor" }
+                  %path{ "stroke-linecap" => "round", "stroke-linejoin" => "round", "stroke-width" => "2", d: "M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" }
+                Stats
+
+          %ul.menu.menu-horizontal.bg-base-200.rounded-box
+            %li
+              %a Home
+            %li
+              %a About
+            %li
+              %a Contact
+
+          %ul.menu.bg-base-200.rounded-box.w-full
+            %li.menu-title Actions
+            %li
+              %a Create
+            %li
+              %a Read
+            %li
+              %a Update
+            %li
+              %a Delete
+
+    -# ==================== PAGINATION ====================
+    .card.bg-base-100.shadow.my-8
+      .card-body
+        %h2.card-title.text-3xl.mb-6 Pagination
+        .flex.flex-col.gap-4
+          .join
+            %button.join-item.btn 1
+            %button.join-item.btn.btn-active 2
+            %button.join-item.btn 3
+            %button.join-item.btn 4
+          .join
+            %button.join-item.btn.btn-outline Prev
+            %button.join-item.btn.btn-outline Page 1
+            %button.join-item.btn.btn-outline Next
+
+    -# ==================== CHAT BUBBLES ====================
+    .card.bg-base-100.shadow.my-8
+      .card-body
+        %h2.card-title.text-3xl.mb-6 Chat Bubbles
+        .chat.chat-start
+          .chat-image.avatar
+            .w-10.rounded-full.bg-primary.text-primary-content.flex.items-center.justify-center.font-bold A
+          .chat-header
+            Alice
+            %time.text-xs.opacity-50 12:45
+          .chat-bubble You were the chosen one!
+          .chat-footer.opacity-50 Delivered
+        .chat.chat-start
+          .chat-image.avatar
+            .w-10.rounded-full.bg-primary.text-primary-content.flex.items-center.justify-center.font-bold A
+          .chat-bubble It was said that you would destroy the Sith, not join them!
+        .chat.chat-end
+          .chat-image.avatar
+            .w-10.rounded-full.bg-secondary.text-secondary-content.flex.items-center.justify-center.font-bold B
+          .chat-header
+            Bob
+            %time.text-xs.opacity-50 12:46
+          .chat-bubble.chat-bubble-primary I hate you!
+        .chat.chat-start
+          .chat-image.avatar
+            .w-10.rounded-full.bg-primary.text-primary-content.flex.items-center.justify-center.font-bold A
+          .chat-bubble.chat-bubble-secondary You were my brother, Anakin.
+
+    -# ==================== COUNTDOWN ====================
+    .card.bg-base-100.shadow.my-8
+      .card-body
+        %h2.card-title.text-3xl.mb-6 Countdown
+        .flex.gap-5.text-center
+          .flex.flex-col
+            %span.countdown.font-mono.text-4xl
+              %span{ style: "--value:15;" }
+            days
+          .flex.flex-col
+            %span.countdown.font-mono.text-4xl
+              %span{ style: "--value:10;" }
+            hours
+          .flex.flex-col
+            %span.countdown.font-mono.text-4xl
+              %span{ style: "--value:24;" }
+            min
+          .flex.flex-col
+            %span.countdown.font-mono.text-4xl
+              %span{ style: "--value:52;" }
+            sec
+
+    -# ==================== KBD ====================
+    .card.bg-base-100.shadow.my-8
+      .card-body
+        %h2.card-title.text-3xl.mb-6 Keyboard (KBD)
+        .flex.flex-wrap.gap-2
+          %kbd.kbd.kbd-lg Shift
+          %kbd.kbd.kbd-lg +
+          %kbd.kbd.kbd-lg K
+        .flex.flex-wrap.gap-1.mt-4
+          %kbd.kbd Q
+          %kbd.kbd W
+          %kbd.kbd E
+          %kbd.kbd R
+          %kbd.kbd T
+          %kbd.kbd Y
+          %kbd.kbd U
+          %kbd.kbd I
+          %kbd.kbd O
+          %kbd.kbd P
+        .flex.flex-wrap.gap-1.mt-1.ml-4
+          %kbd.kbd A
+          %kbd.kbd S
+          %kbd.kbd D
+          %kbd.kbd F
+          %kbd.kbd G
+          %kbd.kbd H
+          %kbd.kbd J
+          %kbd.kbd K
+          %kbd.kbd L
+        .flex.flex-wrap.gap-1.mt-1.ml-8
+          %kbd.kbd Z
+          %kbd.kbd X
+          %kbd.kbd C
+          %kbd.kbd V
+          %kbd.kbd B
+          %kbd.kbd N
+          %kbd.kbd M
+
+    -# ==================== MOCKUP ====================
+    .card.bg-base-100.shadow.my-8
+      .card-body
+        %h2.card-title.text-3xl.mb-6 Code Mockup
+        .mockup-code
+          %pre{ "data-prefix" => "$" }
+            %code npm install daisyui
+          %pre.text-warning{ "data-prefix" => ">" }
+            %code installing...
+          %pre.text-success{ "data-prefix" => ">" }
+            %code Done!
+
+    -# ==================== DIFF ====================
+    .card.bg-base-100.shadow.my-8
+      .card-body
+        %h2.card-title.text-3xl.mb-6 Diff
+        .diff.aspect-video.max-w-lg.rounded-box
+          .diff-item-1
+            .bg-primary.text-primary-content.grid.place-content-center.text-9xl.font-black.h-full DAISY
+          .diff-item-2
+            .bg-base-200.grid.place-content-center.text-9xl.font-black.h-full DAISY
+          .diff-resizer
+
+    -# ==================== JOIN (Button Group) ====================
+    .card.bg-base-100.shadow.my-8
+      .card-body
+        %h2.card-title.text-3xl.mb-6 Join (Button Group)
+        .flex.flex-wrap.gap-4
+          .join
+            %button.btn.join-item Active
+            %button.btn.join-item Button
+            %button.btn.join-item Button
+          .join
+            %input.join-item.btn{ type: "radio", name: "options", "aria-label" => "Radio 1", checked: true }
+            %input.join-item.btn{ type: "radio", name: "options", "aria-label" => "Radio 2" }
+            %input.join-item.btn{ type: "radio", name: "options", "aria-label" => "Radio 3" }
+          .join.join-vertical
+            %button.btn.join-item Top
+            %button.btn.join-item Middle
+            %button.btn.join-item Bottom
+
+    -# ==================== INDICATOR ====================
+    .card.bg-base-100.shadow.my-8
+      .card-body
+        %h2.card-title.text-3xl.mb-6 Indicator
+        .flex.flex-wrap.gap-8
+          .indicator
+            %span.indicator-item.badge.badge-primary new
+            .bg-base-300.grid.h-32.w-32.place-items-center.rounded-box Content
+          .indicator
+            %span.indicator-item.indicator-bottom.badge.badge-secondary bottom
+            .bg-base-300.grid.h-32.w-32.place-items-center.rounded-box Content
+          .indicator
+            %span.indicator-item.badge.badge-accent 99+
+            %button.btn Inbox
+
+    -# ==================== MASK ====================
+    .card.bg-base-100.shadow.my-8
+      .card-body
+        %h2.card-title.text-3xl.mb-6 Mask Shapes
+        .flex.flex-wrap.gap-4
+          .bg-primary.mask.mask-squircle.w-20.h-20.flex.items-center.justify-center.text-primary-content.font-bold Squircle
+          .bg-secondary.mask.mask-heart.w-20.h-20.flex.items-center.justify-center.text-secondary-content.font-bold
+          .bg-accent.mask.mask-hexagon.w-20.h-20.flex.items-center.justify-center.text-accent-content.font-bold Hex
+          .bg-info.mask.mask-star.w-20.h-20.flex.items-center.justify-center.text-info-content.font-bold
+          .bg-success.mask.mask-triangle.w-20.h-20.flex.items-center.justify-center.text-success-content.font-bold
+          .bg-warning.mask.mask-diamond.w-20.h-20.flex.items-center.justify-center.text-warning-content.font-bold
+          .bg-error.mask.mask-circle.w-20.h-20.flex.items-center.justify-center.text-error-content.font-bold
+
+    -# ==================== DIVIDER ====================
+    .card.bg-base-100.shadow.my-8
+      .card-body
+        %h2.card-title.text-3xl.mb-6 Dividers
+        .divider OR
+        .flex.w-full
+          .card.bg-base-300.rounded-box.grid.h-20.flex-grow.place-items-center Content
+          .divider.divider-horizontal AND
+          .card.bg-base-300.rounded-box.grid.h-20.flex-grow.place-items-center Content
+        .divider.divider-primary Primary Divider
+        .divider.divider-secondary Secondary Divider
+        .divider.divider-accent Accent Divider
+
+    -# ==================== STACK ====================
+    .card.bg-base-100.shadow.my-8
+      .card-body
+        %h2.card-title.text-3xl.mb-6 Stack
+        .flex.justify-center
+          .stack
+            .card.bg-primary.text-primary-content.w-64.shadow-md
+              .card-body
+                %h3.card-title A
+                %p Card A content
+            .card.bg-secondary.text-secondary-content.w-64.shadow-md
+              .card-body
+                %h3.card-title B
+                %p Card B content
+            .card.bg-accent.text-accent-content.w-64.shadow-md
+              .card-body
+                %h3.card-title C
+                %p Card C content
+
+    -# ==================== TOAST (fixed position) ====================
+    .card.bg-base-100.shadow.my-8
+      .card-body
+        %h2.card-title.text-3xl.mb-6 Toast (static demo)
+        .relative.bg-base-200.rounded-box.h-48.p-4
+          .absolute.bottom-4.right-4.flex.flex-col.gap-2
+            .alert.alert-info.shadow-lg.py-2.px-4
+              %span New message arrived
+            .alert.alert-success.shadow-lg.py-2.px-4
+              %span Message sent successfully
+
+    -# ==================== TAILWIND UTILITIES SHOWCASE ====================
+    .card.bg-base-100.shadow.my-8
+      .card-body
+        %h2.card-title.text-3xl.mb-6 Tailwind Utility Showcase
+
+        %h3.text-xl.font-semibold.mb-3 Gradients
+        .grid.grid-cols-1.md:grid-cols-3.gap-4.mb-6
+          .h-24.rounded-xl.bg-gradient-to-r.from-cyan-500.to-blue-500.flex.items-center.justify-center.text-white.font-bold Cyan to Blue
+          .h-24.rounded-xl.bg-gradient-to-r.from-violet-500.to-fuchsia-500.flex.items-center.justify-center.text-white.font-bold Violet to Fuchsia
+          .h-24.rounded-xl.bg-gradient-to-r.from-rose-400.via-fuchsia-500.to-indigo-500.flex.items-center.justify-center.text-white.font-bold Three-stop
+
+        %h3.text-xl.font-semibold.mb-3 Shadows
+        .grid.grid-cols-2.md:grid-cols-4.gap-4.mb-6
+          .h-20.bg-base-100.rounded-lg.shadow-sm.flex.items-center.justify-center shadow-sm
+          .h-20.bg-base-100.rounded-lg.shadow.flex.items-center.justify-center shadow
+          .h-20.bg-base-100.rounded-lg.shadow-lg.flex.items-center.justify-center shadow-lg
+          .h-20.bg-base-100.rounded-lg.shadow-2xl.flex.items-center.justify-center shadow-2xl
+
+        %h3.text-xl.font-semibold.mb-3 Rounded Corners
+        .grid.grid-cols-2.md:grid-cols-4.gap-4.mb-6
+          .h-20.bg-primary.rounded-none.flex.items-center.justify-center.text-primary-content none
+          .h-20.bg-primary.rounded.flex.items-center.justify-center.text-primary-content rounded
+          .h-20.bg-primary.rounded-lg.flex.items-center.justify-center.text-primary-content lg
+          .h-20.bg-primary.rounded-full.flex.items-center.justify-center.text-primary-content full
+
+        %h3.text-xl.font-semibold.mb-3 Opacity
+        .flex.gap-4.mb-6
+          .h-16.w-16.bg-primary.opacity-100.rounded.flex.items-center.justify-center.text-xs.text-primary-content 100
+          .h-16.w-16.bg-primary.opacity-75.rounded.flex.items-center.justify-center.text-xs.text-primary-content 75
+          .h-16.w-16.bg-primary.opacity-50.rounded.flex.items-center.justify-center.text-xs.text-primary-content 50
+          .h-16.w-16.bg-primary.opacity-25.rounded.flex.items-center.justify-center.text-xs.text-primary-content 25
+
+        %h3.text-xl.font-semibold.mb-3 Ring
+        .flex.flex-wrap.gap-4.mb-6
+          .h-16.w-16.bg-base-100.ring.ring-primary.rounded.flex.items-center.justify-center ring
+          .h-16.w-16.bg-base-100.ring-2.ring-secondary.rounded.flex.items-center.justify-center ring-2
+          .h-16.w-16.bg-base-100.ring-4.ring-accent.rounded.flex.items-center.justify-center ring-4
+          .h-16.w-16.bg-base-100.ring.ring-offset-2.ring-primary.rounded.flex.items-center.justify-center offset
+
+        %h3.text-xl.font-semibold.mb-3 Blur & Backdrop
+        .grid.grid-cols-1.md:grid-cols-3.gap-4.mb-6
+          .h-24.bg-gradient-to-r.from-primary.to-secondary.rounded-xl.flex.items-center.justify-center.text-white.font-bold Normal
+          .h-24.bg-gradient-to-r.from-primary.to-secondary.rounded-xl.flex.items-center.justify-center.text-white.font-bold.blur-sm Blur SM
+          .h-24.bg-gradient-to-r.from-primary.to-secondary.rounded-xl.flex.items-center.justify-center.text-white.font-bold.blur-md Blur MD
+
+        %h3.text-xl.font-semibold.mb-3 Rotate & Scale
+        .flex.flex-wrap.gap-8.mb-6.items-center.justify-center
+          .h-16.w-16.bg-success.rounded-lg.flex.items-center.justify-center.text-success-content.font-bold.rotate-0 0
+          .h-16.w-16.bg-success.rounded-lg.flex.items-center.justify-center.text-success-content.font-bold.rotate-12 12
+          .h-16.w-16.bg-success.rounded-lg.flex.items-center.justify-center.text-success-content.font-bold.rotate-45 45
+          .h-16.w-16.bg-success.rounded-lg.flex.items-center.justify-center.text-success-content.font-bold.rotate-90 90
+          .h-16.w-16.bg-warning.rounded-lg.flex.items-center.justify-center.text-warning-content.font-bold.scale-75 75%
+          .h-16.w-16.bg-warning.rounded-lg.flex.items-center.justify-center.text-warning-content.font-bold.scale-110 110%
+          .h-16.w-16.bg-warning.rounded-lg.flex.items-center.justify-center.text-warning-content.font-bold.scale-125 125%
+
+        %h3.text-xl.font-semibold.mb-3 Typography
+        .space-y-2.mb-6
+          %p.text-xs.text-base-content text-xs (0.75rem)
+          %p.text-sm.text-base-content text-sm (0.875rem)
+          %p.text-base.text-base-content text-base (1rem)
+          %p.text-lg.text-base-content text-lg (1.125rem)
+          %p.text-xl.text-base-content text-xl (1.25rem)
+          %p.text-2xl.font-light 2xl light
+          %p.text-2xl.font-normal 2xl normal
+          %p.text-2xl.font-semibold 2xl semibold
+          %p.text-2xl.font-bold 2xl bold
+          %p.text-3xl.font-extrabold 3xl extrabold
+          %p.text-4xl.font-black.bg-gradient-to-r.from-primary.to-secondary.bg-clip-text.text-transparent 4xl gradient text
+          %p.italic.text-lg Italic text styling
+          %p.underline.text-lg Underlined text
+          %p.line-through.text-lg Strikethrough text
+          %p.uppercase.tracking-widest.text-sm UPPERCASE TRACKED
+
+        %h3.text-xl.font-semibold.mb-3 Flex & Grid Examples
+        .grid.grid-cols-4.gap-2.mb-4
+          - (1..8).each do |i|
+            .bg-primary.text-primary-content.rounded.p-3.text-center.font-bold= i
+        .flex.justify-between.gap-2.mb-4
+          .bg-secondary.text-secondary-content.rounded.p-3.text-center.font-bold.flex-1 Flex 1
+          .bg-secondary.text-secondary-content.rounded.p-3.text-center.font-bold.flex-2 Flex 2
+          .bg-secondary.text-secondary-content.rounded.p-3.text-center.font-bold.flex-1 Flex 1
+        .grid.grid-cols-3.grid-rows-2.gap-2.h-40.mb-6
+          .bg-accent.text-accent-content.rounded.flex.items-center.justify-center.font-bold.col-span-2 col-span-2
+          .bg-accent.text-accent-content.rounded.flex.items-center.justify-center.font-bold.row-span-2 row-span-2
+          .bg-accent.text-accent-content.rounded.flex.items-center.justify-center.font-bold auto
+          .bg-accent.text-accent-content.rounded.flex.items-center.justify-center.font-bold auto
+
+        %h3.text-xl.font-semibold.mb-3 Borders
+        .flex.flex-wrap.gap-4.mb-6
+          .h-16.w-16.border.border-base-300.rounded.flex.items-center.justify-center border
+          .h-16.w-16.border-2.border-primary.rounded.flex.items-center.justify-center 2
+          .h-16.w-16.border-4.border-secondary.rounded.flex.items-center.justify-center 4
+          .h-16.w-16.border-dashed.border-2.border-accent.rounded.flex.items-center.justify-center dash
+          .h-16.w-16.border-dotted.border-2.border-info.rounded.flex.items-center.justify-center dot
+
+        %h3.text-xl.font-semibold.mb-3 Spacing Demo
+        .bg-base-200.rounded-lg.p-4.mb-6
+          .flex.gap-1.mb-2
+            - (1..6).each do
+              .bg-primary.text-primary-content.rounded.p-1.text-xs gap-1
+          .flex.gap-4.mb-2
+            - (1..4).each do
+              .bg-secondary.text-secondary-content.rounded.p-2.text-xs gap-4
+          .flex.gap-8
+            - (1..3).each do
+              .bg-accent.text-accent-content.rounded.p-4.text-xs gap-8
+
+    -# ==================== THEME SWITCHER ====================
+    .card.bg-base-100.shadow.my-8
+      .card-body
+        %h2.card-title.text-3xl.mb-6 Theme Preview
+        %p.mb-4 Click a theme to preview it on this page:
+        .flex.flex-wrap.gap-2
+          - %w[light dark cupcake bumblebee emerald corporate synthwave retro cyberpunk valentine halloween garden forest aqua lofi pastel fantasy wireframe black luxury dracula cmyk autumn business acid lemonade night coffee winter dim nord sunset].each do |theme|
+            %button.btn.btn-sm.btn-outline{ onclick: "document.documentElement.setAttribute('data-theme', '#{theme}')" }= theme
+
+    -# ==================== FOOTER ====================
+    %footer.footer.footer-center.bg-base-300.text-base-content.p-10.mt-12.rounded-box
+      %aside
+        %p.font-bold DaisyUI + Tailwind CSS Showcase
+        %p Built with Rails 8, Haml, Tailwind CSS v4, and DaisyUI v5
+        %p.text-sm.opacity-60 This is a dummy page for visual testing purposes

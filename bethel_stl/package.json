@@ -1,0 +1,13 @@
+{
+  "name": "bethel-stl",
+  "private": true,
+  "dependencies": {
+    "@tailwindcss/cli": "^4",
+    "tailwindcss": "^4",
+    "daisyui": "^5"
+  },
+  "scripts": {
+    "build:css": "tailwindcss -i app/css/application.tailwind.css -o app/assets/builds/application.css --minify",
+    "build:css:watch": "tailwindcss -i app/css/application.tailwind.css -o app/assets/builds/application.css --watch"
+  }
+}
