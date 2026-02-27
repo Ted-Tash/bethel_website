@@ -1,0 +1,37 @@
+%h1.text-3xl.font-bold.mb-8 Dashboard
+
+.grid.grid-cols-1.md:grid-cols-2.lg:grid-cols-3.gap-6
+  = link_to admin_sermons_path, class: 'card bg-base-100 shadow-md hover:shadow-lg transition-shadow' do
+    .card-body
+      %h2.card-title Sermons
+      %p.opacity-60 Manage sermon recordings and archives
+      .card-actions.justify-end
+        .badge.badge-outline Coming Soon
+
+  = link_to admin_events_path, class: 'card bg-base-100 shadow-md hover:shadow-lg transition-shadow' do
+    .card-body
+      %h2.card-title Events
+      %p.opacity-60 Manage upcoming church events
+      .card-actions.justify-end
+        .badge.badge-outline Coming Soon
+
+  = link_to admin_pages_path, class: 'card bg-base-100 shadow-md hover:shadow-lg transition-shadow' do
+    .card-body
+      %h2.card-title Pages
+      %p.opacity-60 Edit site content and pages
+      .card-actions.justify-end
+        .badge.badge-outline Coming Soon
+
+.mt-8.card.bg-base-100.shadow-md
+  .card-body
+    %h2.card-title Quick Info
+    .grid.grid-cols-1.sm:grid-cols-3.gap-4.mt-4
+      .stat
+        .stat-title Signed in as
+        .stat-value.text-lg= current_user.email
+      .stat
+        .stat-title Rails
+        .stat-value.text-lg= Rails.version
+      .stat
+        .stat-title Environment
+        .stat-value.text-lg= Rails.env.capitalize

@@ -1,0 +1,32 @@
+.card.bg-base-100.shadow-xl
+  .card-body
+    .text-center.mb-6
+      %h1.text-2xl.font-bold Bethel Church
+      %p.text-sm.opacity-60 Admin Sign In
+
+    - if notice.present?
+      .alert.alert-success.mb-4
+        %span= notice
+    - if alert.present?
+      .alert.alert-error.mb-4
+        %span= alert
+
+    = form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: 'space-y-4' }) do |f|
+      .form-control
+        %label.label{ for: 'user_email' }
+          %span.label-text Email
+        = f.email_field :email, autofocus: true, autocomplete: 'email', class: 'input input-bordered w-full', placeholder: 'admin@bethelstl.org'
+
+      .form-control
+        %label.label{ for: 'user_password' }
+          %span.label-text Password
+        = f.password_field :password, autocomplete: 'current-password', class: 'input input-bordered w-full', placeholder: '••••••••'
+
+      - if devise_mapping.rememberable?
+        .form-control
+          %label.label.cursor-pointer.justify-start.gap-3
+            = f.check_box :remember_me, class: 'checkbox checkbox-sm'
+            %span.label-text Remember me
+
+      .form-control.mt-2
+        = f.submit 'Sign In', class: 'btn btn-primary w-full'

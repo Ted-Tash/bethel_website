@@ -1,10 +1,10 @@
 !!!
-%html{ data: { theme: "light" } }
+%html{ data: { theme: "winter" } }
   %head
-    %title= content_for(:title) || "Bethel Stl"
+    %title= content_for(:title) || "Bethel Community Church"
     %meta{ name: "viewport", content: "width=device-width,initial-scale=1" }
     %meta{ name: "apple-mobile-web-app-capable", content: "yes" }
-    %meta{ name: "application-name", content: "Bethel Stl" }
+    %meta{ name: "application-name", content: "Bethel Community Church" }
     %meta{ name: "mobile-web-app-capable", content: "yes" }
     = csrf_meta_tags
     = csp_meta_tag
@@ -18,5 +18,8 @@
     = stylesheet_link_tag :app, "data-turbo-track": "reload"
     = javascript_importmap_tags
 
-  %body
-    = yield
+  %body.min-h-screen.flex.flex-col.bg-base-100
+    = render 'shared/navbar'
+    %main.flex-grow
+      = yield
+    = render 'shared/footer'

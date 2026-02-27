@@ -1,0 +1,50 @@
+-# ==================== HERO ====================
+.hero.py-20.bg-base-200
+  .hero-content.text-center
+    .max-w-3xl
+      %h1.text-5xl.font-bold Sermons
+      %p.py-6.text-lg.opacity-80
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Explore our lorem ipsum teachings.
+
+-# ==================== FEATURED SERMON ====================
+.bg-base-100.py-16
+  .max-w-7xl.mx-auto.px-4
+    %h2.text-4xl.font-bold.text-center.mb-12 Featured Sermon
+    .card.lg:card-side.bg-base-200.shadow-xl
+      %figure{ class: "lg:w-1/2" }
+        %img.w-full.h-full.object-cover{ class: "min-h-[300px]", src: "https://picsum.photos/seed/bethel-sermon-featured/800/500", alt: "Featured Sermon", loading: "lazy" }
+      .card-body{ class: "lg:w-1/2" }
+        .badge.badge-primary.mb-2 Latest
+        %h3.card-title.text-2xl Lorem Ipsum Dolor Sit Amet
+        %p.opacity-70.text-sm January 12, 2026 &mdash; John Doe
+        %p.mt-4
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+          magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+          consequat.
+        .card-actions.mt-4
+          = link_to 'Watch Sermon', '#', class: 'btn btn-primary'
+
+-# ==================== SERMON ARCHIVE ====================
+.bg-base-200.py-16
+  .max-w-7xl.mx-auto.px-4
+    %h2.text-4xl.font-bold.text-center.mb-12 Recent Sermons
+    .grid.grid-cols-1.md:grid-cols-2.lg:grid-cols-3.gap-8
+
+      - [['Lorem Ipsum Veritas', 'Dec 29, 2025', 'John Doe', 'bethel-sermon1'], ['Dolor Sit Amet Fides', 'Dec 22, 2025', 'Jane Smith', 'bethel-sermon2'], ['Consectetur Spes', 'Dec 15, 2025', 'John Doe', 'bethel-sermon3'], ['Adipiscing Caritas', 'Dec 8, 2025', 'Bob Johnson', 'bethel-sermon4'], ['Eiusmod Tempor Pax', 'Dec 1, 2025', 'John Doe', 'bethel-sermon5'], ['Veniam Nostrud Gratia', 'Nov 24, 2025', 'Jane Smith', 'bethel-sermon6']].each do |title, date, speaker, seed|
+        .card.bg-base-100.shadow-lg
+          %figure
+            %img.h-48.w-full.object-cover{ src: "https://picsum.photos/seed/#{seed}/600/400", alt: title, loading: "lazy" }
+          .card-body
+            %h3.card-title= title
+            %p.text-sm.opacity-60= "#{date} — #{speaker}"
+            %p.opacity-70 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.
+            .card-actions.justify-end
+              = link_to 'Watch', '#', class: 'btn btn-primary btn-sm'
+
+-# ==================== YOUTUBE CTA ====================
+.bg-base-100.py-16
+  .max-w-7xl.mx-auto.px-4.text-center
+    %h2.text-4xl.font-bold.mb-4 Watch on YouTube
+    %p.text-lg.opacity-80.mb-8.max-w-2xl.mx-auto
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Subscribe to our channel for weekly sermons.
+    = link_to 'Visit Our Channel', '#', class: 'btn btn-primary btn-lg'

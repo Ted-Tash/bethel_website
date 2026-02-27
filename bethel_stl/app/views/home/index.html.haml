@@ -1,0 +1,137 @@
+-# ==================== HERO ====================
+.hero{ class: "min-h-[70vh]", style: "background-image: url(https://picsum.photos/seed/bethel-hero/1920/1080);" }
+  .hero-overlay.bg-opacity-60
+  .hero-content.text-center.text-neutral-content
+    .max-w-2xl
+      %h1.text-5xl.font-bold.mb-4 Lorem Ipsum Dolor Sit Amet
+      %p.text-lg.mb-8
+        Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        Ut enim ad minim veniam, quis nostrud exercitation.
+      .flex.gap-4.justify-center.flex-wrap
+        = link_to 'https://foo.com', class: 'btn btn-primary btn-lg' do
+          %svg.h-5.w-5{ xmlns: "http://www.w3.org/2000/svg", fill: "currentColor", viewBox: "0 0 24 24" }
+            %path{ d: "M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" }
+          Watch Live
+        = link_to 'https://foo.com', class: 'btn btn-outline btn-lg text-white border-white hover:bg-white hover:text-black' do
+          %svg.h-5.w-5{ xmlns: "http://www.w3.org/2000/svg", fill: "none", viewBox: "0 0 24 24", stroke: "currentColor" }
+            %path{ "stroke-linecap" => "round", "stroke-linejoin" => "round", "stroke-width" => "2", d: "M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" }
+          Recent Sermons
+
+-# ==================== WELCOME ====================
+.bg-base-200.py-16
+  .max-w-7xl.mx-auto.px-4
+    .grid.grid-cols-1.lg:grid-cols-2.gap-12.items-center
+      %img.rounded-box.shadow-lg.w-full.h-80.object-cover{ src: "https://picsum.photos/seed/bethel-welcome/800/600", alt: "Welcome", loading: "lazy" }
+      .space-y-6
+        %h2.text-4xl.font-bold Lorem Ipsum Welcome
+        %p.text-lg.opacity-80
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+          magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+        %p.opacity-70
+          Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+          Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        = link_to 'Learn More', about_index_path, class: 'btn btn-primary'
+
+-# ==================== SERVICE TIMES PREVIEW ====================
+#service-times.bg-base-100.py-16
+  .max-w-7xl.mx-auto.px-4
+    %h2.text-4xl.font-bold.text-center.mb-12 Service Times
+    .grid.grid-cols-1.md:grid-cols-3.gap-8
+      .card.bg-base-200.shadow-lg
+        .card-body.items-center.text-center
+          .flex.items-center.gap-2
+            %h3.card-title.text-xl Lord's Supper
+            .tooltip.tooltip-bottom{ data: { tip: '"This is my body, which is for you. Do this in remembrance of me." "This cup is the new covenant in my blood. Do this, as often as you drink it, in remembrance of me." — 1 Corinthians 11:24–25 ESV' } }
+              %svg.h-5.w-5.text-primary.cursor-help{ xmlns: "http://www.w3.org/2000/svg", fill: "none", viewBox: "0 0 24 24", stroke: "currentColor", "stroke-width" => "2" }
+                %path{ "stroke-linecap" => "round", "stroke-linejoin" => "round", d: "M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" }
+          .divider
+          %p.text-3xl.font-bold 9:00 AM
+          %p.opacity-70 Sundays
+
+      .card.bg-base-200.shadow-lg
+        .card-body.items-center.text-center
+          .flex.items-center.gap-2
+            %h3.card-title.text-xl Sunday School
+            .tooltip.tooltip-bottom{ data: { tip: '"Do your best to present yourself to God as one approved, a worker who has no need to be ashamed, rightly handling the word of truth." — 2 Timothy 2:15 ESV' } }
+              %svg.h-5.w-5.text-primary.cursor-help{ xmlns: "http://www.w3.org/2000/svg", fill: "none", viewBox: "0 0 24 24", stroke: "currentColor", "stroke-width" => "2" }
+                %path{ "stroke-linecap" => "round", "stroke-linejoin" => "round", d: "M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" }
+          .divider
+          %p.text-3xl.font-bold 10:00 AM
+          %p.opacity-70 Sundays
+
+      .card.bg-base-200.shadow-lg
+        .card-body.items-center.text-center
+          .flex.items-center.gap-2
+            %h3.card-title.text-xl Worship, Preaching & Jr. Church
+            .tooltip.tooltip-bottom{ data: { tip: '"And they devoted themselves to the apostles\' teaching and the fellowship, to the breaking of bread and the prayers." — Acts 2:42 ESV' } }
+              %svg.h-5.w-5.text-primary.cursor-help{ xmlns: "http://www.w3.org/2000/svg", fill: "none", viewBox: "0 0 24 24", stroke: "currentColor", "stroke-width" => "2" }
+                %path{ "stroke-linecap" => "round", "stroke-linejoin" => "round", d: "M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" }
+          .divider
+          %p.text-3xl.font-bold 11 AM - Noon
+          %p.opacity-70 Sundays
+
+    .text-center.mt-8
+      = link_to 'What to Expect When I Visit', 'https://foo.com', class: 'btn btn-outline btn-primary'
+
+-# ==================== GET INVOLVED ====================
+.bg-base-200.py-16
+  .max-w-7xl.mx-auto.px-4
+    %h2.text-4xl.font-bold.text-center.mb-12 Get Involved
+    .grid.grid-cols-1.md:grid-cols-3.gap-8
+
+      = link_to 'https://www.foo.com', class: 'card bg-base-100 shadow-lg hover:shadow-xl transition-shadow', target: '_blank', rel: 'noopener noreferrer' do
+        %figure
+          %img.h-48.w-full.object-cover{ src: "https://picsum.photos/seed/bethel-involve1/600/400", alt: "Bethel Christian Daycare", loading: "lazy" }
+        .card-body
+          %h3.card-title Bethel Christian Daycare
+
+      = link_to 'https://dayspringbiblecamp.org/', class: 'card bg-base-100 shadow-lg hover:shadow-xl transition-shadow', target: '_blank', rel: 'noopener noreferrer' do
+        %figure
+          %img.h-48.w-full.object-cover{ src: "https://picsum.photos/seed/bethel-involve2/600/400", alt: "Dayspring Bible Camp", loading: "lazy" }
+        .card-body
+          %h3.card-title Dayspring Bible Camp
+
+      = link_to 'https://turkeyhillranch.com/', class: 'card bg-base-100 shadow-lg hover:shadow-xl transition-shadow', target: '_blank', rel: 'noopener noreferrer' do
+        %figure
+          %img.h-48.w-full.object-cover{ src: "https://picsum.photos/seed/bethel-involve3/600/400", alt: "Turkey Hill Ranch Bible Camp", loading: "lazy" }
+        .card-body
+          %h3.card-title Turkey Hill Ranch Bible Camp
+
+-# ==================== UPCOMING EVENTS ====================
+.bg-base-100.py-16
+  .max-w-7xl.mx-auto.px-4
+    %h2.text-4xl.font-bold.text-center.mb-12 Upcoming Events
+    .grid.grid-cols-1.md:grid-cols-3.gap-8
+
+      .card.bg-base-200.shadow-lg
+        .card-body
+          .flex.items-start.gap-4
+            .text-center.bg-primary.text-primary-content.rounded-box.p-3{ class: "min-w-[60px]" }
+              %p.text-sm.font-bold JAN
+              %p.text-2xl.font-bold 15
+            .space-y-1
+              %h3.card-title.text-lg Lorem Ipsum Event
+              %p.text-sm.opacity-70 00:00 AM — Lorem Ipsum Hall
+          %p.opacity-70.mt-2 Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.
+
+      .card.bg-base-200.shadow-lg
+        .card-body
+          .flex.items-start.gap-4
+            .text-center.bg-primary.text-primary-content.rounded-box.p-3{ class: "min-w-[60px]" }
+              %p.text-sm.font-bold FEB
+              %p.text-2xl.font-bold 22
+            .space-y-1
+              %h3.card-title.text-lg Dolor Sit Amet Gathering
+              %p.text-sm.opacity-70 00:00 PM — Dolor Building
+          %p.opacity-70.mt-2 Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.
+
+      .card.bg-base-200.shadow-lg
+        .card-body
+          .flex.items-start.gap-4
+            .text-center.bg-primary.text-primary-content.rounded-box.p-3{ class: "min-w-[60px]" }
+              %p.text-sm.font-bold MAR
+              %p.text-2xl.font-bold 08
+            .space-y-1
+              %h3.card-title.text-lg Adipiscing Community Night
+              %p.text-sm.opacity-70 00:00 PM — Main Campus
+          %p.opacity-70.mt-2 Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat.

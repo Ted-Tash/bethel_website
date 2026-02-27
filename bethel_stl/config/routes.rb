@@ -1,4 +1,13 @@
 Rails.application.routes.draw do
+  devise_for :users, path: 'admin', controllers: { sessions: 'users/sessions' }
+
+  namespace :admin do
+    get '/', to: 'dashboard#index', as: :dashboard
+    resources :sermons, only: [:index]
+    resources :events, only: [:index]
+    resources :pages, only: [:index]
+  end
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -11,6 +20,10 @@ Rails.application.routes.draw do
 
   resources :dummies, only: [:index]
 
-  # Defines the root path route ("/")
-  # root "posts#index"
+  root 'home#index'
+  resources :about, only: [:index]
+
+  resources :contact, only: [:index]
+  resources :sermons, only: [:index]
+  resources :giving, only: [:index]
 end
