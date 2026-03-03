@@ -1,0 +1,56 @@
+= form_with model: [:admin, household], data: { controller: 'nested-form', nested_form_max_value: 2 } do |f|
+  - if household.errors.any?
+    .alert.alert-error.mb-6
+      %ul
+        - household.errors.full_messages.each do |message|
+          %li= message
+
+  .card.bg-base-100.shadow-md.mb-6
+    .card-body
+      %h3.card-title.mb-4 Household Details
+
+      .form-control.mb-4
+        %label.label
+          %span.label-text Household Name
+        = f.text_field :name, class: 'input input-bordered w-full', placeholder: 'e.g. Smith'
+
+      %h4.font-semibold.mb-2 Address
+      .grid.grid-cols-1.md:grid-cols-2.gap-4
+        .form-control.md:col-span-2
+          %label.label
+            %span.label-text Street
+          = f.text_field :street, class: 'input input-bordered w-full'
+
+        .form-control
+          %label.label
+            %span.label-text City
+          = f.text_field :city, class: 'input input-bordered w-full'
+
+        .form-control
+          %label.label
+            %span.label-text State
+          = f.text_field :state, class: 'input input-bordered w-full'
+
+        .form-control
+          %label.label
+            %span.label-text ZIP
+          = f.text_field :zip, class: 'input input-bordered w-full'
+
+  .card.bg-base-100.shadow-md.mb-6
+    .card-body
+      .flex.justify-between.items-center.mb-4
+        %h3.card-title Members
+        %button.btn.btn-outline.btn-sm{ type: 'button', data: { nested_form_target: 'addButton', action: 'nested-form#add' } }
+          + Add Member
+
+      .space-y-4{ data: { nested_form_target: 'container' } }
+        = f.fields_for :members do |member_form|
+          = render 'admin/households/member_fields', f: member_form
+
+      %template{ data: { nested_form_target: 'template' } }
+        = f.fields_for :members, Member.new, child_index: 'NEW_RECORD' do |member_form|
+          = render 'admin/households/member_fields', f: member_form
+
+  .flex.gap-3
+    = f.submit class: 'btn btn-primary'
+    = link_to 'Cancel', admin_households_path, class: 'btn btn-ghost'

@@ -3,16 +3,13 @@
   .hero-overlay.bg-opacity-60
   .hero-content.text-center.text-neutral-content
     .max-w-2xl
-      %h1.text-5xl.font-bold.mb-4 Lorem Ipsum Dolor Sit Amet
-      %p.text-lg.mb-8
-        Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        Ut enim ad minim veniam, quis nostrud exercitation.
+      %h1.text-5xl.font-bold.mb-4 Knowing Jesus, Making Jesus Known
       .flex.gap-4.justify-center.flex-wrap
-        = link_to 'https://foo.com', class: 'btn btn-primary btn-lg' do
+        = link_to 'https://www.youtube.com/channel/UCFrJtSIyNcu3Lv2p-1q7AFQ/live', class: 'btn btn-primary btn-lg', target: '_blank', rel: 'noopener noreferrer' do
           %svg.h-5.w-5{ xmlns: "http://www.w3.org/2000/svg", fill: "currentColor", viewBox: "0 0 24 24" }
             %path{ d: "M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" }
           Watch Live
-        = link_to 'https://foo.com', class: 'btn btn-outline btn-lg text-white border-white hover:bg-white hover:text-black' do
+        = link_to sermons_path, class: 'btn btn-outline btn-lg text-white border-white hover:bg-white hover:text-black' do
           %svg.h-5.w-5{ xmlns: "http://www.w3.org/2000/svg", fill: "none", viewBox: "0 0 24 24", stroke: "currentColor" }
             %path{ "stroke-linecap" => "round", "stroke-linejoin" => "round", "stroke-width" => "2", d: "M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" }
           Recent Sermons
@@ -23,14 +20,13 @@
     .grid.grid-cols-1.lg:grid-cols-2.gap-12.items-center
       %img.rounded-box.shadow-lg.w-full.h-80.object-cover{ src: "https://picsum.photos/seed/bethel-welcome/800/600", alt: "Welcome", loading: "lazy" }
       .space-y-6
-        %h2.text-4xl.font-bold Lorem Ipsum Welcome
+        %h2.text-4xl.font-bold Bethel Community Church
         %p.text-lg.opacity-80
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-          magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-        %p.opacity-70
-          Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-          Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-        = link_to 'Learn More', about_index_path, class: 'btn btn-primary'
+          We are a Bible-believing New Testament church that places a strong emphasis on doctrine, family, fellowship,
+          and outreach. We are actively involved in summer camp ministries, especially at Dayspring Bible Camp.
+          We take Acts 2:42 quite literally; with devotion to the breaking of bread, prayer, fellowship, and biblical teaching.
+        .flex.justify-end
+          = link_to 'Learn More', about_index_path, class: 'btn btn-primary'
 
 -# ==================== SERVICE TIMES PREVIEW ====================
 #service-times.bg-base-100.py-16
@@ -70,16 +66,14 @@
           %p.text-3xl.font-bold 11 AM - Noon
           %p.opacity-70 Sundays
 
-    .text-center.mt-8
-      = link_to 'What to Expect When I Visit', 'https://foo.com', class: 'btn btn-outline btn-primary'
 
 -# ==================== GET INVOLVED ====================
 .bg-base-200.py-16
   .max-w-7xl.mx-auto.px-4
-    %h2.text-4xl.font-bold.text-center.mb-12 Get Involved
-    .grid.grid-cols-1.md:grid-cols-3.gap-8
+    %h2.text-4xl.font-bold.text-center.mb-12 Our Ministries
+    .grid.grid-cols-1.md:grid-cols-2.gap-8.max-w-4xl.mx-auto
 
-      = link_to 'https://www.foo.com', class: 'card bg-base-100 shadow-lg hover:shadow-xl transition-shadow', target: '_blank', rel: 'noopener noreferrer' do
+      = link_to daycare_index_path, class: 'card bg-base-100 shadow-lg hover:shadow-xl transition-shadow' do
         %figure
           %img.h-48.w-full.object-cover{ src: "https://picsum.photos/seed/bethel-involve1/600/400", alt: "Bethel Christian Daycare", loading: "lazy" }
         .card-body
@@ -91,47 +85,27 @@
         .card-body
           %h3.card-title Dayspring Bible Camp
 
-      = link_to 'https://turkeyhillranch.com/', class: 'card bg-base-100 shadow-lg hover:shadow-xl transition-shadow', target: '_blank', rel: 'noopener noreferrer' do
-        %figure
-          %img.h-48.w-full.object-cover{ src: "https://picsum.photos/seed/bethel-involve3/600/400", alt: "Turkey Hill Ranch Bible Camp", loading: "lazy" }
-        .card-body
-          %h3.card-title Turkey Hill Ranch Bible Camp
 
 -# ==================== UPCOMING EVENTS ====================
 .bg-base-100.py-16
   .max-w-7xl.mx-auto.px-4
     %h2.text-4xl.font-bold.text-center.mb-12 Upcoming Events
-    .grid.grid-cols-1.md:grid-cols-3.gap-8
-
-      .card.bg-base-200.shadow-lg
-        .card-body
-          .flex.items-start.gap-4
-            .text-center.bg-primary.text-primary-content.rounded-box.p-3{ class: "min-w-[60px]" }
-              %p.text-sm.font-bold JAN
-              %p.text-2xl.font-bold 15
-            .space-y-1
-              %h3.card-title.text-lg Lorem Ipsum Event
-              %p.text-sm.opacity-70 00:00 AM — Lorem Ipsum Hall
-          %p.opacity-70.mt-2 Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.
-
-      .card.bg-base-200.shadow-lg
-        .card-body
-          .flex.items-start.gap-4
-            .text-center.bg-primary.text-primary-content.rounded-box.p-3{ class: "min-w-[60px]" }
-              %p.text-sm.font-bold FEB
-              %p.text-2xl.font-bold 22
-            .space-y-1
-              %h3.card-title.text-lg Dolor Sit Amet Gathering
-              %p.text-sm.opacity-70 00:00 PM — Dolor Building
-          %p.opacity-70.mt-2 Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.
-
-      .card.bg-base-200.shadow-lg
-        .card-body
-          .flex.items-start.gap-4
-            .text-center.bg-primary.text-primary-content.rounded-box.p-3{ class: "min-w-[60px]" }
-              %p.text-sm.font-bold MAR
-              %p.text-2xl.font-bold 08
-            .space-y-1
-              %h3.card-title.text-lg Adipiscing Community Night
-              %p.text-sm.opacity-70 00:00 PM — Main Campus
-          %p.opacity-70.mt-2 Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat.
+    - if @events.any?
+      .grid.grid-cols-1.md:grid-cols-3.gap-8
+        - @events.each do |event|
+          .card.bg-base-200.shadow-lg
+            .card-body
+              .flex.items-start.gap-4
+                .text-center.bg-primary.text-primary-content.rounded-box.p-3{ class: "min-w-[60px]" }
+                  %p.text-sm.font-bold= event.start_time.strftime("%b").upcase
+                  %p.text-2xl.font-bold= event.start_time.strftime("%-d")
+                .space-y-1
+                  %h3.card-title.text-lg= event.title
+                  %p.text-sm.opacity-70
+                    = event.start_time.strftime("%-I:%M %p")
+                    - if event.location.present?
+                      = "— #{event.location}"
+              - if event.description.present?
+                %p.opacity-70.mt-2= truncate(event.description, length: 120)
+    - else
+      %p.text-center.text-lg.opacity-70 There are no upcoming events.

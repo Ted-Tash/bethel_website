@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     resources :sermons, only: [:index]
     resources :events, only: [:index]
     resources :pages, only: [:index]
+    resources :households
   end
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
@@ -23,7 +24,7 @@ Rails.application.routes.draw do
   root 'home#index'
   resources :about, only: [:index]
 
-  resources :contact, only: [:index]
   resources :sermons, only: [:index]
   resources :giving, only: [:index]
+  resources :daycare, only: [:index]
 end

@@ -10,6 +10,7 @@
         %li= link_to 'Sermons', admin_sermons_path
         %li= link_to 'Events', admin_events_path
         %li= link_to 'Pages', admin_pages_path
+        %li= link_to 'Directory', admin_households_path
     = link_to 'Bethel Admin', admin_dashboard_path, class: 'btn btn-ghost text-xl'
 
   .navbar-center.hidden.lg:flex
@@ -18,6 +19,7 @@
       %li= link_to 'Sermons', admin_sermons_path, class: active_nav_class(admin_sermons_path)
       %li= link_to 'Events', admin_events_path, class: active_nav_class(admin_events_path)
       %li= link_to 'Pages', admin_pages_path, class: active_nav_class(admin_pages_path)
+      %li= link_to 'Directory', admin_households_path, class: active_nav_class(admin_households_path)
 
   .navbar-end.gap-2
     = link_to 'View Site', root_path, class: 'btn btn-ghost btn-sm', target: '_blank'

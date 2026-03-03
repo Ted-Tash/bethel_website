@@ -10,8 +10,8 @@
         %li= link_to 'About', about_index_path, class: active_nav_class(about_index_path)
         %li= link_to 'Sermons', sermons_path, class: active_nav_class(sermons_path)
         %li= link_to 'Giving', giving_index_path, class: active_nav_class(giving_index_path)
-        %li= link_to 'Contact', contact_index_path, class: active_nav_class(contact_index_path)
-    = link_to 'Bethel Church', root_path, class: 'btn btn-ghost text-xl'
+        %li= link_to 'Daycare', daycare_index_path, class: active_nav_class(daycare_index_path)
+    = link_to 'Bethel Community Church', root_path, class: 'btn btn-ghost text-xl'
 
   .navbar-center.hidden.lg:flex
     %ul.menu.menu-horizontal.px-1
@@ -19,7 +19,8 @@
       %li= link_to 'About', about_index_path, class: active_nav_class(about_index_path)
       %li= link_to 'Sermons', sermons_path, class: active_nav_class(sermons_path)
       %li= link_to 'Giving', giving_index_path, class: active_nav_class(giving_index_path)
-      %li= link_to 'Contact', contact_index_path, class: active_nav_class(contact_index_path)
+      %li= link_to 'Daycare', daycare_index_path, class: active_nav_class(daycare_index_path)
+
 
   .navbar-end
     - if user_signed_in? && current_user.admin?

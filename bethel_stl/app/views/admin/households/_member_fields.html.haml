@@ -1,0 +1,28 @@
+.card.bg-base-200.p-4{ data: { nested_form_target: 'fields' } }
+  .flex.justify-between.items-center.mb-3
+    %h4.font-semibold Member
+    %button.btn.btn-secondary.btn-sm{ type: 'button', data: { action: 'nested-form#remove' } }
+      Remove
+
+  = f.hidden_field :_destroy
+
+  .grid.grid-cols-1.md:grid-cols-2.gap-4
+    .form-control
+      %label.label
+        %span.label-text First Name
+      = f.text_field :first_name, class: 'input input-bordered w-full'
+
+    .form-control
+      %label.label
+        %span.label-text Last Name
+      = f.text_field :last_name, class: 'input input-bordered w-full'
+
+    .form-control
+      %label.label
+        %span.label-text Email
+      = f.email_field :email, class: 'input input-bordered w-full'
+
+    .form-control
+      %label.label
+        %span.label-text Phone
+      = f.phone_field :phone, class: 'input input-bordered w-full'

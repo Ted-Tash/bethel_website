@@ -10,7 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_02_26_165238) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_03_032006) do
+  create_table "households", force: :cascade do |t|
+    t.string "city"
+    t.datetime "created_at", null: false
+    t.string "name", null: false
+    t.string "state"
+    t.string "street"
+    t.datetime "updated_at", null: false
+    t.string "zip"
+  end
+
+  create_table "members", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "email"
+    t.string "first_name"
+    t.integer "household_id", null: false
+    t.string "last_name"
+    t.string "phone"
+    t.datetime "updated_at", null: false
+    t.index ["household_id"], name: "index_members_on_household_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.boolean "admin", default: false, null: false
     t.datetime "created_at", null: false
@@ -23,4 +44,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_26_165238) do
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
+
+  add_foreign_key "members", "households"
 end
