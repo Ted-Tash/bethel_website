@@ -18,7 +18,9 @@ export default class extends Controller {
 
     if (destroyInput) {
       destroyInput.value = "1"
-      fieldset.style.display = "none"
+      fieldset.style.opacity = "0.35"
+      fieldset.style.pointerEvents = "none"
+      fieldset.dataset.markedForDestruction = "true"
     } else {
       fieldset.remove()
     }
@@ -33,6 +35,6 @@ export default class extends Controller {
   }
 
   visibleFieldsCount() {
-    return this.containerTarget.querySelectorAll("[data-nested-form-target='fields']:not([style*='display: none'])").length
+    return this.containerTarget.querySelectorAll("[data-nested-form-target='fields']:not([data-marked-for-destruction='true'])").length
   }
 }

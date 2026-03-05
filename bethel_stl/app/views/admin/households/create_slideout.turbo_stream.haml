@@ -1,0 +1,3 @@
+= turbo_stream_action_tag(:close_dialog, target: 'add_household_slideout')
+= turbo_stream.update 'households_table' do
+  = render 'admin/households/households_table', households: Household.includes(:members).order(:name)

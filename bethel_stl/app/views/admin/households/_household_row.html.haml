@@ -1,0 +1,15 @@
+%tr.cursor-pointer.hover:bg-base-200{ data: { controller: 'modal', action: 'click->modal#open', modal_target_param: 'view_household_slideout', base_url: admin_household_path(household, slideout: true) } }
+  %td.font-semibold= household.name
+  %td
+    - household.members.each do |member|
+      .text-sm= member.full_name
+  %td
+    - household.members.each do |member|
+      .text-sm
+        - if member.email.present?
+          = member.email
+        - if member.phone.present?
+          %span.opacity-60= " | #{member.phone}"
+  %td.text-sm.opacity-60= household.full_address.presence || "\u2014"
+  %td.text-right
+    %button.btn.btn-ghost{ type: 'button', data: { controller: 'modal', action: 'click->modal#open', modal_target_param: 'edit_household_slideout', base_url: edit_admin_household_path(household, slideout: true) } } Edit

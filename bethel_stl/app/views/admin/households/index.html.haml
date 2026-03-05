@@ -1,39 +1,25 @@
 .flex.justify-between.items-center.mb-8
   %h1.text-3xl.font-bold Directory
-  = link_to 'New Household', new_admin_household_path, class: 'btn btn-primary'
+  %button.btn.btn-primary{ type: 'button', data: { controller: 'modal', action: 'click->modal#open', modal_target_param: 'add_household_slideout' } }
+    + New Household
 
-- if @households.any?
-  .card.bg-base-100.shadow-md
-    .overflow-x-auto
-      %table.table
-        %thead
-          %tr
-            %th Household
-            %th Members
-            %th Contact
-            %th Address
-            %th
-        %tbody
-          - @households.each do |household|
-            %tr
-              %td.font-semibold= household.name
-              %td
-                - household.members.each do |member|
-                  .text-sm= member.full_name
-              %td
-                - household.members.each do |member|
-                  .text-sm
-                    - if member.email.present?
-                      = member.email
-                    - if member.phone.present?
-                      %span.opacity-60= " | #{member.phone}"
-              %td.text-sm.opacity-60= household.full_address.presence || '—'
-              %td.text-right
-                = link_to 'View', admin_household_path(household), class: 'btn btn-ghost btn-sm'
-- else
-  .card.bg-base-100.shadow-md
-    .card-body.items-center.text-center.py-16
-      %h2.text-xl.font-semibold.opacity-60 No households yet
-      %p.opacity-40.mt-2 Add your first household to get started.
-      .mt-4
-        = link_to 'New Household', new_admin_household_path, class: 'btn btn-primary'
+#households_table
+  = render 'admin/households/households_table', households: @households
+
+-# New Household slideout
+= render 'admin/shared/slideout', id: 'add_household_slideout',
+    title: 'New Household', size: :lg,
+    turbo_frame: 'add_household_form',
+    turbo_src: new_admin_household_path(slideout: true)
+
+-# View Household slideout (src set dynamically per row)
+= render 'admin/shared/slideout', id: 'view_household_slideout',
+    title: 'Household Details', size: :md,
+    turbo_frame: 'view_household_content',
+    turbo_src: '#'
+
+-# Edit Household slideout (src set dynamically per row via data-base-url)
+= render 'admin/shared/slideout', id: 'edit_household_slideout',
+    title: 'Edit Household', size: :lg,
+    turbo_frame: 'edit_household_form',
+    turbo_src: '#'

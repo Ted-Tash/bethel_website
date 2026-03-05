@@ -170,18 +170,23 @@
 .bg-base-200.py-16
   .max-w-7xl.mx-auto.px-4
     %h2.text-4xl.font-bold.text-center.mb-12 Leadership
-    .carousel.carousel-center.gap-6.w-full.py-4
-      - leaders.each_with_index do |(name, role, seed), index|
-        - modal_id = "leader_modal_#{index}"
-        .carousel-item
-          .card.bg-base-100.shadow-lg.cursor-pointer.hover:shadow-xl.transition-shadow.w-64{ onclick: "#{modal_id}.showModal()" }
-            %figure
-              %img.h-64.w-full.object-cover{ src: "https://picsum.photos/seed/#{seed}/400/500", alt: name, loading: "lazy" }
-            .card-body.items-center.text-center
-              %h3.card-title= name
-              %p.opacity-70= role
+    .flex.items-center.gap-4{ data: { controller: 'carousel' } }
+      %button.btn.btn-circle.btn-lg{ data: { action: 'click->carousel#scrollLeft' }, "aria-label" => "Previous" }
+        &#10094;
+      .carousel.carousel-center.gap-6.w-full.py-4{ data: { carousel_target: 'track' } }
+        - leaders.each_with_index do |(name, role, seed), index|
+          - modal_id = "leader_modal_#{index}"
+          .carousel-item
+            .card.bg-base-100.shadow-lg.cursor-pointer.hover:shadow-xl.transition-shadow.w-64{ onclick: "#{modal_id}.showModal()" }
+              %figure
+                %img.h-64.w-full.object-cover{ src: "https://picsum.photos/seed/#{seed}/400/500", alt: name, loading: "lazy" }
+              .card-body.items-center.text-center
+                %h3.card-title= name
+                %p.opacity-70= role
+      %button.btn.btn-circle.btn-lg{ data: { action: 'click->carousel#scrollRight' }, "aria-label" => "Next" }
+        &#10095;
     -# Leadership modals
-    - bios = { "David Baumgartner" => ["David and Mary Ellen were born and raised in St. Louis, Missouri. They both came to Christ during the \"Jesus Movement\" in the 70's and, after living many years in Colorado and Kansas, returned home to St. Louis in 1995. They celebrated their 40th wedding anniversary in January of 2017, and currently have two grown children and four grandchildren.", "David was in full-time ministry at Bethel from 1999 until his retirement in 2024. He serves as an elder and completed a Masters Degree in Divinity from Covenant Theological Seminary in 2010. He continues to serve in the music and speaking ministry."] }
+    - bios = { "David Baumgartner" => ["David and Mary Ellen were born and raised in St. Louis, Missouri. They both came to Christ during the \"Jesus Movement\" in the 70's and, after living many years in Colorado and Kansas, returned home to St. Louis in 1995. They celebrated their 40th wedding anniversary in January of 2017, and currently have two grown children and four grandchildren.", "David was in full-time ministry at Bethel from 1999 until his retirement in 2024. He serves as an elder and completed a Masters Degree in Divinity from Covenant Theological Seminary in 2010. He continues to serve in the music and speaking ministry."], "Tom Grass" => ["Tom has served as an elder at Bethel since 2012. He and his wife Nikki live in Hillsboro, Missouri, and have been blessed with five children and ten grandchildren.", "Tom's heart for shepherding and his deep roots in the community make him a steady and faithful leader in the life of our church."], "Jeff Smith" => ["Jeff has served as an elder at Bethel since 2023. He and his wife Theresa live in South St. Louis and are raising five children together.", "Jeff has a passion for the Word and for building up the body of Christ. His commitment to his family and to the church is evident in everything he does."], "Ted Tash" => ["Ted has served as a deacon at Bethel since 2019. He and his wife Lydia, who grew up at Bethel, live in Hillsboro, Missouri, with their three children.", "Ted has been attending Bethel since 2013. His love for this church and its people drives his faithful service as a deacon."], "Brad Kloeppel" => ["Brad has served as a deacon at Bethel since 2019. He and his wife Anna live in Fenton with their three children.", "Brad has been part of the Bethel family since childhood. Growing up in the church gave him a deep love for this congregation, and he is grateful for the opportunity to serve as a deacon."], "John Kloeppel" => ["John is a founding member of Bethel and has been part of the church since its inception. He serves as an elder and lives in South County with his wife Debbie. Together they have fourteen grandchildren.", "John's faithfulness from the very beginning of Bethel's story is a testament to his deep commitment to the Lord and to this church family."] }
     - leaders.each_with_index do |(name, role, seed), index|
       - modal_id = "leader_modal_#{index}"
       %dialog.modal{ id: modal_id }

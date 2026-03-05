@@ -1,0 +1,32 @@
+-# Slide-out panel using native <dialog>.
+-# Loads content via turbo-frame for fresh data on each open.
+-#
+-# Usage:
+-#   = render 'admin/shared/slideout', id: 'add_household_slideout',
+-#       title: 'New Household', size: :lg,
+-#       turbo_frame: 'add_household_form',
+-#       turbo_src: new_admin_household_path(slideout: true)
+
+- size_classes = { sm: 'max-w-sm', md: 'max-w-md', lg: 'max-w-lg', xl: 'max-w-xl', full: 'max-w-full' }
+- size_class = size_classes[size&.to_sym] || size_classes[:lg]
+
+%dialog{ id: id, class: 'modal modal-end', data: { controller: 'modal', action: 'close->modal#handleClose' } }
+  .modal-box.h-full.max-h-screen.w-full{ class: "#{size_class} rounded-l-lg rounded-r-none flex flex-col p-0" }
+
+    -# Header
+    .flex.items-center.justify-between.p-4.border-b.border-base-300.shrink-0
+      %h3.text-lg.font-medium= title
+      %form{ method: 'dialog' }
+        %button.btn.btn-ghost.btn-square.btn-sm{ "aria-label" => "Close panel" }
+          %svg.w-5.h-5{ xmlns: "http://www.w3.org/2000/svg", fill: "none", viewBox: "0 0 24 24", "stroke-width" => "1.5", stroke: "currentColor" }
+            %path{ "stroke-linecap" => "round", "stroke-linejoin" => "round", d: "M6 18L18 6M6 6l12 12" }
+
+    -# Body (scrollable, loads via turbo-frame)
+    .flex-1.overflow-y-auto.p-4
+      %turbo-frame{ id: turbo_frame, data: { original_src: turbo_src } }
+        .flex.justify-center.py-8
+          %span.loading.loading-spinner.loading-md
+
+  -# Backdrop
+  %form.modal-backdrop{ method: 'dialog' }
+    %button close

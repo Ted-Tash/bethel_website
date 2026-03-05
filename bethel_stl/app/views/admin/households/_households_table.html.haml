@@ -1,0 +1,22 @@
+- if households.any?
+  .card.bg-base-100.shadow-md
+    .overflow-x-auto
+      %table.table
+        %thead
+          %tr
+            %th Household
+            %th Members
+            %th Contact
+            %th Address
+            %th
+        %tbody
+          - households.each do |household|
+            = render 'admin/households/household_row', household: household
+- else
+  .card.bg-base-100.shadow-md
+    .card-body.items-center.text-center.py-16
+      %h2.text-xl.font-semibold.opacity-60 No households yet
+      %p.opacity-40.mt-2 Add your first household to get started.
+      .mt-4
+        %button.btn.btn-primary{ type: 'button', data: { controller: 'modal', action: 'click->modal#open', modal_target_param: 'add_household_slideout' } }
+          + New Household
