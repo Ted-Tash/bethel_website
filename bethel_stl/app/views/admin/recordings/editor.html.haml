@@ -117,6 +117,82 @@
             %button.btn.btn-sm.btn-ghost{ type: 'button', data: { action: 'audio-editor#playRegion' } }
               Preview Selection
 
+  -# Silence Detection
+  .card.bg-base-100.shadow-md.mb-4
+    .card-body.p-4
+      %h3.font-medium.text-sm.uppercase.tracking-wide.opacity-50.mb-3 Dead Space Detection
+      .flex.flex-wrap.items-end.gap-4.mb-4
+        .form-control
+          %label.label
+            %span.label-text.text-xs Threshold (dB)
+          %input.input.input-sm.input-bordered.w-24{ type: 'number', value: '-40', min: '-60', max: '-10', step: '5', data: { audio_editor_target: 'silenceThreshold' } }
+        .form-control
+          %label.label
+            %span.label-text.text-xs Min Duration (s)
+          %input.input.input-sm.input-bordered.w-24{ type: 'number', value: '0.5', min: '0.1', max: '10', step: '0.1', data: { audio_editor_target: 'silenceMinDuration' } }
+        .form-control
+          %label.label
+            %span.label-text.text-xs Padding (s)
+          %input.input.input-sm.input-bordered.w-24{ type: 'number', value: '0.25', min: '0', max: '2', step: '0.05', data: { audio_editor_target: 'silencePadding' } }
+        %button.btn.btn-sm.btn-accent{ type: 'button', data: { action: 'audio-editor#detectSilence' } }
+          Detect Dead Space
+      .text-xs.opacity-40.mb-4
+        Lower threshold = stricter (catches less). Higher min duration = only longer pauses. Padding keeps a buffer around cuts.
+
+      -# Results panel (hidden until detection runs)
+      .hidden{ data: { audio_editor_target: 'silenceResults' } }
+        .alert.mb-4
+          %svg.w-5.h-5.shrink-0{ xmlns: "http://www.w3.org/2000/svg", fill: "none", viewBox: "0 0 24 24", "stroke-width" => "1.5", stroke: "currentColor" }
+            %path{ "stroke-linecap" => "round", "stroke-linejoin" => "round", d: "m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" }
+          %span
+            Found
+            %span.font-bold{ data: { audio_editor_target: 'silenceCount' } } 0
+            silent regions (shown in red on waveform)
+        .flex.flex-wrap.gap-2.mb-4
+          %button.btn.btn-sm.btn-secondary{ type: 'button', data: { action: 'audio-editor#trimAllSilence' } }
+            Trim All — I Trust You
+          %button.btn.btn-sm.btn-outline{ type: 'button', data: { action: 'audio-editor#startReview' } }
+            Review Each One
+          %button.btn.btn-sm.btn-ghost{ type: 'button', data: { action: 'audio-editor#clearSilenceDetection' } }
+            Clear
+
+        -# Review panel (hidden until review mode starts)
+        .hidden{ data: { audio_editor_target: 'reviewPanel' } }
+          .bg-base-200.rounded-lg.p-4
+            .flex.items-center.justify-between.mb-3
+              .flex.items-center.gap-3.text-sm
+                %span.font-bold
+                  Region
+                  %span{ data: { audio_editor_target: 'reviewIndex' } } 1
+                  of
+                  %span{ data: { audio_editor_target: 'reviewTotal' } } 0
+                .flex.items-center.gap-4
+                  %span
+                    %span.opacity-60 Start:
+                    %span.font-mono{ data: { audio_editor_target: 'reviewStart' } } —
+                  %span
+                    %span.opacity-60 End:
+                    %span.font-mono{ data: { audio_editor_target: 'reviewEnd' } } —
+                  %span
+                    %span.opacity-60 Duration:
+                    %span.font-mono{ data: { audio_editor_target: 'reviewDuration' } } —
+            .flex.gap-2
+              %button.btn.btn-sm.btn-ghost{ type: 'button', data: { action: 'audio-editor#reviewPrevious' }, title: 'Previous region' }
+                %svg.w-4.h-4{ xmlns: "http://www.w3.org/2000/svg", fill: "none", viewBox: "0 0 24 24", "stroke-width" => "1.5", stroke: "currentColor" }
+                  %path{ "stroke-linecap" => "round", "stroke-linejoin" => "round", d: "M15.75 19.5 8.25 12l7.5-7.5" }
+              %button.btn.btn-sm.btn-outline{ type: 'button', data: { action: 'audio-editor#reviewPlayCurrent' } }
+                Preview
+              %button.btn.btn-sm.btn-secondary{ type: 'button', data: { action: 'audio-editor#reviewCutCurrent' } }
+                Cut This
+              %button.btn.btn-sm.btn-ghost{ type: 'button', data: { action: 'audio-editor#reviewSkipCurrent' } }
+                Skip
+              %button.btn.btn-sm.btn-ghost{ type: 'button', data: { action: 'audio-editor#reviewSkipCurrent' }, title: 'Next region' }
+                %svg.w-4.h-4{ xmlns: "http://www.w3.org/2000/svg", fill: "none", viewBox: "0 0 24 24", "stroke-width" => "1.5", stroke: "currentColor" }
+                  %path{ "stroke-linecap" => "round", "stroke-linejoin" => "round", d: "m8.25 4.5 7.5 7.5-7.5 7.5" }
+              .divider.divider-horizontal.mx-0
+              %button.btn.btn-sm.btn-ghost{ type: 'button', data: { action: 'audio-editor#stopReview' } }
+                Exit Review
+
   -# Save / Restore
   .card.bg-base-100.shadow-md
     .card-body.p-4
