@@ -29,6 +29,13 @@
       .card-actions.justify-end
         .badge.badge-primary= "#{Household.count} Households"
 
+  = link_to admin_audio_extractions_path, class: 'card bg-base-100 shadow-md hover:shadow-lg transition-shadow' do
+    .card-body
+      %h2.card-title Audio Extractor
+      %p.opacity-60 Extract MP3 audio from YouTube streams
+      .card-actions.justify-end
+        .badge.badge-primary= "#{AudioExtraction.count} Extractions"
+
 .mt-8.card.bg-base-100.shadow-md
   .card-body
     %h2.card-title Quick Info

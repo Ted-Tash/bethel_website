@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
   devise_for :users, path: 'admin', controllers: { sessions: 'users/sessions' }
 
+  mount MissionControl::Jobs::Engine, at: '/admin/jobs'
+
   namespace :admin do
     get '/', to: 'dashboard#index', as: :dashboard
+    resources :audio_extractions, only: [:index, :new, :create, :show, :destroy]
     resources :recordings do
       member do
         get :editor

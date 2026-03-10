@@ -1,0 +1,39 @@
+= form_with model: [:admin, audio_extraction], class: 'space-y-6' do |f|
+  - if audio_extraction.errors.any?
+    .alert.alert-error.mb-4
+      %ul
+        - audio_extraction.errors.full_messages.each do |msg|
+          %li= msg
+
+  .form-control
+    = f.label :youtube_url, 'YouTube URL', class: 'label'
+    = f.url_field :youtube_url, class: 'input input-bordered w-full', placeholder: 'https://www.youtube.com/watch?v=...', required: true
+    .label
+      %span.label-text-alt Paste the full YouTube URL. Works with regular videos and completed live streams.
+
+  .grid.grid-cols-2.gap-4
+    .form-control
+      = f.label :start_time, 'Start Time', class: 'label'
+      = f.text_field :start_time, class: 'input input-bordered w-full', placeholder: 'HH:MM:SS'
+      .label
+        %span.label-text-alt Leave blank for beginning of video
+
+    .form-control
+      = f.label :end_time, 'End Time', class: 'label'
+      = f.text_field :end_time, class: 'input input-bordered w-full', placeholder: 'HH:MM:SS'
+      .label
+        %span.label-text-alt Leave blank for end of video
+
+  .card.bg-base-200
+    .card-body.py-4
+      %p.text-sm
+        %strong Tip:
+        For a typical Sunday service livestream, the sermon might start around
+        %code 00:20:00
+        and end around
+        %code 01:05:00
+        \. Adjust based on your stream.
+
+  .flex.gap-4
+    = f.submit 'Extract Audio', class: 'btn btn-primary'
+    = link_to 'Cancel', admin_audio_extractions_path, class: 'btn btn-ghost'

@@ -1,2 +1,3 @@
 web: bin/rails server -p 4000
 css: npm run build:css:watch
+jobs: bin/jobs
