@@ -1,0 +1,31 @@
+.flex.justify-between.items-center.mb-8
+  %h1.text-3xl.font-bold Sermons
+  %button.btn.btn-primary{ type: 'button', data: { controller: 'modal', action: 'click->modal#open', modal_target_param: 'add_recording_slideout' } }
+    + New Sermon
+
+#recordings_table
+  = render 'admin/recordings/recordings_table', recordings: @recordings
+
+-# New Recording slideout
+= render 'admin/shared/slideout', id: 'add_recording_slideout',
+    title: 'New Sermon', size: :lg,
+    turbo_frame: 'add_recording_form',
+    turbo_src: new_admin_recording_path(slideout: true)
+
+-# View Recording slideout (src set dynamically per row)
+= render 'admin/shared/slideout', id: 'view_recording_slideout',
+    title: 'Sermon Details', size: :md,
+    turbo_frame: 'view_recording_content',
+    turbo_src: '#'
+
+-# Edit Recording slideout (src set dynamically per row via data-base-url)
+= render 'admin/shared/slideout', id: 'edit_recording_slideout',
+    title: 'Edit Sermon', size: :lg,
+    turbo_frame: 'edit_recording_form',
+    turbo_src: '#'
+
+-# Edit Document slideout (src set dynamically per document row)
+= render 'admin/shared/slideout', id: 'edit_document_slideout',
+    title: 'Edit Document', size: :md,
+    turbo_frame: 'edit_document_form',
+    turbo_src: '#'

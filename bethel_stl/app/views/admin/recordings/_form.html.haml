@@ -1,0 +1,44 @@
+- slideout = local_assigns[:slideout]
+- url = recording.persisted? ? admin_recording_path(recording, slideout: slideout || nil) : admin_recordings_path(slideout: slideout || nil)
+- method = recording.persisted? ? :patch : :post
+
+= form_with model: [:admin, recording], url: url, method: method, data: recording.new_record? ? { controller: 'audio-duration' } : {} do |f|
+  - if recording.errors.any?
+    .alert.alert-error.mb-6
+      %ul
+        - recording.errors.full_messages.each do |message|
+          %li= message
+
+  .space-y-4.mb-6
+    .form-control
+      %label.label
+        %span.label-text Title
+      = f.text_field :title, class: 'input input-bordered w-full', placeholder: 'e.g. The Power of Faith'
+
+    .form-control
+      %label.label
+        %span.label-text Speaker
+      = f.text_field :speaker_name, class: 'input input-bordered w-full', placeholder: 'e.g. Pastor Johnson'
+
+    .form-control
+      %label.label
+        %span.label-text Recorded On
+      = f.date_field :recorded_on, class: 'input input-bordered w-full'
+
+    .form-control
+      %label.label
+        %span.label-text Audio File
+      - if recording.persisted?
+        %div.input.input-bordered.w-full.flex.items-center.text-sm{ style: 'opacity: 0.8; cursor: not-allowed;' }
+          = recording.audio.attached? ? recording.audio.filename : 'No audio file'
+      - else
+        = f.file_field :audio, accept: 'audio/*', class: 'file-input file-input-bordered w-full', data: { action: 'change->audio-duration#extract', audio_duration_target: 'input' }
+        = f.hidden_field :duration_seconds, data: { audio_duration_target: 'field' }
+
+  .flex.items-center.gap-3
+    .flex-1
+    - if slideout
+      %button.btn.btn-ghost{ type: 'button', onclick: "this.closest('dialog').close()" } Cancel
+    - else
+      = link_to 'Cancel', admin_recordings_path, class: 'btn btn-ghost'
+    = f.submit (recording.persisted? ? 'Save Changes' : 'Create Sermon'), class: 'btn btn-primary'

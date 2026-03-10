@@ -1,0 +1,34 @@
+-# Drag-and-drop document upload section for a recording.
+-# Renders as a card with file drop zone and lazy-loaded documents table.
+-#
+-# Required locals: recording
+
+.card.bg-base-200.relative{ data: { controller: 'file-drop', file_drop_url_value: admin_recording_documents_path(recording, format: :json), file_drop_frame_id_value: "recording_#{recording.id}_documents", file_drop_param_name_value: 'document[file]' } }
+  .card-body.p-4
+    .flex.items-center.justify-between.mb-3
+      %h3.font-medium.text-base Support Documents
+      %button.btn.btn-ghost.btn-sm{ type: 'button', data: { action: 'click->file-drop#browse' } }
+        %svg.w-4.h-4{ xmlns: "http://www.w3.org/2000/svg", fill: "none", viewBox: "0 0 24 24", "stroke-width" => "1.5", stroke: "currentColor" }
+          %path{ "stroke-linecap" => "round", "stroke-linejoin" => "round", d: "M12 4.5v15m7.5-7.5h-15" }
+        Upload
+
+    -# Hidden file input for browse button
+    %input{ type: 'file', multiple: true, class: 'hidden', data: { file_drop_target: 'input', action: 'change->file-drop#inputChanged' } }
+
+    -# Upload status indicator
+    .text-sm.text-center.py-2.hidden{ data: { file_drop_target: 'status' } }
+
+    -# Documents list loaded via turbo-frame
+    %turbo-frame{ id: "recording_#{recording.id}_documents", src: admin_recording_documents_path(recording), loading: 'lazy' }
+      .flex.justify-center.py-4
+        %span.loading.loading-spinner.loading-sm
+
+    -# Drag hint
+    .text-center.text-xs.opacity-40.mt-2 Drag and drop files here
+
+  -# Drop overlay (shown during drag)
+  .absolute.inset-0.rounded-2xl.border-2.border-dashed.border-primary.flex.items-center.justify-center.hidden{ class: "bg-base-100/90 z-10", data: { file_drop_target: 'overlay' } }
+    .text-center
+      %svg.w-10.h-10.mx-auto.mb-2.text-primary{ xmlns: "http://www.w3.org/2000/svg", fill: "none", viewBox: "0 0 24 24", "stroke-width" => "1.5", stroke: "currentColor" }
+        %path{ "stroke-linecap" => "round", "stroke-linejoin" => "round", d: "M12 16.5V9.75m0 0 3 3m-3-3-3 3M6.75 19.5a4.5 4.5 0 0 1-1.41-8.775 5.25 5.25 0 0 1 10.233-2.33 3 3 0 0 1 3.758 3.848A3.752 3.752 0 0 1 18 19.5H6.75Z" }
+      %p.font-medium.text-primary Drop files to upload

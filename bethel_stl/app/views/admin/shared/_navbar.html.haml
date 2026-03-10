@@ -7,7 +7,7 @@
           %path{ "stroke-linecap" => "round", "stroke-linejoin" => "round", "stroke-width" => "2", d: "M4 6h16M4 12h8m-8 6h16" }
       %ul.menu.menu-sm.dropdown-content.bg-base-100.rounded-box.z-10.mt-3.w-52.p-2.shadow{ tabindex: "0" }
         %li= link_to 'Dashboard', admin_dashboard_path
-        %li= link_to 'Sermons', admin_sermons_path
+        %li= link_to 'Sermons', admin_recordings_path
         %li= link_to 'Events', admin_events_path
         %li= link_to 'Pages', admin_pages_path
         %li= link_to 'Directory', admin_households_path
@@ -16,7 +16,7 @@
   .navbar-center.hidden.lg:flex
     %ul.menu.menu-horizontal.px-1
       %li= link_to 'Dashboard', admin_dashboard_path, class: active_nav_class(admin_dashboard_path)
-      %li= link_to 'Sermons', admin_sermons_path, class: active_nav_class(admin_sermons_path)
+      %li= link_to 'Sermons', admin_recordings_path, class: active_nav_class(admin_recordings_path)
       %li= link_to 'Events', admin_events_path, class: active_nav_class(admin_events_path)
       %li= link_to 'Pages', admin_pages_path, class: active_nav_class(admin_pages_path)
       %li= link_to 'Directory', admin_households_path, class: active_nav_class(admin_households_path)

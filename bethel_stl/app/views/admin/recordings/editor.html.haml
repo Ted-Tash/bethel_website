@@ -1,0 +1,133 @@
+-# Full-page audio editor for a recording
+.mb-4
+  = link_to admin_recordings_path, class: 'btn btn-ghost btn-sm gap-1' do
+    %svg.w-4.h-4{ xmlns: "http://www.w3.org/2000/svg", fill: "none", viewBox: "0 0 24 24", "stroke-width" => "1.5", stroke: "currentColor" }
+      %path{ "stroke-linecap" => "round", "stroke-linejoin" => "round", d: "M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" }
+    Back to Sermons
+
+.flex.justify-between.items-start.mb-6
+  %div
+    %h1.text-3xl.font-bold= @recording.title
+    %p.opacity-60.mt-1
+      = @recording.speaker_name
+      %span.mx-2 &middot;
+      = @recording.audio.filename
+
+  -# Original file safety notice — always visible
+  .alert.alert-success.py-2.px-4{ class: "max-w-sm" }
+    %svg.w-5.h-5.shrink-0{ xmlns: "http://www.w3.org/2000/svg", fill: "none", viewBox: "0 0 24 24", "stroke-width" => "1.5", stroke: "currentColor" }
+      %path{ "stroke-linecap" => "round", "stroke-linejoin" => "round", d: "M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z" }
+    %div
+      %p.font-medium.text-sm Your original file is always safe
+      %p.text-xs.opacity-80 Edits are saved as a copy — the original is never modified
+
+%div{ data: { controller: 'audio-editor', audio_editor_audio_url_value: url_for(@recording.audio), audio_editor_save_url_value: save_edit_admin_recording_path(@recording), audio_editor_restore_url_value: restore_original_admin_recording_path(@recording), audio_editor_duration_url_value: update_duration_admin_recording_path(@recording), audio_editor_csrf_token_value: form_authenticity_token, audio_editor_has_original_value: @recording.original_audio.attached? } }
+
+  -# Waveform
+  .card.bg-base-100.shadow-md.mb-4
+    .card-body.p-4
+      .rounded-lg.bg-base-200.p-2{ data: { audio_editor_target: 'waveform' } }
+
+      -# Time display + status
+      .flex.justify-between.items-center.mt-3
+        .font-mono.text-lg
+          %span{ data: { audio_editor_target: 'currentTime' } } 0:00.0
+          %span.opacity-40 /
+          %span{ data: { audio_editor_target: 'totalTime' } } 0:00.0
+        .text-sm.opacity-60{ data: { audio_editor_target: 'status' } } Loading...
+
+  -# Transport controls
+  .card.bg-base-100.shadow-md.mb-4
+    .card-body.p-4
+      .flex.flex-wrap.items-center.gap-3
+
+        -# Playback
+        .flex.items-center.gap-1
+          -# Skip to beginning
+          %button.btn.btn-sm.btn-ghost{ type: 'button', data: { action: 'audio-editor#skipToStart' }, title: 'Skip to beginning' }
+            %svg.w-5.h-5{ xmlns: "http://www.w3.org/2000/svg", fill: "none", viewBox: "0 0 24 24", "stroke-width" => "1.5", stroke: "currentColor" }
+              %path{ "stroke-linecap" => "round", "stroke-linejoin" => "round", d: "M21 16.811c0 .864-.933 1.406-1.683.977l-7.108-4.061a1.125 1.125 0 0 1 0-1.954l7.108-4.061A1.125 1.125 0 0 1 21 8.689v8.122ZM11.25 16.811c0 .864-.933 1.406-1.683.977l-7.108-4.061a1.125 1.125 0 0 1 0-1.954l7.108-4.061a1.125 1.125 0 0 1 1.683.977v8.122Z" }
+
+          -# Play / Pause
+          %button.btn.btn-sm.btn-primary{ type: 'button', data: { action: 'audio-editor#playPause', audio_editor_target: 'playBtn' } } Play
+
+          -# Stop
+          %button.btn.btn-sm{ type: 'button', data: { action: 'audio-editor#stop' } } Stop
+
+        .divider.divider-horizontal.mx-0
+
+        -# Playback speed toggle
+        .flex.items-center.gap-2
+          %span.text-xs.opacity-50 Speed
+          %button.btn.btn-sm.btn-outline.font-mono{ type: 'button', data: { action: 'audio-editor#toggleSpeed', audio_editor_target: 'speedBtn' }, title: 'Toggle playback speed (1x / 0.75x / 0.5x)' } 1x
+
+        .divider.divider-horizontal.mx-0
+
+        -# Zoom
+        .flex.items-center.gap-2
+          %span.text-xs.opacity-50 Zoom
+          %button.btn.btn-sm.btn-ghost{ type: 'button', data: { action: 'audio-editor#zoomOut' } }
+            %svg.w-4.h-4{ xmlns: "http://www.w3.org/2000/svg", fill: "none", viewBox: "0 0 24 24", "stroke-width" => "1.5", stroke: "currentColor" }
+              %path{ "stroke-linecap" => "round", "stroke-linejoin" => "round", d: "m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607ZM13.5 10.5h-6" }
+          %input.range.range-xs.w-32{ type: 'range', min: '1', max: '200', value: '1', data: { audio_editor_target: 'zoomSlider', action: 'input->audio-editor#zoom' } }
+          %button.btn.btn-sm.btn-ghost{ type: 'button', data: { action: 'audio-editor#zoomIn' } }
+            %svg.w-4.h-4{ xmlns: "http://www.w3.org/2000/svg", fill: "none", viewBox: "0 0 24 24", "stroke-width" => "1.5", stroke: "currentColor" }
+              %path{ "stroke-linecap" => "round", "stroke-linejoin" => "round", d: "m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607ZM10.5 7.5v6m3-3h-6" }
+
+  -# Editing tools
+  .card.bg-base-100.shadow-md.mb-4
+    .card-body.p-4
+      %h3.font-medium.text-sm.uppercase.tracking-wide.opacity-50.mb-3 Editing Tools
+
+      -# Cursor-based tools + undo
+      .flex.flex-wrap.gap-2.mb-4
+        %button.btn.btn-sm.btn-outline{ type: 'button', data: { action: 'audio-editor#trimStart' }, title: 'Remove everything before the cursor position' }
+          Trim Before Cursor
+        %button.btn.btn-sm.btn-outline{ type: 'button', data: { action: 'audio-editor#trimEnd' }, title: 'Remove everything after the cursor position' }
+          Trim After Cursor
+        %button.btn.btn-sm.btn-ghost.gap-1{ type: 'button', data: { action: 'audio-editor#undo', audio_editor_target: 'undoBtn' }, disabled: true }
+          %svg.w-4.h-4{ xmlns: "http://www.w3.org/2000/svg", fill: "none", viewBox: "0 0 24 24", "stroke-width" => "1.5", stroke: "currentColor" }
+            %path{ "stroke-linecap" => "round", "stroke-linejoin" => "round", d: "M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3" }
+          Undo Last Edit
+
+      -# Tip text when no region selected
+      .text-sm.opacity-40.italic{ data: { audio_editor_target: 'regionHint' } }
+        Click and drag on the waveform to select a section, or click anywhere to deselect.
+
+      -# Region controls (shown when a region is selected)
+      .hidden{ data: { audio_editor_target: 'regionControls' } }
+        .bg-base-200.rounded-lg.p-3
+          .flex.items-center.justify-between.mb-3
+            .flex.items-center.gap-4.text-sm
+              %span.font-medium Selection:
+              %span
+                %span.opacity-60 Start:
+                %span.font-mono{ data: { audio_editor_target: 'regionStart' } } —
+              %span
+                %span.opacity-60 End:
+                %span.font-mono{ data: { audio_editor_target: 'regionEnd' } } —
+              %span
+                %span.opacity-60 Duration:
+                %span.font-mono{ data: { audio_editor_target: 'regionDuration' } } —
+            %button.btn.btn-xs.btn-ghost{ type: 'button', data: { action: 'audio-editor#clearRegion' } } Deselect
+
+          .flex.gap-2
+            %button.btn.btn-sm.btn-secondary{ type: 'button', data: { action: 'audio-editor#cutRegion' }, title: 'Remove the selected section, keep everything else' }
+              Cut Out Selection
+            %button.btn.btn-sm.btn-ghost{ type: 'button', data: { action: 'audio-editor#playRegion' } }
+              Preview Selection
+
+  -# Save / Restore
+  .card.bg-base-100.shadow-md
+    .card-body.p-4
+      .flex.items-center.justify-between
+        .flex.items-center.gap-3
+          %button.btn.btn-primary{ type: 'button', data: { action: 'audio-editor#saveEdit', audio_editor_target: 'saveBtn' } }
+            Save Edited Audio
+          - if @recording.original_audio.attached?
+            %button.btn.btn-outline.btn-sm{ type: 'button', data: { action: 'audio-editor#restoreOriginal', audio_editor_target: 'restoreBtn' } }
+              Restore Original Audio
+        .text-sm.opacity-50
+          - if @recording.original_audio.attached?
+            %span.badge.badge-success.badge-sm.mr-1 Original on file
+          Saved as a new WAV file — original untouched

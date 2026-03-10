@@ -1,0 +1,24 @@
+- if recordings.any?
+  .card.bg-base-100.shadow-md
+    .overflow-x-auto
+      %table.table
+        %thead
+          %tr
+            %th Title
+            %th Speaker
+            %th Recorded On
+            %th File
+            %th Duration
+            %th Documents
+            %th
+        %tbody
+          - recordings.each do |recording|
+            = render 'admin/recordings/recording_row', recording: recording
+- else
+  .card.bg-base-100.shadow-md
+    .card-body.items-center.text-center.py-16
+      %h2.text-xl.font-semibold.opacity-60 No sermons yet
+      %p.opacity-40.mt-2 Add your first sermon to get started.
+      .mt-4
+        %button.btn.btn-primary{ type: 'button', data: { controller: 'modal', action: 'click->modal#open', modal_target_param: 'add_recording_slideout' } }
+          + New Sermon

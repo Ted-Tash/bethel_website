@@ -6,3 +6,6 @@ pin "@hotwired/stimulus", to: "stimulus.min.js"
 pin "@hotwired/stimulus-loading", to: "stimulus-loading.js"
 pin_all_from "app/javascript/controllers", under: "controllers"
 pin "turbo_stream_actions"
+pin "wavesurfer.js" # @7.12.1
+pin "wavesurfer-regions", to: "wavesurfer-regions.js"
+pin "wavesurfer-timeline", to: "wavesurfer-timeline.js"

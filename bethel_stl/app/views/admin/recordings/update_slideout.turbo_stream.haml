@@ -1,0 +1,3 @@
+= turbo_stream_action_tag(:close_dialog, target: 'edit_recording_slideout')
+= turbo_stream.update 'recordings_table' do
+  = render 'admin/recordings/recordings_table', recordings: Recording.order(created_at: :desc)

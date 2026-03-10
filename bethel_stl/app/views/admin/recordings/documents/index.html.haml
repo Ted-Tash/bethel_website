@@ -1,0 +1,14 @@
+%turbo-frame{ id: "recording_#{@recording.id}_documents" }
+  - if @documents.any?
+    .overflow-x-auto
+      %table.table.table-sm
+        %thead
+          %tr
+            %th Name
+            %th Type
+            %th.text-right
+        %tbody
+          - @documents.each do |document|
+            = render 'admin/recordings/documents/document_row', document: document, recording: @recording
+  - else
+    .text-center.py-4.opacity-50.text-sm No documents uploaded yet.

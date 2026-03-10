@@ -1,0 +1,4 @@
+= turbo_stream_action_tag(:close_dialog, target: 'add_recording_slideout')
+= turbo_stream.update 'recordings_table' do
+  = render 'admin/recordings/recordings_table', recordings: Recording.order(recorded_on: :desc, created_at: :desc)
+= turbo_stream_action_tag(:open_dialog, target: 'edit_recording_slideout', "frame-url": edit_admin_recording_path(@recording, slideout: true))

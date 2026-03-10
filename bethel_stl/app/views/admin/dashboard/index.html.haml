@@ -1,12 +1,12 @@
 %h1.text-3xl.font-bold.mb-8 Dashboard
 
 .grid.grid-cols-1.md:grid-cols-2.lg:grid-cols-3.gap-6
-  = link_to admin_sermons_path, class: 'card bg-base-100 shadow-md hover:shadow-lg transition-shadow' do
+  = link_to admin_recordings_path, class: 'card bg-base-100 shadow-md hover:shadow-lg transition-shadow' do
     .card-body
       %h2.card-title Sermons
       %p.opacity-60 Manage sermon recordings and archives
       .card-actions.justify-end
-        .badge.badge-outline Coming Soon
+        .badge.badge-primary= "#{Recording.count} Sermons"
 
   = link_to admin_events_path, class: 'card bg-base-100 shadow-md hover:shadow-lg transition-shadow' do
     .card-body

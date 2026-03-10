@@ -3,7 +3,15 @@ Rails.application.routes.draw do
 
   namespace :admin do
     get '/', to: 'dashboard#index', as: :dashboard
-    resources :sermons, only: [:index]
+    resources :recordings do
+      member do
+        get :editor
+        patch :save_edit
+        patch :restore_original
+        patch :update_duration
+      end
+      resources :documents, only: [:index, :create, :edit, :update, :destroy], controller: 'recordings/documents'
+    end
     resources :events, only: [:index]
     resources :pages, only: [:index]
     resources :households
