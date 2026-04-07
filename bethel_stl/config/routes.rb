@@ -15,9 +15,20 @@ Rails.application.routes.draw do
       end
       resources :documents, only: [:index, :create, :edit, :update, :destroy], controller: 'recordings/documents'
     end
-    resources :events, only: [:index]
-    resources :pages, only: [:index]
+    resources :events, only: [:index] do
+      collection do
+        post :add_source
+      end
+      member do
+        patch :toggle_public
+      end
+    end
+    post 'events/:calendar_source_id/sync', to: 'events#sync', as: :events_sync
+    delete 'events/sources/:id', to: 'events#destroy_source', as: :events_destroy_source
+
     resources :households
+    resources :contact_groups, except: [:show]
+    resources :messages, only: [:index, :new, :create, :show]
   end
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

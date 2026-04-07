@@ -13,14 +13,7 @@
       %h2.card-title Events
       %p.opacity-60 Manage upcoming church events
       .card-actions.justify-end
-        .badge.badge-outline Coming Soon
-
-  = link_to admin_pages_path, class: 'card bg-base-100 shadow-md hover:shadow-lg transition-shadow' do
-    .card-body
-      %h2.card-title Pages
-      %p.opacity-60 Edit site content and pages
-      .card-actions.justify-end
-        .badge.badge-outline Coming Soon
+        .badge.badge-primary= "#{Event.upcoming.count} Upcoming"
 
   = link_to admin_households_path, class: 'card bg-base-100 shadow-md hover:shadow-lg transition-shadow' do
     .card-body
@@ -29,23 +22,23 @@
       .card-actions.justify-end
         .badge.badge-primary= "#{Household.count} Households"
 
+  = link_to admin_messages_path, class: 'card bg-base-100 shadow-md hover:shadow-lg transition-shadow' do
+    .card-body
+      %h2.card-title Messages
+      %p.opacity-60 Send SMS messages to church members
+      .card-actions.justify-end
+        .badge.badge-primary= "#{Message.count} Messages"
+
+  = link_to admin_contact_groups_path, class: 'card bg-base-100 shadow-md hover:shadow-lg transition-shadow' do
+    .card-body
+      %h2.card-title Contact Groups
+      %p.opacity-60 Organize members into groups for messaging
+      .card-actions.justify-end
+        .badge.badge-primary= "#{ContactGroup.count} Groups"
+
   = link_to admin_audio_extractions_path, class: 'card bg-base-100 shadow-md hover:shadow-lg transition-shadow' do
     .card-body
       %h2.card-title Audio Extractor
       %p.opacity-60 Extract MP3 audio from YouTube streams
       .card-actions.justify-end
         .badge.badge-primary= "#{AudioExtraction.count} Extractions"
-
-.mt-8.card.bg-base-100.shadow-md
-  .card-body
-    %h2.card-title Quick Info
-    .grid.grid-cols-1.sm:grid-cols-3.gap-4.mt-4
-      .stat
-        .stat-title Signed in as
-        .stat-value.text-lg= current_user.email
-      .stat
-        .stat-title Rails
-        .stat-value.text-lg= Rails.version
-      .stat
-        .stat-title Environment
-        .stat-value.text-lg= Rails.env.capitalize

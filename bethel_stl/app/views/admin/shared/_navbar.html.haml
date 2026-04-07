@@ -9,8 +9,10 @@
         %li= link_to 'Dashboard', admin_dashboard_path
         %li= link_to 'Sermons', admin_recordings_path
         %li= link_to 'Events', admin_events_path
-        %li= link_to 'Pages', admin_pages_path
+
         %li= link_to 'Directory', admin_households_path
+        %li= link_to 'Messages', admin_messages_path
+        %li= link_to 'Groups', admin_contact_groups_path
         %li= link_to 'Audio Extractor', admin_audio_extractions_path
     = link_to 'Bethel Admin', admin_dashboard_path, class: 'btn btn-ghost text-xl'
 
@@ -19,8 +21,10 @@
       %li= link_to 'Dashboard', admin_dashboard_path, class: active_nav_class(admin_dashboard_path)
       %li= link_to 'Sermons', admin_recordings_path, class: active_nav_class(admin_recordings_path)
       %li= link_to 'Events', admin_events_path, class: active_nav_class(admin_events_path)
-      %li= link_to 'Pages', admin_pages_path, class: active_nav_class(admin_pages_path)
+
       %li= link_to 'Directory', admin_households_path, class: active_nav_class(admin_households_path)
+      %li= link_to 'Messages', admin_messages_path, class: active_nav_class(admin_messages_path)
+      %li= link_to 'Groups', admin_contact_groups_path, class: active_nav_class(admin_contact_groups_path)
       %li= link_to 'Audio', admin_audio_extractions_path, class: active_nav_class(admin_audio_extractions_path)
 
   .navbar-end.gap-2

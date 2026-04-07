@@ -1,0 +1,32 @@
+%h1.text-3xl.font-bold.mb-8 Contact Groups
+
+- if notice.present?
+  .alert.alert-success.mb-6
+    %span= notice
+
+.flex.justify-end.mb-6
+  = link_to "New Group", new_admin_contact_group_path, class: "btn btn-primary"
+
+.card.bg-base-100.shadow-md
+  .card-body
+    - if @contact_groups.any?
+      .overflow-x-auto
+        %table.table
+          %thead
+            %tr
+              %th Name
+              %th Members
+              %th Actions
+          %tbody
+            - @contact_groups.each do |group|
+              %tr
+                %td.font-semibold= group.name
+                %td
+                  .badge.badge-neutral= pluralize(group.members.count, "member")
+                %td.flex.gap-2
+                  = link_to "Edit", edit_admin_contact_group_path(group), class: "btn btn-sm btn-outline"
+                  = button_to "Delete", admin_contact_group_path(group), method: :delete, class: "btn btn-sm btn-error btn-outline", data: { turbo_confirm: "Delete '#{group.name}'?" }
+    - else
+      .text-center.py-8
+        %p.text-lg.opacity-60 No contact groups yet.
+        %p.opacity-40.mt-1 Create a group to organize members for messaging.
