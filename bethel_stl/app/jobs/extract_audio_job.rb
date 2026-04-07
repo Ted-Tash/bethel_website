@@ -22,11 +22,13 @@ class ExtractAudioJob < ApplicationJob
 
     unless status.success?
       extraction.update!(status: 'failed', error_message: stderr.last(1000).presence || stdout.last(1000))
+      broadcast_result(extraction)
       return
     end
 
     unless File.exist?(output_path) && File.size(output_path) > 0
       extraction.update!(status: 'failed', error_message: 'Output file not found or empty after extraction')
+      broadcast_result(extraction)
       return
     end
 
@@ -41,14 +43,27 @@ class ExtractAudioJob < ApplicationJob
       filename: "#{extraction.id}-audio.mp3",
       file_size: File.size(output_path)
     )
+
+    broadcast_result(extraction)
   rescue => e
     extraction&.update(status: 'failed', error_message: e.message)
+    broadcast_result(extraction) if extraction
     raise
   ensure
     File.delete(output_path) if output_path && File.exist?(output_path)
   end
 
   private
+
+  def broadcast_result(extraction)
+    Turbo::StreamsChannel.broadcast_replace_to(
+      "audio_extraction_#{extraction.id}",
+      target: 'audio_extraction_container',
+      partial: 'admin/audio_extractions/result',
+      locals: { audio_extraction: extraction }
+    )
+
+  end
 
   def fetch_audio_url(extraction)
     cmd = ['yt-dlp', '-f', 'bestaudio', '--get-url', '--no-playlist', extraction.youtube_url]

@@ -1,0 +1,3 @@
+= turbo_stream_action_tag(:close_dialog, target: 'new_contact_group_slideout')
+= turbo_stream.update 'contact_groups_list' do
+  = render 'admin/messages/contact_groups_list', contact_groups: ContactGroup.order(:name)

@@ -1,0 +1,5 @@
+#dummy_job_container.min-h-96.flex.items-center.justify-center.border.border-base-300.rounded-xl.bg-base-100
+  .text-center
+    %h2.text-2xl.font-bold.mb-2 Dummy Jobs
+    %p.text-base-content.opacity-60.mb-6 Enqueue a background job that sleeps for 10 seconds.
+    = button_to 'Enqueue Sleep Job', enqueue_admin_dummy_index_path, method: :post, class: 'btn btn-primary'

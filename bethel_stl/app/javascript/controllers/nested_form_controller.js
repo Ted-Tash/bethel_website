@@ -2,13 +2,11 @@ import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
   static targets = ["template", "container", "addButton"]
-  static values = { max: { type: Number, default: 2 } }
 
   add(event) {
     event.preventDefault()
     const content = this.templateTarget.innerHTML.replace(/NEW_RECORD/g, new Date().getTime())
     this.containerTarget.insertAdjacentHTML("beforeend", content)
-    this.updateAddButton()
   }
 
   remove(event) {
@@ -24,17 +22,5 @@ export default class extends Controller {
     } else {
       fieldset.remove()
     }
-    this.updateAddButton()
-  }
-
-  updateAddButton() {
-    const visible = this.visibleFieldsCount()
-    if (this.hasAddButtonTarget) {
-      this.addButtonTarget.disabled = visible >= this.maxValue
-    }
-  }
-
-  visibleFieldsCount() {
-    return this.containerTarget.querySelectorAll("[data-nested-form-target='fields']:not([data-marked-for-destruction='true'])").length
   }
 }

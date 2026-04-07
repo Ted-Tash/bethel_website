@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
   def index
-    @events = GoogleCalendarService.upcoming_events
+    @events = Event.upcoming_public.limit(6)
   end
 end

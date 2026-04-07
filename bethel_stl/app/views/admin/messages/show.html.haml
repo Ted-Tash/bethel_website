@@ -1,6 +1,9 @@
 %h1.text-3xl.font-bold.mb-8 Message Details
 
-= link_to "← Back to Messages", admin_messages_path, class: "btn btn-ghost btn-sm mb-6"
+.flex.items-center.gap-3.mb-6
+  = link_to "← Back to Messages", admin_messages_path, class: "btn btn-ghost btn-sm"
+  - if @message.scheduled?
+    = button_to "Cancel Message", cancel_admin_message_path(@message), method: :patch, class: "btn btn-error btn-sm btn-outline", data: { turbo_confirm: "Cancel this scheduled message?" }
 
 .card.bg-base-100.shadow-md.mb-8
   .card-body
@@ -22,6 +25,8 @@
           .badge.badge-success Sent
         - when "failed"
           .badge.badge-error Failed
+        - when "cancelled"
+          .badge.badge-neutral Cancelled
       %div
         %h3.font-semibold.text-sm.opacity-60 Scheduled At
         - if @message.scheduled_at.present?
@@ -85,5 +90,7 @@
             Message hasn't been sent yet.
           - elsif @message.sending?
             Message is being sent...
+          - elsif @message.cancelled?
+            Message was cancelled.
           - else
             No delivery records.

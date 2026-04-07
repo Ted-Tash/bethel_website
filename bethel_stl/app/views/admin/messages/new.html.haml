@@ -2,7 +2,7 @@
 
 .card.bg-base-100.shadow-md
   .card-body
-    = form_with model: [:admin, @message], class: "space-y-6" do |f|
+    = form_with model: [:admin, @message], class: "space-y-6", data: { controller: "message-form" } do |f|
       - if @message.errors.any?
         .alert.alert-error.mb-4
           %ul
@@ -24,14 +24,14 @@
 
       = f.hidden_field :channel, value: "sms"
 
-      .form-control
+      .form-control.max-w-xs
         %label.label
           %span.label-text Schedule (optional)
-        = f.datetime_local_field :scheduled_at, class: "input input-bordered w-full", min: Time.current.strftime("%Y-%m-%dT%H:%M")
+        = f.datetime_local_field :scheduled_at, class: "input input-bordered w-full", min: Time.current.strftime("%Y-%m-%dT%H:%M"), data: { message_form_target: "scheduledAt", action: "change->message-form#toggle" }
         .label
           %span.label-text-alt.opacity-60 Leave blank to send immediately.
 
       .flex.gap-3
-        = f.submit "Send Now", class: "btn btn-primary"
-        = f.submit "Schedule", class: "btn btn-outline"
+        = f.submit "Send Now", class: "btn btn-primary", data: { message_form_target: "sendNowBtn", turbo_confirm: "Send this message to all recipients right now?" }
+        = f.submit "Schedule", class: "btn btn-primary opacity-50", disabled: true, data: { message_form_target: "scheduleBtn" }
         = link_to "Cancel", admin_messages_path, class: "btn btn-ghost"

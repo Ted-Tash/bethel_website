@@ -1,5 +1,6 @@
 class Admin::ContactGroupsController < Admin::BaseController
   before_action :set_contact_group, only: [:edit, :update, :destroy]
+  before_action :set_members, only: [:new, :create, :edit, :update]
 
   def index
     @contact_groups = ContactGroup.all.order(:name)
@@ -7,36 +8,55 @@ class Admin::ContactGroupsController < Admin::BaseController
 
   def new
     @contact_group = ContactGroup.new
-    @members = members_grouped_by_household
+
+    if params[:slideout]
+      render :new_slideout, layout: false
+    end
   end
 
   def create
     @contact_group = ContactGroup.new(contact_group_params)
 
     if @contact_group.save
-      redirect_to admin_contact_groups_path, notice: "Contact group was successfully created."
+      if params[:slideout]
+        render :create_slideout, formats: [:turbo_stream], layout: false
+      else
+        redirect_to admin_messages_path, notice: "Contact group was successfully created."
+      end
+    elsif params[:slideout]
+      render :new_slideout, layout: false, status: :unprocessable_entity
     else
-      @members = members_grouped_by_household
       render :new, status: :unprocessable_entity
     end
   end
 
   def edit
-    @members = members_grouped_by_household
+    if params[:slideout]
+      render :edit_slideout, layout: false
+    end
   end
 
   def update
     if @contact_group.update(contact_group_params)
-      redirect_to admin_contact_groups_path, notice: "Contact group was successfully updated."
+      if params[:slideout]
+        render :update_slideout, formats: [:turbo_stream], layout: false
+      else
+        redirect_to admin_messages_path, notice: "Contact group was successfully updated."
+      end
+    elsif params[:slideout]
+      render :edit_slideout, layout: false, status: :unprocessable_entity
     else
-      @members = members_grouped_by_household
       render :edit, status: :unprocessable_entity
     end
   end
 
   def destroy
     @contact_group.destroy
-    redirect_to admin_contact_groups_path, notice: "Contact group was successfully deleted."
+
+    respond_to do |format|
+      format.turbo_stream { render :destroy_slideout, formats: [:turbo_stream], layout: false }
+      format.html { redirect_to admin_messages_path, notice: "Contact group was successfully deleted." }
+    end
   end
 
   private
@@ -45,13 +65,13 @@ class Admin::ContactGroupsController < Admin::BaseController
     @contact_group = ContactGroup.find(params[:id])
   end
 
-  def contact_group_params
-    params.require(:contact_group).permit(:name, member_ids: [])
-  end
-
-  def members_grouped_by_household
-    Household.includes(:members).order(:name).map do |household|
+  def set_members
+    @members = Household.includes(:members).order(:name).map do |household|
       [household, household.members.order(:first_name)]
     end
+  end
+
+  def contact_group_params
+    params.require(:contact_group).permit(:name, member_ids: [])
   end
 end

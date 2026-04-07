@@ -16,7 +16,7 @@ class Admin::AudioExtractionsController < Admin::BaseController
 
     if @audio_extraction.save
       ExtractAudioJob.perform_later(@audio_extraction.id)
-      redirect_to admin_audio_extraction_path(@audio_extraction), notice: 'Audio extraction started. This may take a minute or two.'
+      redirect_to admin_audio_extraction_path(@audio_extraction)
     else
       render :new, status: :unprocessable_entity
     end

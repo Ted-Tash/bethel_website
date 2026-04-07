@@ -29,13 +29,6 @@
       .card-actions.justify-end
         .badge.badge-primary= "#{Message.count} Messages"
 
-  = link_to admin_contact_groups_path, class: 'card bg-base-100 shadow-md hover:shadow-lg transition-shadow' do
-    .card-body
-      %h2.card-title Contact Groups
-      %p.opacity-60 Organize members into groups for messaging
-      .card-actions.justify-end
-        .badge.badge-primary= "#{ContactGroup.count} Groups"
-
   = link_to admin_audio_extractions_path, class: 'card bg-base-100 shadow-md hover:shadow-lg transition-shadow' do
     .card-body
       %h2.card-title Audio Extractor

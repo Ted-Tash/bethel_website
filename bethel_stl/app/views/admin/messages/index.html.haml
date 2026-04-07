@@ -7,15 +7,16 @@
 .flex.justify-end.mb-6
   = link_to "New Message", new_admin_message_path, class: "btn btn-primary"
 
-.card.bg-base-100.shadow-md
+-# ==================== MESSAGES LIST ====================
+.card.bg-base-100.shadow-md.mb-8
   .card-body
+    %h2.card-title.mb-4 Sent & Scheduled
     - if @messages.any?
       .overflow-x-auto
         %table.table
           %thead
             %tr
               %th Message
-              %th Channel
               %th Recipients
               %th Schedule
               %th Status
@@ -27,8 +28,6 @@
                 %td
                   = link_to admin_message_path(message), class: "link link-hover" do
                     = truncate(message.body, length: 60)
-                %td
-                  .badge.badge-outline.badge-sm= message.channel.upcase
                 %td= message.recipient_label
                 %td.whitespace-nowrap
                   - if message.scheduled_at.present?
@@ -45,6 +44,8 @@
                     .badge.badge-success.badge-sm Sent
                   - when "failed"
                     .badge.badge-error.badge-sm Failed
+                  - when "cancelled"
+                    .badge.badge-neutral.badge-sm Cancelled
                 %td
                   %span.text-success= message.sent_count
                   \/
@@ -55,3 +56,26 @@
       .text-center.py-8
         %p.text-lg.opacity-60 No messages yet.
         %p.opacity-40.mt-1 Send your first SMS message to church members.
+
+-# ==================== CONTACT GROUPS ====================
+.card.bg-base-100.shadow-md
+  .card-body
+    .flex.items-center.justify-between.mb-4
+      %h2.card-title Contact Groups
+      %button.btn.btn-sm.btn-outline{ type: 'button', data: { controller: 'modal', action: 'click->modal#open', modal_target_param: 'new_contact_group_slideout' } }
+        + New Group
+
+    #contact_groups_list
+      = render 'contact_groups_list', contact_groups: @contact_groups
+
+-# New Contact Group slideout
+= render 'admin/shared/slideout', id: 'new_contact_group_slideout',
+    title: 'New Contact Group', size: :lg,
+    turbo_frame: 'new_contact_group_form',
+    turbo_src: new_admin_contact_group_path(slideout: true)
+
+-# Edit Contact Group slideout (src set dynamically per row)
+= render 'admin/shared/slideout', id: 'edit_contact_group_slideout',
+    title: 'Edit Contact Group', size: :lg,
+    turbo_frame: 'edit_contact_group_form',
+    turbo_src: '#'

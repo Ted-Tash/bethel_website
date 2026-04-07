@@ -97,12 +97,15 @@
             .card-body
               .flex.items-start.gap-4
                 .text-center.bg-primary.text-primary-content.rounded-box.p-3{ class: "min-w-[60px]" }
-                  %p.text-sm.font-bold= event.start_time.strftime("%b").upcase
-                  %p.text-2xl.font-bold= event.start_time.strftime("%-d")
+                  %p.text-sm.font-bold= event.starts_at.strftime("%b").upcase
+                  %p.text-2xl.font-bold= event.starts_at.strftime("%-d")
                 .space-y-1
                   %h3.card-title.text-lg= event.title
                   %p.text-sm.opacity-70
-                    = event.start_time.strftime("%-I:%M %p")
+                    - if event.all_day?
+                      All Day
+                    - else
+                      = event.starts_at.strftime("%-I:%M %p")
                     - if event.location.present?
                       = "— #{event.location}"
               - if event.description.present?

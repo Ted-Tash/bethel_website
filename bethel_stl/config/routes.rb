@@ -28,7 +28,11 @@ Rails.application.routes.draw do
 
     resources :households
     resources :contact_groups, except: [:show]
-    resources :messages, only: [:index, :new, :create, :show]
+    resources :messages, only: [:index, :new, :create, :show] do
+      member do
+        patch :cancel
+      end
+    end
   end
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

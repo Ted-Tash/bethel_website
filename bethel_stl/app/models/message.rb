@@ -3,7 +3,7 @@ class Message < ApplicationRecord
   has_many :message_deliveries, dependent: :destroy
 
   enum :channel, { sms: "sms", email: "email" }
-  enum :status, { scheduled: "scheduled", sending: "sending", sent: "sent", failed: "failed" }
+  enum :status, { scheduled: "scheduled", sending: "sending", sent: "sent", failed: "failed", cancelled: "cancelled" }
 
   validates :body, presence: true
 

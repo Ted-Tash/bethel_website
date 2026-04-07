@@ -1,6 +1,100 @@
 %h1.text-3xl.font-bold.mb-8 Events
 
+-# ==================== FLASH MESSAGES ====================
+- if notice.present?
+  .alert.alert-success.mb-6
+    %span= notice
+- if alert.present?
+  .alert.alert-error.mb-6
+    %span= alert
+
+-# ==================== CALENDAR SOURCES ====================
+.card.bg-base-100.shadow-md.mb-8
+  .card-body
+    %h2.card-title.mb-4 Calendar Sources
+    %p.opacity-60.mb-4
+      Add a Google Calendar ID to import events from. You can find it in Google Calendar under
+      %strong Settings → [Your Calendar] → Integrate calendar.
+
+    - if @calendar_sources.any?
+      .overflow-x-auto.mb-6
+        %table.table
+          %thead
+            %tr
+              %th Name
+              %th Calendar ID
+              %th Events
+              %th Actions
+          %tbody
+            - @calendar_sources.each do |source|
+              %tr
+                %td= source.name
+                %td
+                  %code.text-sm= source.google_calendar_id
+                %td
+                  .badge.badge-neutral= source.events.count
+                %td.flex.gap-2
+                  = button_to "Sync Now", admin_events_sync_path(calendar_source_id: source.id), method: :post, class: "btn btn-primary btn-sm"
+                  = button_to "Remove", admin_events_destroy_source_path(id: source.id), method: :delete, class: "btn btn-error btn-outline btn-sm", data: { turbo_confirm: "Remove '#{source.name}' and all its imported events?" }
+
+    .divider
+
+    = form_with model: CalendarSource.new, url: add_source_admin_events_path, class: "flex flex-col sm:flex-row gap-3 items-end" do |f|
+      .form-control.flex-1
+        %label.label
+          %span.label-text Name (e.g. "Bethel Church")
+        = f.text_field :name, class: "input input-bordered w-full", placeholder: "My Calendar", required: true
+      .form-control{ class: "flex-[2]" }
+        %label.label
+          %span.label-text Google Calendar ID
+        = f.text_field :google_calendar_id, class: "input input-bordered w-full", placeholder: "abc123@group.calendar.google.com", required: true
+      = f.submit "Add Calendar", class: "btn btn-primary"
+
+-# ==================== EVENTS LIST ====================
 .card.bg-base-100.shadow-md
-  .card-body.items-center.text-center.py-16
-    %h2.text-xl.font-semibold.opacity-60 Coming Soon
-    %p.opacity-40.mt-2 Event management will be available in a future update.
+  .card-body
+    %h2.card-title.mb-4 Upcoming Events
+    %p.opacity-60.mb-4
+      Events imported from your calendars. Toggle
+      %strong "Make Public"
+      to show an event on the website.
+
+    - if @events.any?
+      .overflow-x-auto
+        %table.table
+          %thead
+            %tr
+              %th Public
+              %th Event
+              %th Date & Time
+              %th Location
+              %th Source
+              %th Action
+          %tbody
+            - @events.each do |event|
+              %tr{ class: event.public? ? "" : "opacity-50" }
+                %td
+                  - if event.public?
+                    .badge.badge-success.badge-sm ✓ Public
+                  - else
+                    .badge.badge-ghost.badge-sm Hidden
+                %td
+                  .font-semibold= event.title
+                  - if event.description.present?
+                    %p.text-sm.opacity-60.max-w-xs.truncate= event.description
+                %td.whitespace-nowrap
+                  - if event.all_day?
+                    = event.starts_at.strftime("%b %-d, %Y")
+                    %span.badge.badge-outline.badge-sm.ml-1 All Day
+                  - else
+                    = event.starts_at.strftime("%b %-d, %Y %-I:%M %p")
+                %td= event.location.presence || "—"
+                %td
+                  .badge.badge-outline.badge-sm= event.calendar_source.name
+                %td
+                  = button_to admin_event_toggle_public_path(event), method: :patch, class: "btn btn-sm #{event.public? ? 'btn-warning' : 'btn-success'}" do
+                    = event.public? ? "Hide" : "Make Public"
+    - else
+      .text-center.py-8
+        %p.text-lg.opacity-60 No upcoming events yet.
+        %p.opacity-40.mt-1 Add a calendar source above and hit "Sync Now" to import events.

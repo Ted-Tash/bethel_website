@@ -2,7 +2,7 @@
 - url = household.persisted? ? admin_household_path(household, slideout: slideout || nil) : admin_households_path(slideout: slideout || nil)
 - method = household.persisted? ? :patch : :post
 
-= form_with model: [:admin, household], url: url, method: method, data: { controller: 'nested-form', nested_form_max_value: 2 } do |f|
+= form_with model: [:admin, household], url: url, method: method, data: { controller: 'nested-form' } do |f|
   - if household.errors.any?
     .alert.alert-error.mb-6
       %ul

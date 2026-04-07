@@ -1,6 +1,7 @@
 class Admin::MessagesController < Admin::BaseController
   def index
     @messages = Message.recent.includes(:contact_group)
+    @contact_groups = ContactGroup.order(:name)
   end
 
   def new
@@ -33,6 +34,17 @@ class Admin::MessagesController < Admin::BaseController
   def show
     @message = Message.find(params[:id])
     @deliveries = @message.message_deliveries.includes(:member).order(:created_at)
+  end
+
+  def cancel
+    @message = Message.find(params[:id])
+
+    if @message.scheduled?
+      @message.update!(status: :cancelled)
+      redirect_to admin_message_path(@message), notice: "Message has been cancelled."
+    else
+      redirect_to admin_message_path(@message), alert: "This message can no longer be cancelled."
+    end
   end
 
   private

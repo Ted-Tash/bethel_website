@@ -1,0 +1,27 @@
+#audio_extraction_container
+  .card.bg-base-100.shadow-md
+    .card-body
+      .flex.items-center.justify-between.mb-6
+        %h2.card-title= audio_extraction.display_name
+        %span.badge.badge-info.badge-lg
+          %span.loading.loading-spinner.loading-xs
+          Extracting...
+
+      .space-y-4
+        .grid.grid-cols-2.gap-4
+          %div
+            %p.text-sm.font-semibold.opacity-60 YouTube URL
+            %p= link_to audio_extraction.youtube_url, audio_extraction.youtube_url, target: '_blank', class: 'link link-primary break-all'
+          %div
+            %p.text-sm.font-semibold.opacity-60 Time Range
+            - if audio_extraction.start_time.present? || audio_extraction.end_time.present?
+              %p= [audio_extraction.start_time, audio_extraction.end_time].compact.join(' - ')
+            - else
+              %p.opacity-50 Full video
+
+        .divider
+
+        .py-8.text-center{ data: { controller: 'verb-spinner' } }
+          %span.loading.loading-spinner.loading-lg.text-primary
+          %p.text-2xl.font-bold.mt-6.text-primary{ data: { verb_spinner_target: 'word' } }
+          %p.text-sm.text-base-content.opacity-50.mt-2.max-w-sm.mx-auto{ data: { verb_spinner_target: 'message' } }
