@@ -4,48 +4,9 @@
     .max-w-3xl
       %h1.text-5xl.font-bold Giving
       %p.py-6.text-lg.opacity-80
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Your generosity makes a difference.
+        Your generosity supports the ministry of Bethel Community Church. Thank you for your faithful giving.
 
--# ==================== SCRIPTURE QUOTE ====================
-.bg-primary.text-primary-content.py-12
-  .max-w-4xl.mx-auto.px-4.text-center
-    %blockquote.text-2xl.italic.mb-4
-      &ldquo;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-      et dolore magna aliqua.&rdquo;
-    %p.text-lg.opacity-80 &mdash; Lorem Ipsum 0:00
-
--# ==================== WAYS TO GIVE ====================
+-# ==================== GIVING FORM ====================
 .bg-base-100.py-16
-  .max-w-7xl.mx-auto.px-4
-    %h2.text-4xl.font-bold.text-center.mb-12 Ways to Give
-    .grid.grid-cols-1.md:grid-cols-3.gap-8
-
-      .card.bg-base-200.shadow-lg
-        .card-body.items-center.text-center
-          .mb-4
-            %svg.h-16.w-16.text-primary{ xmlns: "http://www.w3.org/2000/svg", fill: "none", viewBox: "0 0 24 24", stroke: "currentColor" }
-              %path{ "stroke-linecap" => "round", "stroke-linejoin" => "round", "stroke-width" => "2", d: "M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" }
-          %h3.card-title.text-xl Online
-          %p.opacity-70 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor.
-          .card-actions.mt-4
-            = link_to 'Give Online', '#', class: 'btn btn-primary'
-
-      .card.bg-base-200.shadow-lg
-        .card-body.items-center.text-center
-          .mb-4
-            %svg.h-16.w-16.text-primary{ xmlns: "http://www.w3.org/2000/svg", fill: "none", viewBox: "0 0 24 24", stroke: "currentColor" }
-              %path{ "stroke-linecap" => "round", "stroke-linejoin" => "round", "stroke-width" => "2", d: "M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" }
-          %h3.card-title.text-xl In Person
-          %p.opacity-70 Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.
-          .card-actions.mt-4
-            = link_to 'Service Times', root_path(anchor: 'service-times'), class: 'btn btn-outline btn-primary'
-
-      .card.bg-base-200.shadow-lg
-        .card-body.items-center.text-center
-          .mb-4
-            %svg.h-16.w-16.text-primary{ xmlns: "http://www.w3.org/2000/svg", fill: "none", viewBox: "0 0 24 24", stroke: "currentColor" }
-              %path{ "stroke-linecap" => "round", "stroke-linejoin" => "round", "stroke-width" => "2", d: "M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" }
-          %h3.card-title.text-xl By Mail
-          %p.opacity-70 Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat.
-          .card-actions.mt-4
-            = link_to 'Get Address', root_path, class: 'btn btn-outline btn-primary'
+  .max-w-3xl.mx-auto.px-4
+    %script{ src: "https://forms.ministryforms.net/embed.aspx?formId=0ff0a197-1a2b-47cc-b604-99da1c458dd4&custom-templates=" }

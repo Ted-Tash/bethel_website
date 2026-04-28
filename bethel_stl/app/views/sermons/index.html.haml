@@ -4,47 +4,84 @@
     .max-w-3xl
       %h1.text-5xl.font-bold Sermons
       %p.py-6.text-lg.opacity-80
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Explore our lorem ipsum teachings.
+        Listen to recent messages from Bethel Community Church. Each week, our pastors open God's Word to encourage, challenge, and equip our church family.
 
 -# ==================== YOUTUBE CTA ====================
 .bg-base-100.py-16
   .max-w-7xl.mx-auto.px-4.text-center
     %h2.text-4xl.font-bold.mb-4 Watch on YouTube
     %p.text-lg.opacity-80.mb-8.max-w-2xl.mx-auto
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Subscribe to our channel for weekly sermons.
+      Can't make it on Sunday? Watch our sermons live or catch up anytime on our YouTube channel.
     = link_to 'Visit Our Channel', 'https://www.youtube.com/channel/UCFrJtSIyNcu3Lv2p-1q7AFQ/live', class: 'btn btn-primary btn-lg', target: '_blank', rel: 'noopener noreferrer'
 
 -# ==================== FEATURED SERMON ====================
 .bg-base-200.py-16
   .max-w-7xl.mx-auto.px-4
-    %h2.text-4xl.font-bold.text-center.mb-12 Featured Sermon
-    .card.lg:card-side.bg-base-200.shadow-xl
-      %figure{ class: "lg:w-1/2" }
-        %img.w-full.h-full.object-cover{ class: "min-h-[300px]", src: "https://picsum.photos/seed/bethel-sermon-featured/800/500", alt: "Featured Sermon", loading: "lazy" }
-      .card-body{ class: "lg:w-1/2" }
-        .badge.badge-primary.mb-2 Latest
-        %h3.card-title.text-2xl Lorem Ipsum Dolor Sit Amet
-        %p.opacity-70.text-sm January 12, 2026 &mdash; John Doe
-        %p.mt-4
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-          magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-          consequat.
-        .card-actions.mt-4
-          = link_to 'Watch Sermon', '#', class: 'btn btn-primary'
+    - if @feed_error
+      .alert.alert-warning.max-w-2xl.mx-auto
+        %span Sermons are temporarily unavailable. Please check back later or visit our
+        = link_to "sermon archive", "https://sermons.bethelstl.com/", class: "link link-primary", target: "_blank", rel: "noopener noreferrer"
+    - elsif @featured_sermon
+      %h2.text-4xl.font-bold.text-center.mb-12 Featured Sermon
+      .card.bg-base-100.shadow-xl
+        .card-body
+          .badge.badge-primary.mb-2 Latest
+          - if @featured_sermon[:series]
+            .badge.badge-outline.mb-2= @featured_sermon[:series]
+          %h3.card-title.text-2xl= @featured_sermon[:title]
+          %p.opacity-70.text-sm
+            = @featured_sermon[:date].strftime("%B %-d, %Y")
+            &mdash;
+            = @featured_sermon[:speaker]
+            - if @featured_sermon[:duration]
+              %span.ml-2
+                %svg.inline.h-4.w-4.opacity-50{ xmlns: "http://www.w3.org/2000/svg", fill: "none", viewBox: "0 0 24 24", "stroke-width" => "1.5", stroke: "currentColor" }
+                  %path{ "stroke-linecap" => "round", "stroke-linejoin" => "round", d: "M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" }
+                = @featured_sermon[:duration]
+          - if @featured_sermon[:summary]
+            %p.mt-4.opacity-80= @featured_sermon[:summary]
+          .card-actions.mt-4
+            - if @featured_sermon[:audio_url]
+              %audio.w-full.mt-2{ controls: true, preload: "none" }
+                %source{ src: @featured_sermon[:audio_url], type: "audio/mpeg" }
+            = link_to @featured_sermon[:link], class: "btn btn-primary btn-sm mt-2", target: "_blank", rel: "noopener noreferrer" do
+              View on Sermon Archive
+              %svg.h-4.w-4.ml-1{ xmlns: "http://www.w3.org/2000/svg", fill: "none", viewBox: "0 0 24 24", "stroke-width" => "1.5", stroke: "currentColor" }
+                %path{ "stroke-linecap" => "round", "stroke-linejoin" => "round", d: "M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" }
 
 -# ==================== SERMON ARCHIVE ====================
-.bg-base-100.py-16
-  .max-w-7xl.mx-auto.px-4
-    %h2.text-4xl.font-bold.text-center.mb-12 Recent Sermons
-    .grid.grid-cols-1.md:grid-cols-2.lg:grid-cols-3.gap-8
-
-      - [['Lorem Ipsum Veritas', 'Dec 29, 2025', 'John Doe', 'bethel-sermon1'], ['Dolor Sit Amet Fides', 'Dec 22, 2025', 'Jane Smith', 'bethel-sermon2'], ['Consectetur Spes', 'Dec 15, 2025', 'John Doe', 'bethel-sermon3'], ['Adipiscing Caritas', 'Dec 8, 2025', 'Bob Johnson', 'bethel-sermon4'], ['Eiusmod Tempor Pax', 'Dec 1, 2025', 'John Doe', 'bethel-sermon5'], ['Veniam Nostrud Gratia', 'Nov 24, 2025', 'Jane Smith', 'bethel-sermon6']].each do |title, date, speaker, seed|
-        .card.bg-base-100.shadow-lg
-          %figure
-            %img.h-48.w-full.object-cover{ src: "https://picsum.photos/seed/#{seed}/600/400", alt: title, loading: "lazy" }
-          .card-body
-            %h3.card-title= title
-            %p.text-sm.opacity-60= "#{date} — #{speaker}"
-            %p.opacity-70 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.
-            .card-actions.justify-end
-              = link_to 'Watch', '#', class: 'btn btn-primary btn-sm'
+- if @sermons.present?
+  .bg-base-100.py-16
+    .max-w-7xl.mx-auto.px-4
+      %h2.text-4xl.font-bold.text-center.mb-12 Recent Sermons
+      .grid.grid-cols-1.md:grid-cols-2.lg:grid-cols-3.gap-8
+        - @sermons.first(12).each do |sermon|
+          .card.bg-base-200.shadow-lg
+            .card-body
+              - if sermon[:series]
+                .badge.badge-outline.badge-sm.mb-1= sermon[:series]
+              %h3.card-title.text-lg= sermon[:title]
+              %p.text-sm.opacity-60
+                = sermon[:date].strftime("%B %-d, %Y")
+                — #{sermon[:speaker]}
+              - if sermon[:duration]
+                %p.text-xs.opacity-50
+                  %svg.inline.h-3.w-3.mr-1{ xmlns: "http://www.w3.org/2000/svg", fill: "none", viewBox: "0 0 24 24", "stroke-width" => "1.5", stroke: "currentColor" }
+                    %path{ "stroke-linecap" => "round", "stroke-linejoin" => "round", d: "M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" }
+                  = sermon[:duration]
+              - if sermon[:summary]
+                %p.mt-2.text-sm.opacity-70.line-clamp-3= sermon[:summary]
+              .card-actions.justify-end.mt-4
+                - if sermon[:audio_url]
+                  .dropdown.dropdown-top.dropdown-end
+                    %div{ tabindex: "0", role: "button", class: "btn btn-ghost btn-sm" }
+                      %svg.h-4.w-4{ xmlns: "http://www.w3.org/2000/svg", fill: "none", viewBox: "0 0 24 24", "stroke-width" => "1.5", stroke: "currentColor" }
+                        %path{ "stroke-linecap" => "round", "stroke-linejoin" => "round", d: "M19.114 5.636a9 9 0 0 1 0 12.728M16.463 8.288a5.25 5.25 0 0 1 0 7.424M6.75 8.25l4.72-4.72a.75.75 0 0 1 1.28.53v15.88a.75.75 0 0 1-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.009 9.009 0 0 1 2.25 12c0-.83.112-1.633.322-2.396C2.806 8.756 3.63 8.25 4.51 8.25H6.75Z" }
+                      Listen
+                    .dropdown-content.z-10.p-4.shadow-xl.bg-base-200.rounded-box.w-72{ tabindex: "0" }
+                      %audio.w-full{ controls: true, preload: "none" }
+                        %source{ src: sermon[:audio_url], type: "audio/mpeg" }
+                = link_to sermon[:link], class: "btn btn-primary btn-sm", target: "_blank", rel: "noopener noreferrer" do
+                  View
+                  %svg.h-3.w-3.ml-1{ xmlns: "http://www.w3.org/2000/svg", fill: "none", viewBox: "0 0 24 24", "stroke-width" => "1.5", stroke: "currentColor" }
+                    %path{ "stroke-linecap" => "round", "stroke-linejoin" => "round", d: "M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" }
