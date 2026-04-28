@@ -18,9 +18,11 @@
       %span.label-text Members
     .bg-base-200.rounded-lg.p-4.max-h-72.overflow-y-auto
       - @members.each do |household, members|
-        .mb-3
-          %h4.font-semibold.text-sm.opacity-70.mb-1= household.name
-          .ml-4.space-y-1
+        .mb-3{ data: { controller: "select-all-household" } }
+          .flex.items-center.gap-2.mb-1
+            %h4.font-semibold.text-sm.opacity-70= household.name
+            %button.btn.btn-ghost.btn-xs.opacity-50{ type: "button", data: { action: "click->select-all-household#toggleAll" } } select all
+          .ml-4.space-y-1{ data: { "select-all-household-target" => "checkboxes" } }
             - members.each do |member|
               %label.flex.items-center.gap-2.cursor-pointer
                 = check_box_tag "contact_group[member_ids][]", member.id, contact_group.member_ids.include?(member.id), class: "checkbox checkbox-sm checkbox-primary"
