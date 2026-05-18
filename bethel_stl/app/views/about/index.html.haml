@@ -1,10 +1,9 @@
--# ==================== HERO ====================
-.hero.py-20.bg-base-200
-  .hero-content.text-center
-    .max-w-3xl
-      %h1.text-5xl.font-bold About Us
-      %p.py-6.text-lg.opacity-80
-        Knowing Jesus, Making Jesus Known
+- content_for :hero_image, "balcony_worship.png"
+- content_for :hero do
+  .max-w-3xl
+    %h1.text-5xl.font-bold About Us
+    %p.py-6.text-lg.opacity-80
+      Knowing Jesus, Making Jesus Known
 
 -# ==================== OUR STORY ====================
 .bg-base-100.py-16
@@ -25,7 +24,7 @@
           and of the Son and of the Holy Spirit, and teaching them to obey everything I have
           commanded you."
           %span.block.mt-2.not-italic.font-semibold — Matthew 28:19-20
-      %img.rounded-box.shadow-lg.w-full.h-80.object-cover{ src: "https://picsum.photos/seed/bethel-story/800/600", alt: "Our Story", loading: "lazy" }
+      = image_tag "lady_prayer_landscape.png", class: "rounded-box shadow-lg w-full h-80 object-cover", alt: "Our Story", loading: "lazy"
 
 -# ==================== OUR VALUES ====================
 .bg-base-200.py-16
@@ -166,7 +165,7 @@
             bliss in the new heavens and new earth.
 
 -# ==================== LEADERSHIP ====================
-- leaders = [["David Baumgartner", "Elder", "bethel-leader1"], ["John Kloeppel", "Elder", "bethel-leader2"], ["Tom Grass", "Elder", "bethel-leader3"], ["Kevin Stiles", "Elder", "bethel-leader4"], ["Jeff Smith", "Elder", "bethel-leader5"], ["Ted Tash", "Deacon", "bethel-leader6"], ["David Vinyard", "Deacon", "bethel-leader7"], ["Kent Stiles", "Deacon", "bethel-leader8"], ["Brad Kloeppel", "Deacon", "bethel-leader9"]]
+- leaders = [["David Baumgartner", "Elder", "dave_maryellen.png"], ["John Kloeppel", "Elder", "john_deb.png"], ["Tom Grass", "Elder", "tom_nikki.png"], ["Kevin Stiles", "Elder", "kevin_jill.png"], ["Jeff Smith", "Elder", "jeff_theresa.png"], ["Ted Tash", "Deacon", "ted_lyd.png"], ["David Vinyard", "Deacon", "david_amy.png"], ["Kent Stiles", "Deacon", nil], ["Brad Kloeppel", "Deacon", "brad_anna.png"]]
 .bg-base-200.py-16
   .max-w-7xl.mx-auto.px-4
     %h2.text-4xl.font-bold.text-center.mb-12 Leadership
@@ -174,35 +173,32 @@
       %button.btn.btn-circle.btn-lg{ data: { action: 'click->carousel#scrollLeft' }, "aria-label" => "Previous" }
         &#10094;
       .carousel.carousel-center.gap-6.w-full.py-4{ data: { carousel_target: 'track' } }
-        - leaders.each_with_index do |(name, role, seed), index|
-          - modal_id = "leader_modal_#{index}"
+        - leaders.each do |name, role, image|
           .carousel-item
-            .card.bg-base-100.shadow-lg.cursor-pointer.hover:shadow-xl.transition-shadow.w-64{ onclick: "#{modal_id}.showModal()" }
+            .card.bg-base-100.shadow-lg.w-64
               %figure
-                %img.h-64.w-full.object-cover{ src: "https://picsum.photos/seed/#{seed}/400/500", alt: name, loading: "lazy" }
+                - if image
+                  = image_tag image, class: "h-64 w-full object-cover", alt: name, loading: "lazy"
+                - else
+                  %img.h-64.w-full.object-cover{ src: "https://picsum.photos/seed/#{name.parameterize}/400/500", alt: name, loading: "lazy" }
               .card-body.items-center.text-center
                 %h3.card-title= name
                 %p.opacity-70= role
       %button.btn.btn-circle.btn-lg{ data: { action: 'click->carousel#scrollRight' }, "aria-label" => "Next" }
         &#10095;
-    -# Leadership modals
-    - bios = { "David Baumgartner" => ["David and Mary Ellen were born and raised in St. Louis, Missouri. They both came to Christ during the \"Jesus Movement\" in the 70's and, after living many years in Colorado and Kansas, returned home to St. Louis in 1995. They celebrated their 40th wedding anniversary in January of 2017, and currently have two grown children and four grandchildren.", "David was in full-time ministry at Bethel from 1999 until his retirement in 2024. He serves as an elder and completed a Masters Degree in Divinity from Covenant Theological Seminary in 2010. He continues to serve in the music and speaking ministry."], "Tom Grass" => ["Tom has served as an elder at Bethel since 2012. He and his wife Nikki live in Hillsboro, Missouri, and have been blessed with five children and ten grandchildren.", "Tom's heart for shepherding and his deep roots in the community make him a steady and faithful leader in the life of our church."], "Jeff Smith" => ["Jeff has served as an elder at Bethel since 2023. He and his wife Theresa live in South St. Louis and are raising five children together.", "Jeff has a passion for the Word and for building up the body of Christ. His commitment to his family and to the church is evident in everything he does."], "Ted Tash" => ["Ted has served as a deacon at Bethel since 2019. He and his wife Lydia, who grew up at Bethel, live in Hillsboro, Missouri, with their three children.", "Ted has been attending Bethel since 2013. His love for this church and its people drives his faithful service as a deacon."], "Brad Kloeppel" => ["Brad has served as a deacon at Bethel since 2019. He and his wife Anna live in Fenton with their three children.", "Brad has been part of the Bethel family since childhood. Growing up in the church gave him a deep love for this congregation, and he is grateful for the opportunity to serve as a deacon."], "John Kloeppel" => ["John is a founding member of Bethel and has been part of the church since its inception. He serves as an elder and lives in South County with his wife Debbie. Together they have fourteen grandchildren.", "John's faithfulness from the very beginning of Bethel's story is a testament to his deep commitment to the Lord and to this church family."] }
-    - leaders.each_with_index do |(name, role, seed), index|
-      - modal_id = "leader_modal_#{index}"
-      %dialog.modal{ id: modal_id }
-        .modal-box.max-w-2xl
-          %div.flex.justify-between.items-center.mb-4
-            %h3.text-2xl.font-bold= name
-            %form{ method: "dialog" }
-              %button.btn.btn-sm.btn-circle.btn-ghost ✕
-          %p.text-sm.opacity-60.mb-4= role
-          - if bios[name]
-            - bios[name].each do |paragraph|
-              %p.opacity-80.mt-4= paragraph
-          - else
-            %p.opacity-80 Bio coming soon.
-        %form.modal-backdrop{ method: "dialog" }
-          %button close
+
+    -# Commended Workers
+    .mt-16.max-w-3xl.mx-auto
+      %h3.text-3xl.font-bold.text-center.mb-8 Commended Workers
+      .card.bg-base-100.shadow-lg.lg:card-side
+        %figure{ class: "lg:w-1/2" }
+          = image_tag "noah_family.png", class: "h-full w-full object-cover", alt: "Noah and Lacy Agnew", loading: "lazy"
+        .card-body
+          %h3.card-title.text-2xl Noah & Lacy Agnew
+          %p.opacity-70
+            Noah and Lacy have been serving in full-time ministry at Turkey Hill Ranch Bible Camp
+            since 2019. Bethel is proud to support their dedication to sharing the gospel and
+            mentoring young people through camp ministry.
 
 -# ==================== VISIT CTA ====================
 .bg-primary.text-primary-content.py-16

@@ -1,24 +1,23 @@
--# ==================== HERO ====================
-.hero{ class: "min-h-[70vh]", style: "background-image: url(https://picsum.photos/seed/bethel-hero/1920/1080);" }
-  .hero-overlay.bg-opacity-60
-  .hero-content.text-center.text-neutral-content
-    .max-w-2xl
-      %h1.text-5xl.font-bold.mb-4 Knowing Jesus, Making Jesus Known
-      .flex.gap-4.justify-center.flex-wrap
-        = link_to @youtube_url, class: 'btn btn-primary btn-lg', target: '_blank', rel: 'noopener noreferrer' do
-          %svg.h-5.w-5{ xmlns: "http://www.w3.org/2000/svg", fill: "currentColor", viewBox: "0 0 24 24" }
-            %path{ d: "M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" }
-          Watch Live
-        = link_to sermons_path, class: 'btn btn-outline btn-lg text-white border-white hover:bg-white hover:text-black' do
-          %svg.h-5.w-5{ xmlns: "http://www.w3.org/2000/svg", fill: "none", viewBox: "0 0 24 24", stroke: "currentColor" }
-            %path{ "stroke-linecap" => "round", "stroke-linejoin" => "round", "stroke-width" => "2", d: "M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" }
-          Recent Sermons
+- content_for :hero_tall, "true"
+- content_for :hero_image, "jeff_annoucements.png"
+- content_for :hero do
+  .max-w-2xl
+    %h1.text-5xl.font-bold.mb-4 Knowing Jesus, Making Jesus Known
+    .flex.gap-4.justify-center.flex-wrap
+      = link_to @youtube_url, class: 'btn btn-primary btn-lg', target: '_blank', rel: 'noopener noreferrer' do
+        %svg.h-5.w-5{ xmlns: "http://www.w3.org/2000/svg", fill: "currentColor", viewBox: "0 0 24 24" }
+          %path{ d: "M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" }
+        Watch Live
+      = link_to sermons_path, class: 'btn btn-outline btn-lg text-white border-white hover:bg-white hover:text-black' do
+        %svg.h-5.w-5{ xmlns: "http://www.w3.org/2000/svg", fill: "none", viewBox: "0 0 24 24", stroke: "currentColor" }
+          %path{ "stroke-linecap" => "round", "stroke-linejoin" => "round", "stroke-width" => "2", d: "M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" }
+        Recent Sermons
 
 -# ==================== WELCOME ====================
 .bg-base-200.py-16
   .max-w-7xl.mx-auto.px-4
     .grid.grid-cols-1.lg:grid-cols-2.gap-12.items-center
-      %img.rounded-box.shadow-lg.w-full.h-80.object-cover{ src: "https://picsum.photos/seed/bethel-welcome/800/600", alt: "Welcome", loading: "lazy" }
+      = image_tag "balcony_worship.png", class: "rounded-box shadow-lg w-full h-80 object-cover", alt: "Welcome", loading: "lazy"
       .space-y-6
         %h2.text-4xl.font-bold Bethel Community Church
         %p.text-lg.opacity-80
@@ -75,13 +74,13 @@
 
       = link_to daycare_index_path, class: 'card bg-base-100 shadow-lg hover:shadow-xl transition-shadow' do
         %figure
-          %img.h-48.w-full.object-cover{ src: "https://picsum.photos/seed/bethel-involve1/600/400", alt: "Bethel Christian Daycare", loading: "lazy" }
+          = image_tag "daycare_placeholder.svg", class: "h-48 w-full object-cover", alt: "Bethel Christian Daycare", loading: "lazy"
         .card-body
           %h3.card-title Bethel Christian Daycare
 
       = link_to 'https://dayspringbiblecamp.org/', class: 'card bg-base-100 shadow-lg hover:shadow-xl transition-shadow', target: '_blank', rel: 'noopener noreferrer' do
         %figure
-          %img.h-48.w-full.object-cover{ src: "https://picsum.photos/seed/bethel-involve2/600/400", alt: "Dayspring Bible Camp", loading: "lazy" }
+          = image_tag "dayspring_logo.png", class: "h-48 w-full object-contain p-4", alt: "Dayspring Bible Camp", loading: "lazy"
         .card-body
           %h3.card-title Dayspring Bible Camp
 
