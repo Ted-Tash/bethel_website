@@ -165,26 +165,27 @@
             bliss in the new heavens and new earth.
 
 -# ==================== LEADERSHIP ====================
-- leaders = [["David Baumgartner", "Elder", "dave_maryellen.png"], ["John Kloeppel", "Elder", "john_deb.png"], ["Tom Grass", "Elder", "tom_nikki.png"], ["Kevin Stiles", "Elder", "kevin_jill.png"], ["Jeff Smith", "Elder", "jeff_theresa.png"], ["Ted Tash", "Deacon", "ted_lyd.png"], ["David Vinyard", "Deacon", "david_amy.png"], ["Kent Stiles", "Deacon", nil], ["Brad Kloeppel", "Deacon", "brad_anna.png"]]
+- leaders = [["David Baumgartner", "Elder", "dave_maryellen.png"], ["John Kloeppel", "Elder", "john_deb.png"], ["Tom Grass", "Elder", "tom_nikki.png"], ["Kevin Stiles", "Elder", "kevin_jill.png"], ["Jeff Smith", "Elder", "jeff_theresa.png"], ["Ted Tash", "Deacon", "ted_lyd.png"], ["David Vinyard", "Deacon", "david_amy.png"], ["Kent Stiles", "Deacon", "Kent_nicole.png"], ["Brad Kloeppel", "Deacon", "brad_anna.png"]]
 .bg-base-200.py-16
   .max-w-7xl.mx-auto.px-4
     %h2.text-4xl.font-bold.text-center.mb-12 Leadership
     .flex.items-center.gap-4{ data: { controller: 'carousel' } }
-      %button.btn.btn-circle.btn-lg{ data: { action: 'click->carousel#scrollLeft' }, "aria-label" => "Previous" }
+      %button.btn.btn-circle.btn-lg.text-3xl.w-16.h-16{ data: { action: 'click->carousel#scrollLeft' }, "aria-label" => "Previous" }
         &#10094;
-      .carousel.carousel-center.gap-6.w-full.py-4{ data: { carousel_target: 'track' } }
-        - leaders.each do |name, role, image|
-          .carousel-item
-            .card.bg-base-100.shadow-lg.w-64
-              %figure
-                - if image
-                  = image_tag image, class: "h-64 w-full object-cover", alt: name, loading: "lazy"
-                - else
-                  %img.h-64.w-full.object-cover{ src: "https://picsum.photos/seed/#{name.parameterize}/400/500", alt: name, loading: "lazy" }
-              .card-body.items-center.text-center
-                %h3.card-title= name
-                %p.opacity-70= role
-      %button.btn.btn-circle.btn-lg{ data: { action: 'click->carousel#scrollRight' }, "aria-label" => "Next" }
+      .card.bg-base-100.shadow-xl.overflow-hidden.flex-1.min-w-0
+        .carousel.carousel-center.gap-6.w-full.py-6.px-4{ data: { carousel_target: 'track' } }
+          - leaders.each do |name, role, image|
+            .carousel-item
+              .card.bg-base-200.shadow-lg.w-64
+                %figure
+                  - if image
+                    = image_tag image, class: "h-64 w-full object-cover", alt: name, loading: "lazy"
+                  - else
+                    %img.h-64.w-full.object-cover{ src: "https://picsum.photos/seed/#{name.parameterize}/400/500", alt: name, loading: "lazy" }
+                .card-body.items-center.text-center
+                  %h3.card-title= name
+                  %p.opacity-70= role
+      %button.btn.btn-circle.btn-lg.text-3xl.w-16.h-16{ data: { action: 'click->carousel#scrollRight' }, "aria-label" => "Next" }
         &#10095;
 
     -# Commended Workers
