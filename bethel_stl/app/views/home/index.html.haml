@@ -30,40 +30,69 @@
 -# ==================== SERVICE TIMES PREVIEW ====================
 #service-times.bg-base-100.py-16
   .max-w-7xl.mx-auto.px-4
-    %h2.text-4xl.font-bold.text-center.mb-12 Service Times
-    .grid.grid-cols-1.md:grid-cols-3.gap-8
-      .card.bg-base-200.shadow-lg
-        .card-body.items-center.text-center
-          .flex.items-center.gap-2
-            %h3.card-title.text-xl Lord's Supper
-            .tooltip.tooltip-bottom{ data: { tip: '"This is my body, which is for you. Do this in remembrance of me." "This cup is the new covenant in my blood. Do this, as often as you drink it, in remembrance of me." — 1 Corinthians 11:24–25 ESV' } }
-              %svg.h-5.w-5.text-primary.cursor-help{ xmlns: "http://www.w3.org/2000/svg", fill: "none", viewBox: "0 0 24 24", stroke: "currentColor", "stroke-width" => "2" }
-                %path{ "stroke-linecap" => "round", "stroke-linejoin" => "round", d: "M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" }
-          .divider
-          %p.text-3xl.font-bold 9:00 AM
-          %p.opacity-70 Sundays
+    - if summer_schedule?
+      %h2.text-4xl.font-bold.text-center.mb-2 Service Times<span class="text-2xl">*</span>
+      %p.text-center.opacity-60.mb-12 *summer schedule, normal schedule resumes after Labor Day
+      -# Summer schedule: Memorial Day through Labor Day
+      .grid.grid-cols-1.md:grid-cols-2.gap-8.max-w-3xl.mx-auto
+        .card.bg-base-200.shadow-lg
+          .card-body.items-center.text-center
+            .flex.items-center.gap-2
+              %h3.card-title.text-xl Lord's Supper
+              .tooltip.tooltip-bottom{ data: { tip: '"This is my body, which is for you. Do this in remembrance of me." "This cup is the new covenant in my blood. Do this, as often as you drink it, in remembrance of me." — 1 Corinthians 11:24–25 ESV' } }
+                %svg.h-5.w-5.text-primary.cursor-help{ xmlns: "http://www.w3.org/2000/svg", fill: "none", viewBox: "0 0 24 24", stroke: "currentColor", "stroke-width" => "2" }
+                  %path{ "stroke-linecap" => "round", "stroke-linejoin" => "round", d: "M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" }
+            .divider
+            %p.text-3xl.font-bold 9:00 - 10:00 AM
+            %p.opacity-70 Sundays
 
-      .card.bg-base-200.shadow-lg
-        .card-body.items-center.text-center
-          .flex.items-center.gap-2
-            %h3.card-title.text-xl Sunday School
-            .tooltip.tooltip-bottom{ data: { tip: '"Do your best to present yourself to God as one approved, a worker who has no need to be ashamed, rightly handling the word of truth." — 2 Timothy 2:15 ESV' } }
-              %svg.h-5.w-5.text-primary.cursor-help{ xmlns: "http://www.w3.org/2000/svg", fill: "none", viewBox: "0 0 24 24", stroke: "currentColor", "stroke-width" => "2" }
-                %path{ "stroke-linecap" => "round", "stroke-linejoin" => "round", d: "M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" }
-          .divider
-          %p.text-3xl.font-bold 10:00 AM
-          %p.opacity-70 Sundays
+        .card.bg-base-200.shadow-lg
+          .card-body.items-center.text-center
+            .flex.items-center.gap-2
+              %h3.card-title.text-xl Family Bible Hour
+              .tooltip.tooltip-bottom{ data: { tip: '"And they devoted themselves to the apostles\' teaching and the fellowship, to the breaking of bread and the prayers." — Acts 2:42 ESV' } }
+                %svg.h-5.w-5.text-primary.cursor-help{ xmlns: "http://www.w3.org/2000/svg", fill: "none", viewBox: "0 0 24 24", stroke: "currentColor", "stroke-width" => "2" }
+                  %path{ "stroke-linecap" => "round", "stroke-linejoin" => "round", d: "M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" }
+            .divider
+            %p.text-3xl.font-bold 10:30 - 11:30 AM
+            %p.opacity-70 Sundays
 
-      .card.bg-base-200.shadow-lg
-        .card-body.items-center.text-center
-          .flex.items-center.gap-2
-            %h3.card-title.text-xl Worship, Preaching & Jr. Church
-            .tooltip.tooltip-bottom{ data: { tip: '"And they devoted themselves to the apostles\' teaching and the fellowship, to the breaking of bread and the prayers." — Acts 2:42 ESV' } }
-              %svg.h-5.w-5.text-primary.cursor-help{ xmlns: "http://www.w3.org/2000/svg", fill: "none", viewBox: "0 0 24 24", stroke: "currentColor", "stroke-width" => "2" }
-                %path{ "stroke-linecap" => "round", "stroke-linejoin" => "round", d: "M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" }
-          .divider
-          %p.text-3xl.font-bold 11 AM - Noon
-          %p.opacity-70 Sundays
+    - else
+      %h2.text-4xl.font-bold.text-center.mb-12 Service Times
+      -# Regular schedule: Labor Day through Memorial Day
+      .grid.grid-cols-1.md:grid-cols-3.gap-8
+        .card.bg-base-200.shadow-lg
+          .card-body.items-center.text-center
+            .flex.items-center.gap-2
+              %h3.card-title.text-xl Lord's Supper
+              .tooltip.tooltip-bottom{ data: { tip: '"This is my body, which is for you. Do this in remembrance of me." "This cup is the new covenant in my blood. Do this, as often as you drink it, in remembrance of me." — 1 Corinthians 11:24–25 ESV' } }
+                %svg.h-5.w-5.text-primary.cursor-help{ xmlns: "http://www.w3.org/2000/svg", fill: "none", viewBox: "0 0 24 24", stroke: "currentColor", "stroke-width" => "2" }
+                  %path{ "stroke-linecap" => "round", "stroke-linejoin" => "round", d: "M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" }
+            .divider
+            %p.text-3xl.font-bold 9:00 AM
+            %p.opacity-70 Sundays
+
+        .card.bg-base-200.shadow-lg
+          .card-body.items-center.text-center
+            .flex.items-center.gap-2
+              %h3.card-title.text-xl Sunday School
+              .tooltip.tooltip-bottom{ data: { tip: '"Do your best to present yourself to God as one approved, a worker who has no need to be ashamed, rightly handling the word of truth." — 2 Timothy 2:15 ESV' } }
+                %svg.h-5.w-5.text-primary.cursor-help{ xmlns: "http://www.w3.org/2000/svg", fill: "none", viewBox: "0 0 24 24", stroke: "currentColor", "stroke-width" => "2" }
+                  %path{ "stroke-linecap" => "round", "stroke-linejoin" => "round", d: "M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" }
+            .divider
+            %p.text-3xl.font-bold 10:00 AM
+            %p.opacity-70 Sundays
+
+        .card.bg-base-200.shadow-lg
+          .card-body.items-center.text-center
+            .flex.items-center.gap-2
+              %h3.card-title.text-xl Worship, Preaching & Jr. Church
+              .tooltip.tooltip-bottom{ data: { tip: '"And they devoted themselves to the apostles\' teaching and the fellowship, to the breaking of bread and the prayers." — Acts 2:42 ESV' } }
+                %svg.h-5.w-5.text-primary.cursor-help{ xmlns: "http://www.w3.org/2000/svg", fill: "none", viewBox: "0 0 24 24", stroke: "currentColor", "stroke-width" => "2" }
+                  %path{ "stroke-linecap" => "round", "stroke-linejoin" => "round", d: "M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" }
+            .divider
+            %p.text-3xl.font-bold 11 AM - Noon
+            %p.opacity-70 Sundays
 
 
 -# ==================== GET INVOLVED ====================
