@@ -1,0 +1,10 @@
+%turbo-frame#edit_conference_form
+  = render "form", conference: @conference, slideout: true
+
+  .border-t.border-base-300.pt-4.mt-4
+    - if @conference.registrations.exists?
+      %p.text-sm.opacity-60 This conference cannot be deleted because its registration records are retained.
+    - else
+      .flex.justify-end
+        = button_to admin_conference_path(@conference), method: :delete, class: "btn btn-ghost text-error", data: { turbo_confirm: "Delete this conference?", turbo_frame: "_top" } do
+          Delete Conference

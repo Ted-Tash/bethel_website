@@ -1,0 +1,56 @@
+- content_for :title, "Register for #{@conference.name} — Bethel Community Church"
+
+.section.py-12.px-4
+  .max-w-3xl.mx-auto
+    .mb-8
+      %h1.text-4xl.font-bold.mb-3= @conference.name
+      - if @conference.starts_at.present?
+        %p.text-lg= @conference.starts_at.to_fs(:long)
+      - if @conference.location.present?
+        %p.opacity-70= @conference.location
+      - if @conference.description.present?
+        .mt-4.whitespace-pre-wrap= @conference.description
+
+    .card.bg-base-100.shadow-xl.border.border-base-200
+      .card-body
+        %h2.card-title.text-2xl Registration
+        %p.text-sm.opacity-70.mb-4 Submit this form once for one person. Fields marked with * are required.
+
+        = form_with model: @registration, url: register_for_conference_path(@conference), class: "space-y-6" do |f|
+          - if @registration.errors.any?
+            .alert.alert-error{ role: "alert" }
+              %div
+                %p.font-semibold Please correct the following:
+                %ul.list-disc.ml-5
+                  - @registration.errors.full_messages.each do |message|
+                    %li= message
+
+          .grid.grid-cols-1.md:grid-cols-2.gap-4
+            .form-control
+              = f.label :first_name, class: "label font-semibold" do
+                First name
+                %span.text-error *
+              = f.text_field :first_name, class: "input input-bordered", required: true, autocomplete: "given-name"
+            .form-control
+              = f.label :last_name, class: "label font-semibold" do
+                Last name
+                %span.text-error *
+              = f.text_field :last_name, class: "input input-bordered", required: true, autocomplete: "family-name"
+            .form-control
+              = f.label :email, class: "label font-semibold" do
+                Email
+                %span.text-error *
+              = f.email_field :email, class: "input input-bordered", required: true, autocomplete: "email"
+            .form-control
+              = f.label :phone, class: "label font-semibold" do
+                Phone
+                %span.text-error *
+              = f.telephone_field :phone, class: "input input-bordered", required: true, autocomplete: "tel"
+
+          - if @conference.questions.any?
+            .divider Registration Questions
+            - ordered_answers = @registration.answers.sort_by { |answer| [answer.question.position, answer.question.id] }
+            = f.fields_for :answers, ordered_answers do |answer_form|
+              = render "shared/conference_registrations/answer_fields", answer_form: answer_form, question: answer_form.object.question
+
+          = f.submit "Submit Registration", class: "btn btn-primary btn-lg w-full"

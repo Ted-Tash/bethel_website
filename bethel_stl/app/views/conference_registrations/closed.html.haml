@@ -1,0 +1,9 @@
+- content_for :title, "Registration closed — #{@conference.name}"
+
+.section.py-20.px-4
+  .max-w-2xl.mx-auto.text-center
+    .card.bg-base-100.shadow-xl.border.border-base-200
+      .card-body.py-12
+        %h1.text-3xl.font-bold Registration is closed
+        %p.text-lg.mt-3 Registration for #{@conference.name} is not currently open.
+        = link_to "Return to Bethel Community Church", root_path, class: "btn btn-primary mt-6"

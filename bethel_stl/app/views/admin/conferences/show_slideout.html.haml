@@ -1,0 +1,38 @@
+%turbo-frame#view_conference_content
+  .space-y-6
+    %div
+      %h3.font-medium.text-base.mb-3 Details
+      .space-y-3
+        %div
+          %p.text-sm.opacity-60 Date
+          - if @conference.starts_at.present?
+            %p= @conference.starts_at.to_fs(:long)
+            - if @conference.ends_at.present?
+              %p.text-sm.opacity-60= "through #{@conference.ends_at.to_fs(:long)}"
+          - else
+            %p.opacity-60 Not set
+        %div
+          %p.text-sm.opacity-60 Location
+          %p= @conference.location.presence || "Not set"
+        - if @conference.description.present?
+          %div
+            %p.text-sm.opacity-60 Description
+            %p.whitespace-pre-wrap= @conference.description
+
+    .grid.grid-cols-2.gap-3
+      .rounded-lg.bg-base-200.p-3
+        %p.text-sm.opacity-60 Questions
+        %p.text-2xl.font-semibold= @conference.questions.size
+      .rounded-lg.bg-base-200.p-3
+        %p.text-sm.opacity-60 Registrants
+        %p.text-2xl.font-semibold= @conference.registrations.size
+
+    %div
+      %span.badge{ class: @conference.registration_open? ? "badge-success" : "badge-ghost" }
+        = @conference.registration_open? ? "Registration open" : "Registration closed"
+      - if @conference.registration_open?
+        = link_to "View public form ↗", register_for_conference_path(@conference), class: "link link-primary text-sm ml-2", target: "_blank"
+
+    .flex.items-center.gap-2.border-t.border-base-300.pt-4
+      = link_to "Manage", admin_conference_path(@conference), class: "btn btn-primary", data: { turbo_frame: "_top" }
+      %button.btn.btn-ghost{ type: "button", data: { controller: "modal", action: "click->modal#open", modal_target_param: "edit_conference_slideout", base_url: edit_admin_conference_path(@conference, slideout: true) }, onclick: "this.closest('dialog').close()" } Edit

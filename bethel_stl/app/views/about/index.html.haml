@@ -165,7 +165,7 @@
             bliss in the new heavens and new earth.
 
 -# ==================== LEADERSHIP ====================
-- leaders = [["David Baumgartner", "Elder", "dave_maryellen.png"], ["John Kloeppel", "Elder", "john_deb.png"], ["Tom Grass", "Elder", "tom_nikki.png"], ["Kevin Stiles", "Elder", "kevin_jill.png"], ["Jeff Smith", "Elder", "jeff_theresa.png"], ["Ted Tash", "Deacon", "ted_lyd.png"], ["David Vinyard", "Deacon", "david_amy.png"], ["Kent Stiles", "Deacon", "Kent_nicole.png"], ["Brad Kloeppel", "Deacon", "brad_anna.png"]]
+- leaders = [["David Baumgartner", "Elder", "dave_maryellen.png"], ["John Kloeppel", "Elder", "john_deb.png"], ["Tom Grass", "Elder", "tom_nikki.png"], ["Kevin Stiles", "Elder", "kevin_jill.png"], ["Jeff Smith", "Elder", "jeff_head_not_cut_off.png"], ["Ted Tash", "Deacon", "ted_lyd.png"], ["David Vinyard", "Deacon", "david_amy.png"], ["Kent Stiles", "Deacon", "Kent_nicole.png"], ["Brad Kloeppel", "Deacon", "brad_anna.png"]]
 .bg-base-200.py-16
   .max-w-7xl.mx-auto.px-4
     %h2.text-4xl.font-bold.text-center.mb-12 Leadership
@@ -189,17 +189,26 @@
         &#10095;
 
     -# Commended Workers
-    .mt-16.max-w-3xl.mx-auto
+    .mt-16.max-w-7xl.mx-auto
       %h3.text-3xl.font-bold.text-center.mb-8 Commended Workers
-      .card.bg-base-100.shadow-lg.lg:card-side
-        %figure{ class: "lg:w-1/2" }
-          = image_tag "noah_family.png", class: "h-full w-full object-cover", alt: "Noah and Lacy Agnew", loading: "lazy"
-        .card-body
-          %h3.card-title.text-2xl Noah & Lacy Agnew
-          %p.opacity-70
-            Noah and Lacy have been serving in full-time ministry at Turkey Hill Ranch Bible Camp
-            since 2019. Bethel is proud to support their dedication to sharing the gospel and
-            mentoring young people through camp ministry.
+      .grid.grid-cols-1.xl:grid-cols-2.gap-8
+        .card.bg-base-100.shadow-lg.lg:card-side
+          %figure{ class: "lg:w-1/2" }
+            = image_tag "noah_family.png", class: "h-full w-full object-cover", alt: "Noah and Lacy Agnew", loading: "lazy"
+          .card-body
+            %h3.card-title.text-2xl Noah & Lacy Agnew
+            %p.opacity-70
+              Noah and Lacy have been serving in full-time ministry at Turkey Hill Ranch Bible Camp
+              since 2019. Bethel is proud to support their dedication to sharing the gospel and
+              mentoring young people through camp ministry.
+        .card.bg-base-100.shadow-lg.lg:card-side
+          %figure{ class: "lg:w-1/2" }
+            = image_tag "Kent_nicole.png", class: "h-full w-full object-cover", alt: "Kent and Nicole Stiles", loading: "lazy"
+          .card-body
+            %h3.card-title.text-2xl Kent & Nicole Stiles
+            %p.opacity-70
+              Kent and Nicole have been commended to full-time ministry at Dayspring Bible Camp since 2026. We are grateful
+              for their faithful service and we are proud to share in their camp ministry.
 
 -# ==================== VISIT CTA ====================
 .bg-primary.text-primary-content.py-16

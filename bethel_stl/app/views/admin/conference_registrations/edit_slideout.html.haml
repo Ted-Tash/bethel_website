@@ -1,0 +1,8 @@
+%turbo-frame#edit_registration_form
+  = render "form", conference: @conference, registration: @registration
+
+  .border-t.border-base-300.pt-4.mt-4.flex.justify-end
+    - if @registration.cancelled?
+      = button_to "Reactivate registration", reactivate_admin_conference_registration_path(@conference, @registration), method: :patch, class: "btn btn-outline"
+    - else
+      = button_to "Cancel registration", cancel_admin_conference_registration_path(@conference, @registration), method: :patch, class: "btn btn-error", data: { turbo_confirm: "Cancel this registration? Its information and answers will be retained." }

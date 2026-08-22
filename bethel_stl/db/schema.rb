@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_07_142113) do
+ActiveRecord::Schema[8.1].define(version: 2026_08_17_000000) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.bigint "blob_id", null: false
     t.datetime "created_at", null: false
@@ -56,6 +56,57 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_07_142113) do
     t.string "google_calendar_id"
     t.string "name"
     t.datetime "updated_at", null: false
+  end
+
+  create_table "conference_answers", force: :cascade do |t|
+    t.integer "conference_question_id", null: false
+    t.integer "conference_registration_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.text "value"
+    t.index ["conference_question_id"], name: "index_conference_answers_on_conference_question_id"
+    t.index ["conference_registration_id", "conference_question_id"], name: "index_conference_answers_on_registration_and_question", unique: true
+    t.index ["conference_registration_id"], name: "index_conference_answers_on_conference_registration_id"
+  end
+
+  create_table "conference_questions", force: :cascade do |t|
+    t.text "choices"
+    t.integer "conference_id", null: false
+    t.datetime "created_at", null: false
+    t.string "label", null: false
+    t.integer "position", default: 0, null: false
+    t.string "question_type", default: "short_text", null: false
+    t.boolean "required", default: false, null: false
+    t.datetime "updated_at", null: false
+    t.index ["conference_id", "position"], name: "index_conference_questions_on_conference_id_and_position"
+    t.index ["conference_id"], name: "index_conference_questions_on_conference_id"
+  end
+
+  create_table "conference_registrations", force: :cascade do |t|
+    t.datetime "cancelled_at"
+    t.integer "conference_id", null: false
+    t.datetime "created_at", null: false
+    t.string "email", null: false
+    t.string "first_name", null: false
+    t.string "last_name", null: false
+    t.string "phone", null: false
+    t.datetime "updated_at", null: false
+    t.index ["conference_id", "cancelled_at"], name: "idx_on_conference_id_cancelled_at_55323c382e"
+    t.index ["conference_id", "created_at"], name: "index_conference_registrations_on_conference_id_and_created_at"
+    t.index ["conference_id"], name: "index_conference_registrations_on_conference_id"
+  end
+
+  create_table "conferences", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.text "description"
+    t.datetime "ends_at"
+    t.string "location"
+    t.string "name", null: false
+    t.boolean "registration_open", default: false, null: false
+    t.string "slug", null: false
+    t.datetime "starts_at"
+    t.datetime "updated_at", null: false
+    t.index ["slug"], name: "index_conferences_on_slug", unique: true
   end
 
   create_table "contact_group_memberships", force: :cascade do |t|
@@ -173,6 +224,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_07_142113) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "conference_answers", "conference_questions"
+  add_foreign_key "conference_answers", "conference_registrations"
+  add_foreign_key "conference_questions", "conferences"
+  add_foreign_key "conference_registrations", "conferences"
   add_foreign_key "contact_group_memberships", "contact_groups"
   add_foreign_key "contact_group_memberships", "members"
   add_foreign_key "events", "calendar_sources"

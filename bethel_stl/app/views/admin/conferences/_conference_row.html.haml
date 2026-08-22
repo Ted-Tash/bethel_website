@@ -1,0 +1,21 @@
+%tr.cursor-pointer.hover:bg-base-200{ data: { controller: "modal", action: "click->modal#open", modal_target_param: "view_conference_slideout", base_url: admin_conference_path(conference, slideout: true) } }
+  %td
+    .font-semibold= conference.name
+    .text-sm.opacity-50= conference.slug
+  %td
+    - if conference.starts_at.present?
+      .text-sm= conference.starts_at.strftime("%b %-d, %Y")
+      .text-xs.opacity-50= conference.starts_at.strftime("%-I:%M %p")
+    - else
+      %span.opacity-40 Not set
+  %td
+    - if conference.location.present?
+      .text-sm= conference.location
+    - else
+      %span.opacity-40 —
+  %td
+    %span.badge{ class: conference.registration_open? ? "badge-success" : "badge-ghost" }
+      = conference.registration_open? ? "Open" : "Closed"
+  %td= conference.registrations.size
+  %td.text-right
+    %button.btn.btn-ghost.btn-sm{ type: "button", data: { controller: "modal", action: "click->modal#open", modal_target_param: "edit_conference_slideout", base_url: edit_admin_conference_path(conference, slideout: true) } } Edit

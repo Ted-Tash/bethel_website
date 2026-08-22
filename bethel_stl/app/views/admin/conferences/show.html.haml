@@ -1,0 +1,61 @@
+.flex.flex-col.md:flex-row.justify-between.md:items-center.gap-4.mb-8
+  %div
+    %h1.text-3xl.font-bold= @conference.name
+    %p.opacity-60= @conference.starts_at&.to_fs(:long) || "Date not set"
+  .flex.flex-wrap.gap-2
+    = link_to "Public form", register_for_conference_path(@conference), class: "btn btn-outline", target: "_blank"
+    %button.btn.btn-outline{ type: "button", data: { controller: "modal", action: "click->modal#open", modal_target_param: "edit_conference_slideout", base_url: edit_admin_conference_path(@conference, slideout: true, context: "show") } } Edit conference
+
+.grid.grid-cols-1.lg:grid-cols-3.gap-6.mb-8
+  .card.bg-base-100.shadow-md.lg:col-span-2
+    .card-body
+      %h2.card-title Details
+      - if @conference.description.present?
+        .whitespace-pre-wrap= @conference.description
+      - else
+        %p.opacity-60 No description.
+      - if @conference.location.present?
+        %p
+          %strong Location:
+          = @conference.location
+      - if @conference.ends_at.present?
+        %p
+          %strong Ends:
+          = @conference.ends_at.to_fs(:long)
+  .card.bg-base-100.shadow-md
+    .card-body
+      %h2.card-title Registrations
+      %p.text-4xl.font-bold= @conference.registrations.active.count
+      %p.text-sm.opacity-60 Active registrations
+      - if @conference.registrations.cancelled.exists?
+        %p.text-sm= "#{pluralize(@conference.registrations.cancelled.count, "cancelled registration")} retained"
+      %p
+        %span.badge{ class: @conference.registration_open? ? "badge-success" : "badge-ghost" }
+          = @conference.registration_open? ? "Public form open" : "Public form closed"
+      = link_to "Manage registrations", admin_conference_registrations_path(@conference), class: "btn btn-primary mt-2"
+      = link_to "Download CSV", admin_conference_registrations_path(@conference, format: :csv), class: "btn btn-outline"
+
+.flex.justify-between.items-center.mb-4
+  %h2.text-2xl.font-bold Registration Questions
+  %button.btn.btn-primary.btn-sm{ type: "button", data: { controller: "modal", action: "click->modal#open", modal_target_param: "add_question_slideout" } }
+    + Add Question
+
+#conference_questions_table
+  = render "admin/conference_questions/questions_table", conference: @conference, questions: @conference.questions
+
+= render "admin/shared/slideout", id: "add_question_slideout",
+    title: "Add Registration Question", size: :lg,
+    turbo_frame: "add_question_form",
+    turbo_src: new_admin_conference_question_path(@conference, slideout: true)
+
+= render "admin/shared/slideout", id: "edit_question_slideout",
+    title: "Edit Registration Question", size: :lg,
+    turbo_frame: "edit_question_form",
+    turbo_src: "#"
+
+= render "admin/shared/slideout", id: "edit_conference_slideout",
+    title: "Edit Conference", size: :lg,
+    turbo_frame: "edit_conference_form",
+    turbo_src: "#"
+
+.mt-6= link_to "← All conferences", admin_conferences_path, class: "btn btn-ghost btn-sm"

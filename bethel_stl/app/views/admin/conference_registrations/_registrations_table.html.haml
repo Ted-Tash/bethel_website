@@ -1,0 +1,26 @@
+- if registrations.any?
+  .card.bg-base-100.shadow-md
+    .overflow-x-auto
+      %table.table.table-sm
+        %thead
+          %tr
+            %th Submitted
+            %th Status
+            %th Name
+            %th Email
+            %th Phone
+            - questions.each do |question|
+              %th= question.label
+            %th
+        %tbody
+          - registrations.each do |registration|
+            = render "admin/conference_registrations/registration_row", conference: conference, registration: registration, questions: questions
+- else
+  .card.bg-base-100.shadow-md
+    .card-body.items-center.text-center.py-16
+      - if search_active
+        %h2.text-xl.font-semibold.opacity-60 No matching registrations
+        %p.opacity-40.mt-2 Try a different search.
+      - else
+        %h2.text-xl.font-semibold.opacity-60 No registrations yet
+        %p.opacity-40.mt-2 Submitted registrations will appear here.

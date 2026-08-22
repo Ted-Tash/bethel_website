@@ -1,0 +1,26 @@
+- if questions.any?
+  .card.bg-base-100.shadow-md{ data: { controller: "sortable", sortable_url_value: reorder_admin_conference_questions_path(conference) } }
+    .flex.items-center.justify-between.gap-4.px-4.py-3.border-b.border-base-300
+      %p.text-sm.opacity-60 Drag questions by the handle to change their order.
+      %span.text-sm.opacity-60{ aria: { live: "polite" }, data: { sortable_target: "status" } }
+    .overflow-x-auto
+      %table.table
+        %thead
+          %tr
+            %th.w-12
+              %span.sr-only Reorder
+            %th Question
+            %th Type
+            %th Required
+            %th
+        %tbody{ data: { sortable_target: "list" } }
+          - questions.each do |question|
+            = render "admin/conference_questions/question_row", conference: conference, question: question
+- else
+  .card.bg-base-100.shadow-md
+    .card-body.items-center.text-center.py-12
+      %h3.text-lg.font-semibold.opacity-60 No registration questions yet
+      %p.opacity-40.mt-2 Name, email, and phone are always required.
+      .mt-4
+        %button.btn.btn-primary.btn-sm{ type: "button", data: { controller: "modal", action: "click->modal#open", modal_target_param: "add_question_slideout" } }
+          + Add Question

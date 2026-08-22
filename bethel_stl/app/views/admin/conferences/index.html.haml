@@ -1,0 +1,22 @@
+.flex.justify-between.items-center.mb-8
+  %h1.text-3xl.font-bold Conferences
+  %button.btn.btn-primary{ type: "button", data: { controller: "modal", action: "click->modal#open", modal_target_param: "add_conference_slideout" } }
+    + New Conference
+
+#conferences_table
+  = render "admin/conferences/conferences_table", conferences: @conferences
+
+= render "admin/shared/slideout", id: "add_conference_slideout",
+    title: "New Conference", size: :lg,
+    turbo_frame: "add_conference_form",
+    turbo_src: new_admin_conference_path(slideout: true)
+
+= render "admin/shared/slideout", id: "view_conference_slideout",
+    title: "Conference Details", size: :md,
+    turbo_frame: "view_conference_content",
+    turbo_src: "#"
+
+= render "admin/shared/slideout", id: "edit_conference_slideout",
+    title: "Edit Conference", size: :lg,
+    turbo_frame: "edit_conference_form",
+    turbo_src: "#"

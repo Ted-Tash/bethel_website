@@ -1,0 +1,10 @@
+%turbo-frame#edit_question_form
+  = render "form", conference: @conference, question: @question, slideout: true
+
+  .border-t.border-base-300.pt-4.mt-4
+    - if @question.answers.exists?
+      %p.text-sm.opacity-60 This question cannot be deleted because submitted answers are retained.
+    - else
+      .flex.justify-end
+        = button_to admin_conference_question_path(@conference, @question), method: :delete, class: "btn btn-ghost text-error", data: { turbo_confirm: "Delete this registration question?", turbo_frame: "_top" } do
+          Delete Question

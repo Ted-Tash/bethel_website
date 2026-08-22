@@ -1,4 +1,4 @@
-.relative.overflow-hidden{ class: content_for?(:hero_tall) ? "min-h-[70vh]" : "py-20" }
+#site_hero.relative.overflow-hidden{ class: content_for?(:hero_tall) ? "min-h-[70vh]" : "py-20" }
   - if content_for?(:hero_image)
     = image_tag content_for(:hero_image), class: "absolute inset-0 w-full h-full object-cover", alt: ""
     .absolute.inset-0{ style: "background: linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.3) 100%)" }

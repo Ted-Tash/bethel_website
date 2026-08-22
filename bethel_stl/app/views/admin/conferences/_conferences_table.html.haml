@@ -1,0 +1,23 @@
+- if conferences.any?
+  .card.bg-base-100.shadow-md
+    .overflow-x-auto
+      %table.table
+        %thead
+          %tr
+            %th Conference
+            %th Date
+            %th Location
+            %th Registration
+            %th Registrants
+            %th
+        %tbody
+          - conferences.each do |conference|
+            = render "admin/conferences/conference_row", conference: conference
+- else
+  .card.bg-base-100.shadow-md
+    .card-body.items-center.text-center.py-16
+      %h2.text-xl.font-semibold.opacity-60 No conferences yet
+      %p.opacity-40.mt-2 Add your first conference to get started.
+      .mt-4
+        %button.btn.btn-primary{ type: "button", data: { controller: "modal", action: "click->modal#open", modal_target_param: "add_conference_slideout" } }
+          + New Conference

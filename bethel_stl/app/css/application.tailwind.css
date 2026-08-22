@@ -4,6 +4,19 @@
   themes: winter --default, dark --prefersdark;
 }
 
+/* DaisyUI reserves a desktop scrollbar gutter while modals are open. Mobile
+   scrollbars overlay the page, so that reservation appears as a blank strip. */
+@media (max-width: 639px) {
+  :root {
+    scrollbar-gutter: auto;
+  }
+
+  .tooltip[data-tip]::before,
+  .tooltip > .tooltip-content {
+    max-width: calc(100vw - 2rem);
+  }
+}
+
 @keyframes verb-ripple-in {
   0% {
     opacity: 0;
