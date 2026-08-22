@@ -1,0 +1,22 @@
+- if questions.any?
+  .mb-6
+    .flex.flex-col.sm:flex-row.sm:items-end.justify-between.gap-2.mb-3
+      %div
+        %h2.text-xl.font-bold Response totals
+        %p.text-sm.opacity-60 Counts reflect the registrations currently shown below.
+      %p.text-sm.font-medium= pluralize(registrations.size, "registration")
+    .grid.grid-cols-1.md:grid-cols-2.lg:grid-cols-3.gap-4
+      - questions.each do |question|
+        - counts = response_counts.fetch(question.id)
+        .card.bg-base-100.shadow-sm
+          .card-body.p-4
+            %h3.font-semibold= question.label
+            .flex.flex-wrap.gap-2
+              - counts[:options].each do |option, count|
+                .badge.badge-outline.gap-1
+                  %span= option
+                  %strong= count
+              - if counts[:unanswered].positive?
+                .badge.badge-ghost.gap-1
+                  %span Unanswered
+                  %strong= counts[:unanswered]

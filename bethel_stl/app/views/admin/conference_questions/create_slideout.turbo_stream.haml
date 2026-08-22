@@ -1,0 +1,3 @@
+= turbo_stream_action_tag(:close_dialog, target: "add_question_slideout")
+= turbo_stream.update "conference_questions_table" do
+  = render "admin/conference_questions/questions_table", conference: @conference, questions: @conference.questions.reload

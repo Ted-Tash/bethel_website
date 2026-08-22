@@ -1,0 +1,5 @@
+.flex.items-center.gap-2{ data: { nested_form_target: "fields" } }
+  = text_field_tag "conference_question[choice_options][]", value, class: "input input-bordered w-full", placeholder: "Option", data: { question_options_target: "option" }
+  %button.btn.btn-ghost.btn-square.text-error.shrink-0{ type: "button", aria: { label: "Remove option" }, data: { action: "nested-form#remove" } }
+    %svg.w-5.h-5{ xmlns: "http://www.w3.org/2000/svg", fill: "none", viewBox: "0 0 24 24", stroke: "currentColor", "stroke-width" => "1.5" }
+      %path{ "stroke-linecap" => "round", "stroke-linejoin" => "round", d: "M6 18 18 6M6 6l12 12" }

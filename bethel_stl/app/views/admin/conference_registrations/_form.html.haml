@@ -1,0 +1,39 @@
+- form_url = admin_conference_registration_path(conference, registration, slideout: true)
+
+= form_with model: registration, url: form_url, method: :patch, class: "space-y-6" do |f|
+  - if registration.errors.any?
+    .alert.alert-error
+      %div
+        %p.font-semibold Please fix the following:
+        %ul.list-disc.list-inside.mt-1
+          - registration.errors.full_messages.each do |message|
+            %li= message
+
+  .grid.grid-cols-1.sm:grid-cols-2.gap-4
+    .form-control
+      %label.label{ for: "conference_registration_first_name" }
+        %span.label-text First name
+      = f.text_field :first_name, class: "input input-bordered w-full", required: true, autofocus: true
+    .form-control
+      %label.label{ for: "conference_registration_last_name" }
+        %span.label-text Last name
+      = f.text_field :last_name, class: "input input-bordered w-full", required: true
+    .form-control
+      %label.label{ for: "conference_registration_email" }
+        %span.label-text Email
+      = f.email_field :email, class: "input input-bordered w-full", required: true
+    .form-control
+      %label.label{ for: "conference_registration_phone" }
+        %span.label-text Phone
+      = f.telephone_field :phone, class: "input input-bordered w-full", required: true
+
+  - if conference.questions.any?
+    .divider Registration Answers
+    - ordered_answers = registration.answers.sort_by { |answer| [ answer.question.position, answer.question.id ] }
+    = f.fields_for :answers, ordered_answers do |answer_form|
+      = render "shared/conference_registrations/answer_fields", answer_form: answer_form, question: answer_form.object.question
+
+  .flex.items-center.gap-3
+    .flex-1
+    %button.btn.btn-ghost{ type: "button", onclick: "this.closest('dialog').close()" } Cancel
+    = f.submit "Save Changes", class: "btn btn-primary"

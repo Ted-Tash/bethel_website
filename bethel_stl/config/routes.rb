@@ -28,6 +28,17 @@ Rails.application.routes.draw do
 
     resources :households
     resources :contact_groups, except: [:show]
+    resources :conferences do
+      resources :questions, controller: "conference_questions", except: [ :index, :show ] do
+        patch :reorder, on: :collection
+      end
+      resources :registrations, controller: "conference_registrations", only: [ :index, :show, :edit, :update ] do
+        member do
+          patch :cancel
+          patch :reactivate
+        end
+      end
+    end
     resources :messages, only: [:index, :new, :create, :show] do
       member do
         patch :cancel
@@ -53,4 +64,8 @@ Rails.application.routes.draw do
   resources :sermons, only: [:index]
   resources :giving, only: [:index]
   resources :daycare, only: [:index]
+
+  get "conferences/:conference_slug/register", to: "conference_registrations#new", as: :register_for_conference
+  post "conferences/:conference_slug/register", to: "conference_registrations#create"
+  get "conferences/:conference_slug/register/thanks", to: "conference_registrations#thanks", as: :conference_registration_thanks
 end

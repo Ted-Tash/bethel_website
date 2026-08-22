@@ -1,0 +1,38 @@
+- csv_params = { format: :csv }
+- csv_params[:search] = @report.search if @report.search.present?
+
+.flex.flex-col.md:flex-row.justify-between.md:items-center.gap-4.mb-8
+  %div
+    %h1.text-3xl.font-bold Registrations
+    %p.opacity-60= @conference.name
+  = link_to "Download CSV", admin_conference_registrations_path(@conference, csv_params), class: "btn btn-primary"
+
+.card.bg-base-100.shadow-sm.mb-6
+  .card-body
+    = form_with url: admin_conference_registrations_path(@conference), method: :get, class: "flex flex-col.md:flex-row.md:items-end.gap-3" do
+      .form-control.flex-1
+        = label_tag :search, "Search registrations", class: "label"
+        = search_field_tag :search, @report.search, class: "input input-bordered w-full", placeholder: "Name, email, phone, or answer"
+      .flex.flex-wrap.items-center.gap-2
+        = submit_tag "Search", class: "btn btn-primary"
+        - if @report.search.present?
+          = link_to "Clear search", admin_conference_registrations_path(@conference), class: "btn btn-ghost"
+      %span.text-sm.opacity-60.md:pb-3= pluralize(@registrations.size, @report.search.present? ? "matching registration" : "registration")
+
+#conference_registration_totals
+  = render "admin/conference_registrations/response_totals", questions: @filterable_questions, registrations: @registrations, response_counts: @response_counts
+
+#conference_registrations_table
+  = render "admin/conference_registrations/registrations_table", conference: @conference, registrations: @registrations, questions: @questions, search_active: @report.search.present?
+
+= render "admin/shared/slideout", id: "view_registration_slideout",
+    title: "Registration Details", size: :md,
+    turbo_frame: "view_registration_content",
+    turbo_src: "#"
+
+= render "admin/shared/slideout", id: "edit_registration_slideout",
+    title: "Edit Registration", size: :lg,
+    turbo_frame: "edit_registration_form",
+    turbo_src: "#"
+
+.mt-6= link_to "← #{@conference.name}", admin_conference_path(@conference), class: "btn btn-ghost btn-sm"

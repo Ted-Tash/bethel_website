@@ -1,0 +1,22 @@
+= answer_form.hidden_field :conference_question_id
+.form-control
+  %label.label
+    %span.label-text.font-semibold
+      = question.label
+      - if question.required?
+        %span.text-error *
+  - case question.question_type
+  - when "short_text"
+    = answer_form.text_field :value, class: "input input-bordered w-full", required: question.required?
+  - when "long_text"
+    = answer_form.text_area :value, class: "textarea textarea-bordered min-h-28 w-full", required: question.required?
+  - when "single_choice"
+    = answer_form.select :value, question.choice_options, { include_blank: "Select an option" }, class: "select select-bordered w-full", required: question.required?
+  - when "multiple_choice"
+    .space-y-2.rounded-lg.border.border-base-300.p-4
+      - question.choice_options.each do |choice|
+        %label.flex.items-center.gap-3.cursor-pointer
+          = check_box_tag "#{answer_form.object_name}[value][]", choice, answer_form.object.selected_values.include?(choice), class: "checkbox checkbox-primary"
+          %span= choice
+  - when "yes_no"
+    = answer_form.select :value, ["Yes", "No"], { include_blank: "Select an answer" }, class: "select select-bordered w-full", required: question.required?

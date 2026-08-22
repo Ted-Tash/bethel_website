@@ -26,7 +26,8 @@ import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
   static values = {
-    autoFocus: { type: Boolean, default: true }
+    autoFocus: { type: Boolean, default: true },
+    autoOpen: { type: Boolean, default: false }
   }
 
   connect() {
@@ -35,6 +36,10 @@ export default class extends Controller {
       const parentDialog = this.element.parentElement?.closest("dialog")
       if (parentDialog) {
         document.body.appendChild(this.element)
+      }
+
+      if (this.autoOpenValue && !this.element.open) {
+        this.element.showModal()
       }
     }
   }

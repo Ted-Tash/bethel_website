@@ -1,0 +1,4 @@
+= turbo_stream_action_tag(:close_dialog, target: "view_conference_slideout")
+= turbo_stream_action_tag(:close_dialog, target: "edit_conference_slideout")
+= turbo_stream.update "conferences_table" do
+  = render "admin/conferences/conferences_table", conferences: Conference.chronological.includes(:questions, :registrations)

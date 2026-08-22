@@ -52,7 +52,8 @@
             %path{ "stroke-linecap" => "round", "stroke-linejoin" => "round", d: "M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" }
           %span= msg
         %button.btn.btn-sm.btn-ghost{ data: { action: "dismissible#dismiss" } } ✕
-    = render 'shared/slideshow_hero'
+    - if content_for?(:hero)
+      = render 'shared/slideshow_hero'
     %main.flex-grow
       = yield
     = render 'shared/footer'

@@ -1,0 +1,52 @@
+- slideout = local_assigns[:slideout]
+- form_url = question.persisted? ? admin_conference_question_path(conference, question, slideout: slideout || nil) : admin_conference_questions_path(conference, slideout: slideout || nil)
+- form_method = question.persisted? ? :patch : :post
+- option_values = question.choice_options.presence || [ "", "" ]
+
+= form_with model: question, url: form_url, method: form_method, class: "space-y-6", data: { controller: "question-options nested-form" } do |f|
+  - if question.errors.any?
+    .alert.alert-error
+      %div
+        %p.font-semibold Please fix the following:
+        %ul.list-disc.list-inside.mt-1
+          - question.errors.full_messages.each do |message|
+            %li= message
+
+  .form-control
+    %label.label{ for: "conference_question_label" }
+      %span.label-text Question
+    = f.text_field :label, class: "input input-bordered w-full", required: true, autofocus: true, placeholder: "What would you like to ask?"
+
+  .form-control
+    %label.label{ for: "conference_question_question_type" }
+      %span.label-text Answer type
+    = f.select :question_type, ConferenceQuestion::TYPES.map { |value, label| [label, value] }, {}, class: "select select-bordered w-full", data: { question_options_target: "type", action: "change->question-options#toggle" }
+
+  .space-y-3{ data: { question_options_target: "section" } }
+    .flex.items-center.justify-between
+      %div
+        %p.font-semibold Choice options
+        %p.text-sm.opacity-60 Add at least two options.
+      %button.btn.btn-outline.btn-sm{ type: "button", data: { nested_form_target: "addButton", action: "nested-form#add" } }
+        + Add option
+
+    .space-y-2{ data: { nested_form_target: "container" } }
+      - option_values.each do |value|
+        = render "admin/conference_questions/option_field", value: value
+
+    %template{ data: { nested_form_target: "template" } }
+      = render "admin/conference_questions/option_field", value: ""
+
+  %label.flex.items-center.gap-3.cursor-pointer.rounded-lg.bg-base-200.p-4
+    = f.check_box :required, class: "checkbox checkbox-primary"
+    %span
+      %span.block.font-semibold Require an answer
+      %span.block.text-sm.opacity-60 Registrants cannot submit the form without answering.
+
+  .flex.items-center.gap-3
+    .flex-1
+    - if slideout
+      %button.btn.btn-ghost{ type: "button", onclick: "this.closest('dialog').close()" } Cancel
+    - else
+      = link_to "Cancel", admin_conference_path(conference), class: "btn btn-ghost"
+    = f.submit (question.persisted? ? "Save Changes" : "Add Question"), class: "btn btn-primary"
