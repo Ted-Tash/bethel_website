@@ -22,6 +22,11 @@
       %label.label
         %span.label-text Email
       = f.email_field :email, class: 'input input-bordered w-full'
+      %label.label.cursor-pointer
+        %span.label-text Permission to receive congregation email confirmed
+        = f.check_box :email_consent, class: 'checkbox'
+      - if f.object.persisted? && f.object.email_suppressed?
+        %p.text-warning.text-sm This address is unsubscribed; permission alone does not remove suppression.
 
     .form-control
       %label.label

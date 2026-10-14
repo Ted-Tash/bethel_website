@@ -96,7 +96,7 @@ class Admin::HouseholdsController < Admin::BaseController
   def household_params
     params.require(:household).permit(
       :name, :street, :city, :state, :zip,
-      members_attributes: [:id, :first_name, :last_name, :email, :phone, :_destroy]
+      members_attributes: [ :id, :first_name, :last_name, :email, :phone, :email_consent, :_destroy ]
     )
   end
 end

@@ -24,13 +24,17 @@
             %button.btn.btn-ghost.btn-xs.opacity-50{ type: "button", data: { action: "click->select-all-household#toggleAll" } } select all
           .ml-4.space-y-1{ data: { "select-all-household-target" => "checkboxes" } }
             - members.each do |member|
-              %label.flex.items-center.gap-2.cursor-pointer
-                = check_box_tag "contact_group[member_ids][]", member.id, contact_group.member_ids.include?(member.id), class: "checkbox checkbox-sm checkbox-primary"
-                %span= member.full_name
-                - if member.phone.present?
-                  %span.text-xs.opacity-50= member.phone
-                - else
-                  %span.badge.badge-warning.badge-xs No phone
+              %label.flex.items-start.gap-2.cursor-pointer
+                = check_box_tag "contact_group[member_ids][]", member.id, contact_group.member_ids.include?(member.id), class: "checkbox checkbox-sm checkbox-primary shrink-0 mt-1"
+                .min-w-0
+                  %span.block= member.full_name
+                  .flex.flex-wrap.items-center.gap-x-3.gap-y-1.text-xs
+                    - if member.phone.present?
+                      %span.opacity-50= member.phone
+                    - else
+                      %span.badge.badge-warning.badge-xs No phone
+                    - if member.email.present?
+                      %span.opacity-50.break-all= member.email
 
   = hidden_field_tag "contact_group[member_ids][]", ""
 

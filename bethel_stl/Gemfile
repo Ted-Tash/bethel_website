@@ -26,6 +26,8 @@ gem "devise", "~> 4.9"
 gem "google-apis-calendar_v3"
 # Twilio SMS API [https://github.com/twilio/twilio-ruby]
 gem "twilio-ruby"
+# Official Resend SDK and Action Mailer adapter
+gem "resend", "~> 1.17"
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 # gem "bcrypt", "~> 3.1.7"

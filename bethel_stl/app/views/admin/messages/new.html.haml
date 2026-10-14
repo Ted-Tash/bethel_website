@@ -10,9 +10,20 @@
               %li= msg
 
       .form-control
+        = f.label :channel, class: "label"
+        = f.select :channel, [["SMS", "sms"], ["Email", "email"]], {}, class: "select select-bordered w-full", data: { message_form_target: "channel", action: "change->message-form#channelChanged" }
+
+      .form-control
         %label.label
           %span.label-text Recipients
-        = f.select :contact_group_id, @contact_groups.map { |g| [g.name, g.id] }, { include_blank: "Everyone (all members with phone numbers)" }, class: "select select-bordered w-full"
+        = f.select :contact_group_id, @contact_groups.map { |g| [g.name, g.id] }, { include_blank: "Everyone (members eligible for the selected channel)" }, class: "select select-bordered w-full"
+
+      - if ApplicationMailer.delivery_method == :file
+        .alert Local emails are captured in tmp/mail_capture, not sent. SMS still uses Twilio.
+
+      .form-control{ data: { message_form_target: "subjectContainer" } }
+        = f.label :subject, class: "label"
+        = f.text_field :subject, class: "input input-bordered w-full", maxlength: 200, data: { message_form_target: "subject" }
 
       .form-control
         %label.label
@@ -20,9 +31,8 @@
         = f.text_area :body, class: "textarea textarea-bordered w-full h-32", required: true, placeholder: "Type your message here...", data: { controller: "character-count", character_count_target: "input" }
         .label
           %span.label-text-alt{ data: { character_count_target: "count" } }
-            %span.opacity-60 SMS segments: 1 message = 160 characters. Longer messages use multiple segments.
-
-      = f.hidden_field :channel, value: "sms"
+            %span.opacity-60{ data: { message_form_target: "smsHint" } } SMS segments: 1 message = 160 characters. Longer messages use multiple segments.
+        %p.text-sm.opacity-60 Email goes only to members with confirmed permission. Unsubscribed addresses are skipped. Body is plain text, also rendered safely as HTML.
 
       .form-control.max-w-xs
         %label.label

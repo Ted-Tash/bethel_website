@@ -20,7 +20,7 @@
               %th Recipients
               %th Schedule
               %th Status
-              %th Sent / Failed
+              %th Accepted / Failed / Captured / Skipped
               %th
           %tbody
             - @messages.each do |message|
@@ -42,6 +42,8 @@
                     .badge.badge-warning.badge-sm Sending
                   - when "sent"
                     .badge.badge-success.badge-sm Sent
+                  - when "captured"
+                    .badge.badge-info.badge-sm Captured locally
                   - when "failed"
                     .badge.badge-error.badge-sm Failed
                   - when "cancelled"
@@ -50,12 +52,16 @@
                   %span.text-success= message.sent_count
                   \/
                   %span.text-error= message.failed_count
+                  \/
+                  = message.captured_count
+                  \/
+                  = message.skipped_count
                 %td
                   = link_to "View", admin_message_path(message), class: "btn btn-sm btn-ghost"
     - else
       .text-center.py-8
         %p.text-lg.opacity-60 No messages yet.
-        %p.opacity-40.mt-1 Send your first SMS message to church members.
+        %p.opacity-40.mt-1 Send an SMS or email message to church members.
 
 -# ==================== CONTACT GROUPS ====================
 .card.bg-base-100.shadow-md

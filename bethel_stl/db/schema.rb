@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_08_17_000000) do
+ActiveRecord::Schema[8.1].define(version: 2026_08_18_000000) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.bigint "blob_id", null: false
     t.datetime "created_at", null: false
@@ -134,6 +134,13 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_17_000000) do
     t.index ["documentable_type", "documentable_id"], name: "index_documents_on_documentable"
   end
 
+  create_table "email_suppressions", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "email", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_email_suppressions_on_email", unique: true
+  end
+
   create_table "events", force: :cascade do |t|
     t.boolean "all_day", default: false, null: false
     t.integer "calendar_source_id", null: false
@@ -164,6 +171,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_17_000000) do
   create_table "members", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "email"
+    t.boolean "email_consent", default: false, null: false
     t.string "first_name"
     t.integer "household_id", null: false
     t.string "last_name"
@@ -179,6 +187,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_17_000000) do
     t.integer "member_id", null: false
     t.integer "message_id", null: false
     t.string "phone_or_email"
+    t.string "provider_id"
     t.string "status", default: "pending", null: false
     t.datetime "updated_at", null: false
     t.index ["member_id"], name: "index_message_deliveries_on_member_id"
@@ -187,13 +196,16 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_17_000000) do
 
   create_table "messages", force: :cascade do |t|
     t.text "body", null: false
+    t.integer "captured_count", default: 0, null: false
     t.string "channel", default: "sms", null: false
     t.integer "contact_group_id"
     t.datetime "created_at", null: false
+    t.text "error_message"
     t.integer "failed_count", default: 0
     t.datetime "scheduled_at"
     t.datetime "sent_at"
     t.integer "sent_count", default: 0
+    t.integer "skipped_count", default: 0, null: false
     t.string "status", default: "scheduled", null: false
     t.string "subject"
     t.datetime "updated_at", null: false
