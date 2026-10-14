@@ -41,7 +41,7 @@ class SendMessageJob < ApplicationJob
     final_status = sent.positive? ? :sent : (captured.positive? ? :captured : :failed)
     message.update!(status: final_status, sent_count: sent, captured_count: captured,
       failed_count: counts.fetch("failed", 0), skipped_count: counts.fetch("skipped", 0), sent_at: Time.current,
-      error_message: counts.empty? ? "No eligible recipients (email requires recorded consent)" : nil)
+      error_message: counts.empty? ? "No eligible recipients" : nil)
   rescue StandardError => e
     if claimed == 1
       counts = message.message_deliveries.group(:status).count
