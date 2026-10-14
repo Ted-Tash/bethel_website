@@ -58,19 +58,23 @@ Send an email notification to every admin user after a public conference registr
 
 ### Finish SMS and email delivery setup
 
-Current audit: Twilio SMS is implemented, has a complete local credential set, and has successfully delivered development messages. Resend is not installed or configured. The mass-message job currently ignores its channel and always sends SMS through Twilio. Production SMS also depends on Fly.io running the Solid Queue worker, which has not been verified.
+Current audit: Twilio has a complete local credential set and history of two provider-accepted SMS sends, not confirmed handset delivery. Resend's official Rails SDK, channel routing, composer, HTML/text templates, safe local capture, consent and address-wide unsubscribe suppression are implemented. Delivery specs were removed at the user's request. Shared `config/credentials.yml.enc` and the existing master-key setup are unchanged; Resend secrets/sender have not been provisioned. Production is self-hosted via Kamal, not Fly.io. Source declares runtime `RAILS_MASTER_KEY`, a persistent storage volume and `SOLID_QUEUE_IN_PUMA`; live health/delivery remains unverified. See [email provisioning and readiness guide](docs/email-delivery.md).
 
-- [ ] Add and configure Resend for Action Mailer in development and production.
-- [ ] Store the Resend API key securely without committing it to the repository.
-- [ ] Replace `from@example.com` with a verified sender address.
-- [ ] Replace the production mailer host `example.com` with the real application host.
-- [ ] Implement actual email delivery for messages whose channel is `email`.
-- [ ] Ensure SMS messages continue to use Twilio and email messages use Resend.
-- [ ] Add development email preview or sandbox behavior so emails can be tested safely.
-- [ ] Add or verify the Fly.io configuration, including `RAILS_MASTER_KEY` and persistent SQLite storage.
-- [ ] Ensure Solid Queue runs in production, such as by enabling `SOLID_QUEUE_IN_PUMA` on the single Fly.io machine.
-- [ ] Perform end-to-end development and production smoke tests for both SMS and email.
-- [ ] Add tests proving each channel invokes the correct delivery service and records successes and failures.
+- [x] Add and configure Resend for Action Mailer in development and production (code; live provisioning pending).
+- [ ] Store the real Resend API key in shared encrypted Rails credentials alongside existing secrets.
+- [x] Remove `from@example.com` and read the live sender from credentials; fail explicitly if absent.
+- [ ] Provision and verify the actual sender/domain and church postal address.
+- [x] Remove production `example.com` and require `MAILER_HOST` for live email links.
+- [ ] Set and verify the real production hostname/HTTPS in the actual Kamal deployment.
+- [x] Implement actual email delivery for messages whose channel is `email` (mocked provider verification only).
+- [x] Ensure SMS messages continue to use Twilio and email messages use Resend.
+- [x] Add channel/subject UI, server-side subject validation and normalized/deduplicated email destinations.
+- [x] Add safe default development file capture, explicit live opt-in, and distinct captured results (sample preview removed at the user's request).
+- [x] Add permission controls and signed confirmation/one-click unsubscribe with persistent address-wide suppression.
+- [ ] Verify Kamal runtime key injection and persistent SQLite/queue storage in production.
+- [ ] Verify live Solid Queue supervisor/dispatcher/worker and continuously running host for timed jobs.
+- [ ] Perform approved end-to-end development and production smoke tests for both SMS and email.
+Delivery specs are intentionally omitted at the user's request; use the documented controlled manual checks.
 
 ### Conference registration reporting and export
 

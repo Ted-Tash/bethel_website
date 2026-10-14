@@ -23,6 +23,8 @@
           .badge.badge-warning Sending
         - when "sent"
           .badge.badge-success Sent
+        - when "captured"
+          .badge.badge-info Captured locally (not sent)
         - when "failed"
           .badge.badge-error Failed
         - when "cancelled"
@@ -42,9 +44,20 @@
           %span.text-success= @message.sent_count
           sent,
           %span.text-error= @message.failed_count
-          failed
+          failed,
+          = @message.captured_count
+          captured,
+          = @message.skipped_count
+          skipped
+        %p.text-sm.opacity-60 Sent means provider accepted, not confirmed inbox/handset delivery. Captures never leave this machine.
+        - if @message.error_message.present?
+          %p.text-error= @message.error_message
 
     .divider
+
+    - if @message.email?
+      %h3.font-semibold.mb-2 Subject
+      %p.mb-4= @message.subject
 
     %h3.font-semibold.mb-2 Message Body
     .bg-base-200.rounded-lg.p-4.whitespace-pre-wrap= @message.body
@@ -60,10 +73,11 @@
           %thead
             %tr
               %th Member
-              %th Phone
+              %th Destination
               %th Status
               %th Error
-              %th Delivered At
+              %th Provider ID
+              %th Accepted At
           %tbody
             - @deliveries.each do |delivery|
               %tr
@@ -74,7 +88,11 @@
                   - when "pending"
                     .badge.badge-ghost.badge-sm Pending
                   - when "sent"
-                    .badge.badge-success.badge-sm Sent
+                    .badge.badge-success.badge-sm Accepted
+                  - when "captured"
+                    .badge.badge-info.badge-sm Captured
+                  - when "skipped"
+                    .badge.badge-neutral.badge-sm Skipped
                   - when "failed"
                     .badge.badge-error.badge-sm Failed
                 %td
@@ -82,6 +100,7 @@
                     %span.text-error.text-sm= delivery.error_message
                   - else
                     %span.opacity-30 —
+                %td= delivery.provider_id || "—"
                 %td= delivery.delivered_at&.strftime("%b %-d %-I:%M %p") || "—"
     - else
       .text-center.py-8

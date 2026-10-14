@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get "email/unsubscribe/:token", to: "email_unsubscribes#show", as: :email_unsubscribe
+  post "email/unsubscribe/:token", to: "email_unsubscribes#create"
   devise_for :users, path: 'admin', controllers: { sessions: 'users/sessions' }
 
   mount MissionControl::Jobs::Engine, at: '/admin/jobs'

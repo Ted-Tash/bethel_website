@@ -39,8 +39,7 @@ class Admin::MessagesController < Admin::BaseController
   def cancel
     @message = Message.find(params[:id])
 
-    if @message.scheduled?
-      @message.update!(status: :cancelled)
+    if Message.where(id: @message.id, status: :scheduled).update_all(status: :cancelled, updated_at: Time.current) == 1
       redirect_to admin_message_path(@message), notice: "Message has been cancelled."
     else
       redirect_to admin_message_path(@message), alert: "This message can no longer be cancelled."
@@ -50,6 +49,6 @@ class Admin::MessagesController < Admin::BaseController
   private
 
   def message_params
-    params.require(:message).permit(:body, :contact_group_id, :scheduled_at, :channel)
+    params.require(:message).permit(:body, :subject, :contact_group_id, :scheduled_at, :channel)
   end
 end
