@@ -180,7 +180,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_21_000000) do
   create_table "members", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "email"
-    t.boolean "email_consent", default: true, null: false
     t.string "first_name"
     t.integer "household_id", null: false
     t.string "last_name"
@@ -193,7 +192,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_21_000000) do
     t.datetime "created_at", null: false
     t.datetime "delivered_at"
     t.text "error_message"
-    t.integer "member_id", null: false
+    t.integer "member_id"
     t.integer "message_id", null: false
     t.string "phone_or_email"
     t.string "provider_id"

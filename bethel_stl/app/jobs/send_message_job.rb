@@ -15,7 +15,13 @@ class SendMessageJob < ApplicationJob
     return unless claimed == 1
     message.reload
 
-    members = message.contact_group ? message.contact_group.members : Member.all
+    group = message.contact_group
+    unless group
+      message.update!(status: :failed, error_message: "A recipient group is required; no messages were sent")
+      return
+    end
+
+    members = group.members
     recipients = message.email? ? members.with_email : members.with_phone
     seen = Set.new
 
