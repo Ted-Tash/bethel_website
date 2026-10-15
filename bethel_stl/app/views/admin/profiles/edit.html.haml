@@ -1,0 +1,39 @@
+.max-w-xl.mx-auto
+  .mb-6
+    %h1.text-3xl.font-bold Edit profile
+    %p.text-sm.opacity-60.mt-2 Update your sign-in email or password.
+
+  .card.bg-base-100.shadow-sm
+    %div{ class: "p-5 sm:p-6" }
+      = form_with model: @user, url: admin_profile_path, method: :patch, class: "space-y-5" do |f|
+        - if @user.errors.any?
+          .alert.alert-error{ role: "alert" }
+            %div
+              %p.font-semibold Please fix the following:
+              %ul.list-disc.list-inside.mt-1
+                - @user.errors.full_messages.each do |message|
+                  %li= message
+
+        %div
+          = f.label :email, "Email", class: "block text-sm font-medium mb-2"
+          = f.email_field :email, required: true, autocomplete: "username", class: "input input-bordered w-full"
+
+        %section.space-y-4.border-t.border-base-200.pt-5
+          %h2.font-semibold Change password
+          %p.text-sm.opacity-60 Leave these fields blank to keep your current password.
+          %div
+            = f.label :password, "New password", class: "block text-sm font-medium mb-2"
+            = f.password_field :password, autocomplete: "new-password", minlength: User.password_length.min, maxlength: User.password_length.max, class: "input input-bordered w-full", aria: { describedby: "password_hint" }
+            %p#password_hint.text-xs.opacity-60.mt-2= "At least #{User.password_length.min} characters."
+          %div
+            = f.label :password_confirmation, "Confirm new password", class: "block text-sm font-medium mb-2"
+            = f.password_field :password_confirmation, autocomplete: "new-password", class: "input input-bordered w-full"
+
+        .border-t.border-base-200.pt-5
+          = f.label :current_password, "Current password", class: "block text-sm font-medium mb-2"
+          = f.password_field :current_password, required: true, autocomplete: "current-password", class: "input input-bordered w-full", aria: { describedby: "current_password_hint" }
+          %p#current_password_hint.text-xs.opacity-60.mt-2 Required to confirm any changes to your account.
+
+        .flex.flex-wrap.items-center.gap-3.pt-1
+          = f.submit "Save changes", class: "btn btn-primary"
+          = link_to "Cancel", admin_dashboard_path, class: "btn btn-ghost"

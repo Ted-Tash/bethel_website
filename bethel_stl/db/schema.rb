@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_08_19_000000) do
+ActiveRecord::Schema[8.1].define(version: 2026_08_21_000000) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.bigint "blob_id", null: false
     t.datetime "created_at", null: false
@@ -56,6 +56,15 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_19_000000) do
     t.string "google_calendar_id"
     t.string "name"
     t.datetime "updated_at", null: false
+  end
+
+  create_table "conference_admins", force: :cascade do |t|
+    t.integer "conference_id", null: false
+    t.datetime "created_at", null: false
+    t.string "email", null: false
+    t.datetime "updated_at", null: false
+    t.index ["conference_id", "email"], name: "index_conference_admins_on_conference_id_and_email", unique: true
+    t.index ["conference_id"], name: "index_conference_admins_on_conference_id"
   end
 
   create_table "conference_answers", force: :cascade do |t|
@@ -236,6 +245,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_19_000000) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "conference_admins", "conferences"
   add_foreign_key "conference_answers", "conference_questions"
   add_foreign_key "conference_answers", "conference_registrations"
   add_foreign_key "conference_questions", "conferences"

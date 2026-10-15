@@ -1,0 +1,10 @@
+New registration — <%= @conference.name %>
+
+<% @details.each do |label, value| %>
+<%= label %>: <%= value %>
+<% end %>
+
+Manage registrations: <%= admin_conference_registrations_url(@conference) %>
+
+You received this notification because you are listed as an admin for this conference.
+Reply to this email to contact the registrant.

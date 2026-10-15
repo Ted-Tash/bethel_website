@@ -1,0 +1,6 @@
+.rounded-lg.bg-base-200.p-3{ data: { nested_form_target: "fields" } }
+  = f.hidden_field :_destroy if f.object.persisted?
+  = f.label :email, "Admin email", class: "block text-sm font-medium mb-2"
+  .flex.items-center.gap-2
+    = f.email_field :email, class: "input input-bordered w-full min-w-0", placeholder: "admin@example.com", autocomplete: "email"
+    %button.btn.btn-ghost.btn-sm{ type: "button", data: { action: "nested-form#remove" } } Remove

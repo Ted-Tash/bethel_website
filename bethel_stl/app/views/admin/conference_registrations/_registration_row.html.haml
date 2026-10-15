@@ -1,15 +1,16 @@
 %tr.cursor-pointer.hover:bg-base-200{ id: dom_id(registration), data: { controller: "modal", action: "click->modal#open", modal_target_param: "view_registration_slideout", base_url: admin_conference_registration_path(conference, registration, slideout: true) } }
+  %td.font-semibold.whitespace-nowrap.py-3= registration.full_name
+  %td
+    %span.badge.badge-sm.badge-soft{ class: registration.cancelled? ? "badge-warning" : "badge-success" }
+      = registration.cancelled? ? "Cancelled" : "Active"
+  %td.whitespace-nowrap
+    %div= mail_to registration.email
+    .text-xs.opacity-60.mt-1= registration.phone
   %td.whitespace-nowrap
     .text-sm= registration.created_at.strftime("%b %-d, %Y")
     .text-xs.opacity-50= registration.created_at.strftime("%-I:%M %p")
-  %td
-    %span.badge{ class: registration.cancelled? ? "badge-warning" : "badge-success" }
-      = registration.cancelled? ? "Cancelled" : "Active"
-  %td.font-semibold.whitespace-nowrap= registration.full_name
-  %td.whitespace-nowrap= mail_to registration.email
-  %td.whitespace-nowrap= registration.phone
   - questions.each do |question|
     - answer = registration.answer_for(question)
-    %td.whitespace-pre-wrap= answer&.display_value.presence || "—"
+    %td{ class: "min-w-40 max-w-56 whitespace-pre-wrap break-words" }= answer&.display_value.presence || "—"
   %td.text-right
     %button.btn.btn-ghost.btn-sm{ type: "button", data: { controller: "modal", action: "click->modal#open", modal_target_param: "edit_registration_slideout", base_url: edit_admin_conference_registration_path(conference, registration, slideout: true) } } Edit
