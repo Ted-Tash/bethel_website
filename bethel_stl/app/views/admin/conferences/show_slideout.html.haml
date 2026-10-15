@@ -19,6 +19,15 @@
             %p.text-sm.opacity-60 Description
             %p.whitespace-pre-wrap= @conference.description
 
+    %div
+      %h3.font-medium.text-base.mb-2 Conference admins
+      - if @conference.admins.any?
+        %ul.space-y-1
+          - @conference.admins.each do |admin|
+            %li.break-all= mail_to admin.email
+      - else
+        %p.text-sm.opacity-60 No admins configured. Registration notifications will not be sent.
+
     .grid.grid-cols-2.gap-3
       .rounded-lg.bg-base-200.p-3
         %p.text-sm.opacity-60 Questions
@@ -33,6 +42,7 @@
       - if @conference.registration_open?
         = link_to "View public form ↗", register_for_conference_path(@conference), class: "link link-primary text-sm ml-2", target: "_blank"
 
-    .flex.items-center.gap-2.border-t.border-base-300.pt-4
-      = link_to "Manage", admin_conference_path(@conference), class: "btn btn-primary", data: { turbo_frame: "_top" }
+    .flex.flex-wrap.items-center.gap-2.border-t.border-base-300.pt-4
+      = link_to "Manage registrations", admin_conference_registrations_path(@conference), class: "btn btn-primary", data: { turbo_frame: "_top" }
+      = link_to "Manage conference", admin_conference_path(@conference), class: "btn btn-outline", data: { turbo_frame: "_top" }
       %button.btn.btn-ghost{ type: "button", data: { controller: "modal", action: "click->modal#open", modal_target_param: "edit_conference_slideout", base_url: edit_admin_conference_path(@conference, slideout: true) }, onclick: "this.closest('dialog').close()" } Edit

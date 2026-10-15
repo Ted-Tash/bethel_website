@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     get '/', to: 'dashboard#index', as: :dashboard
+    resource :profile, only: [ :edit, :update ]
     resources :audio_extractions, only: [:index, :new, :create, :show, :destroy]
     resources :recordings do
       member do

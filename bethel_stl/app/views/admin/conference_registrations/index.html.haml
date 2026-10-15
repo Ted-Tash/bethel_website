@@ -1,29 +1,35 @@
-- csv_params = { format: :csv }
+- csv_params = { format: :csv, status: @report.status }
 - csv_params[:search] = @report.search if @report.search.present?
 
-.flex.flex-col.md:flex-row.justify-between.md:items-center.gap-4.mb-8
+%div{ class: "flex flex-col gap-4 mb-6 sm:flex-row sm:items-center sm:justify-between" }
   %div
     %h1.text-3xl.font-bold Registrations
-    %p.opacity-60= @conference.name
-  = link_to "Download CSV", admin_conference_registrations_path(@conference, csv_params), class: "btn btn-primary"
+    %p.text-sm.opacity-60.mt-1= @conference.name
+  = link_to "Download CSV", admin_conference_registrations_path(@conference, csv_params), class: "btn btn-outline btn-sm"
 
 .card.bg-base-100.shadow-sm.mb-6
-  .card-body
-    = form_with url: admin_conference_registrations_path(@conference), method: :get, class: "flex flex-col.md:flex-row.md:items-end.gap-3" do
-      .form-control.flex-1
-        = label_tag :search, "Search registrations", class: "label"
+  %div{ class: "p-4 sm:p-5" }
+    = form_with url: admin_conference_registrations_path(@conference), method: :get, class: "grid grid-cols-1 gap-3 sm:grid-cols-[minmax(0,1fr)_10rem_auto] sm:items-end" do
+      .min-w-0
+        = label_tag :search, "Search registrations", class: "block text-sm font-medium mb-2"
         = search_field_tag :search, @report.search, class: "input input-bordered w-full", placeholder: "Name, email, phone, or answer"
-      .flex.flex-wrap.items-center.gap-2
-        = submit_tag "Search", class: "btn btn-primary"
-        - if @report.search.present?
-          = link_to "Clear search", admin_conference_registrations_path(@conference), class: "btn btn-ghost"
-      %span.text-sm.opacity-60.md:pb-3= pluralize(@registrations.size, @report.search.present? ? "matching registration" : "registration")
+      %div
+        = label_tag :status, "Status", class: "block text-sm font-medium mb-2"
+        = select_tag :status, options_for_select([["Active", "active"], ["Cancelled", "cancelled"], ["All statuses", "all"]], @report.status), class: "select select-bordered w-full"
+      .flex.items-center.gap-2
+        = submit_tag "Apply filters", class: "btn btn-primary"
+        - if @report.filters_active?
+          = link_to "Reset", admin_conference_registrations_path(@conference), class: "btn btn-ghost"
 
 #conference_registration_totals
   = render "admin/conference_registrations/response_totals", questions: @filterable_questions, registrations: @registrations, response_counts: @response_counts
 
+.flex.flex-wrap.items-center.justify-between.gap-2.mb-3
+  %h2.text-lg.font-semibold= "#{@report.status == 'all' ? 'All' : @report.status.capitalize} registrations"
+  %p.text-sm.opacity-60{ role: "status" }= pluralize(@registrations.size, @report.search.present? ? "matching registration" : "registration")
+
 #conference_registrations_table
-  = render "admin/conference_registrations/registrations_table", conference: @conference, registrations: @registrations, questions: @questions, search_active: @report.search.present?
+  = render "admin/conference_registrations/registrations_table", conference: @conference, registrations: @registrations, questions: @questions, filters_active: @report.filters_active?
 
 = render "admin/shared/slideout", id: "view_registration_slideout",
     title: "Registration Details", size: :md,

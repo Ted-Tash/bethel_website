@@ -81,7 +81,7 @@ class Admin::ConferenceRegistrationsController < Admin::BaseController
     @report = ConferenceRegistrationsReport.new(
       @conference,
       search: params.permit(:search)[:search],
-      status: "all"
+      status: params.permit(:status)[:status]
     )
     @questions = @report.questions
     @filterable_questions = @report.filterable_questions

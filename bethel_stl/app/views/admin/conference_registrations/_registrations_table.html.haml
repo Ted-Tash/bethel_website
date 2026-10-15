@@ -1,26 +1,26 @@
 - if registrations.any?
-  .card.bg-base-100.shadow-md
+  .card.bg-base-100.shadow-sm.overflow-hidden
     .overflow-x-auto
       %table.table.table-sm
-        %thead
+        %thead.bg-base-200
           %tr
-            %th Submitted
-            %th Status
-            %th Name
-            %th Email
-            %th Phone
+            %th{ scope: "col" } Name
+            %th{ scope: "col" } Status
+            %th{ scope: "col" } Contact
+            %th{ scope: "col" } Submitted
             - questions.each do |question|
-              %th= question.label
-            %th
+              %th{ scope: "col", class: "min-w-40 max-w-56 whitespace-normal" }= question.label
+            %th{ scope: "col" }
+              %span.sr-only Actions
         %tbody
           - registrations.each do |registration|
             = render "admin/conference_registrations/registration_row", conference: conference, registration: registration, questions: questions
 - else
-  .card.bg-base-100.shadow-md
-    .card-body.items-center.text-center.py-16
-      - if search_active
-        %h2.text-xl.font-semibold.opacity-60 No matching registrations
-        %p.opacity-40.mt-2 Try a different search.
+  .card.bg-base-100.shadow-sm
+    .card-body.items-center.text-center.py-12
+      - if filters_active
+        %h2.text-lg.font-semibold No matching registrations
+        %p.text-sm.opacity-60 Try a different search or status.
       - else
-        %h2.text-xl.font-semibold.opacity-60 No registrations yet
-        %p.opacity-40.mt-2 Submitted registrations will appear here.
+        %h2.text-lg.font-semibold No active registrations
+        %p.text-sm.opacity-60 New registrations will appear here. Select All statuses to include cancellations.

@@ -1,8 +1,8 @@
-.navbar.bg-base-100.shadow-lg
-  .navbar-start
+.navbar.bg-base-100.shadow-lg.gap-2.px-4
+  .flex.min-w-0.items-center
     -# Mobile hamburger dropdown
     .dropdown
-      %div{ tabindex: "0", role: "button", class: "btn btn-ghost lg:hidden" }
+      %div{ tabindex: "0", role: "button", class: "btn btn-ghost btn-square lg:hidden", "aria-label" => "Navigation menu" }
         %svg.h-5.w-5{ xmlns: "http://www.w3.org/2000/svg", fill: "none", viewBox: "0 0 24 24", stroke: "currentColor" }
           %path{ "stroke-linecap" => "round", "stroke-linejoin" => "round", "stroke-width" => "2", d: "M4 6h16M4 12h8m-8 6h16" }
       %ul.menu.menu-sm.dropdown-content.bg-base-100.rounded-box.z-10.mt-3.w-52.p-2.shadow{ tabindex: "0" }
@@ -14,9 +14,9 @@
         %li= link_to 'Directory', admin_households_path
         %li= link_to 'SMS/Email', admin_messages_path
         %li= link_to 'Audio Extractor', admin_audio_extractions_path
-    = link_to 'Bethel Admin', admin_dashboard_path, class: 'btn btn-ghost text-xl'
+    = link_to 'Bethel Admin', admin_dashboard_path, class: 'btn btn-ghost text-base sm:text-xl px-2'
 
-  .navbar-center.hidden.lg:flex
+  %div{ class: "hidden flex-1 justify-center lg:flex" }
     %ul.menu.menu-horizontal.px-1
       %li= link_to 'Dashboard', admin_dashboard_path, class: active_nav_class(admin_dashboard_path)
       %li= link_to 'Sermons', admin_recordings_path, class: active_nav_class(admin_recordings_path)
@@ -27,6 +27,16 @@
       %li= link_to 'SMS/Email', admin_messages_path, class: active_nav_class(admin_messages_path)
       %li= link_to 'Audio', admin_audio_extractions_path, class: active_nav_class(admin_audio_extractions_path)
 
-  .navbar-end.gap-2
-    = link_to 'View Site', root_path, class: 'btn btn-ghost btn-sm', target: '_blank'
-    = button_to 'Sign Out', destroy_user_session_path, method: :delete, class: 'btn btn-outline btn-sm'
+  .ml-auto.flex.shrink-0.items-center.gap-2
+    = link_to 'View Site', root_path, class: 'btn btn-ghost btn-sm hidden sm:inline-flex', target: '_blank'
+    %details.dropdown.dropdown-end
+      %summary.btn.btn-ghost.btn-circle{ "aria-label" => "Account menu" }
+        .flex.h-9.w-9.items-center.justify-center.rounded-full.bg-base-200
+          %svg.h-5.w-5{ xmlns: "http://www.w3.org/2000/svg", fill: "none", viewBox: "0 0 24 24", stroke: "currentColor", "aria-hidden" => "true" }
+            %path{ "stroke-linecap" => "round", "stroke-linejoin" => "round", "stroke-width" => "1.5", d: "M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.5 20.25a7.5 7.5 0 0 1 15 0 17.93 17.93 0 0 1-7.5 1.5c-2.68 0-5.22-.57-7.5-1.5Z" }
+      %ul.menu.dropdown-content.bg-base-100.rounded-box.z-50.mt-3.w-64.p-2.shadow-lg
+        %li.menu-title
+          %span.truncate.font-normal= current_user.email
+        %li= link_to "Edit profile", edit_admin_profile_path
+        %li{ class: "sm:hidden" }= link_to "View Site ↗", root_path, target: "_blank"
+        %li= button_to "Sign out", destroy_user_session_path, method: :delete, class: "w-full text-left"

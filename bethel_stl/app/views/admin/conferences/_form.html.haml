@@ -2,7 +2,7 @@
 - form_url = conference.persisted? ? admin_conference_path(conference, slideout: slideout || nil, context: params[:context]) : admin_conferences_path(slideout: slideout || nil)
 - form_method = conference.persisted? ? :patch : :post
 
-= form_with model: [:admin, conference], url: form_url, method: form_method, class: "space-y-6" do |f|
+= form_with model: [:admin, conference], url: form_url, method: form_method, class: "space-y-6", data: { controller: "nested-form" } do |f|
   - if conference.errors.any?
     .alert.alert-error
       %div
@@ -42,6 +42,18 @@
       %label.label{ for: "conference_ends_at" }
         %span.label-text Ends
       = f.datetime_local_field :ends_at, class: "input input-bordered w-full"
+
+  %section
+    .flex.items-center.justify-between.gap-3.mb-2
+      %h3.font-semibold Conference admins
+      %button.btn.btn-outline.btn-sm{ type: "button", data: { action: "nested-form#add" } } + Add admin
+    %p.text-sm.opacity-60.mb-3 Each admin receives an email with the details of every new registration.
+    .space-y-3{ data: { nested_form_target: "container" } }
+      = f.fields_for :admins do |admin_form|
+        = render "admin/conferences/admin_fields", f: admin_form
+    %template{ data: { nested_form_target: "template" } }
+      = f.fields_for :admins, ConferenceAdmin.new, child_index: "NEW_RECORD" do |admin_form|
+        = render "admin/conferences/admin_fields", f: admin_form
 
   %label.flex.items-start.gap-3.cursor-pointer.rounded-lg.bg-base-200.p-4
     = f.check_box :registration_open, class: "toggle toggle-primary mt-0.5 shrink-0"

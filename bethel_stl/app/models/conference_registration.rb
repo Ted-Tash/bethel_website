@@ -8,6 +8,7 @@ class ConferenceRegistration < ApplicationRecord
   accepts_nested_attributes_for :answers
 
   before_validation :normalize_contact_information
+  after_create_commit :notify_conference_admins
 
   scope :active, -> { where(cancelled_at: nil) }
   scope :cancelled, -> { where.not(cancelled_at: nil) }
@@ -38,6 +39,12 @@ class ConferenceRegistration < ApplicationRecord
   end
 
   private
+
+  def notify_conference_admins
+    conference.admins.find_each do |admin|
+      SendRegistrationMailerJob.perform_later(self, admin)
+    end
+  end
 
   def normalize_contact_information
     self.email = email.to_s.strip.downcase

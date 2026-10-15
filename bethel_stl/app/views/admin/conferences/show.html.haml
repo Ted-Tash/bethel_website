@@ -22,6 +22,14 @@
         %p
           %strong Ends:
           = @conference.ends_at.to_fs(:long)
+      %div
+        %h3.font-semibold.mb-1 Conference admins
+        - if @conference.admins.any?
+          %ul.space-y-1
+            - @conference.admins.each do |admin|
+              %li.break-all= mail_to admin.email
+        - else
+          %p.text-sm.opacity-60 No admins configured. Registration notifications will not be sent.
   .card.bg-base-100.shadow-md
     .card-body
       %h2.card-title Registrations

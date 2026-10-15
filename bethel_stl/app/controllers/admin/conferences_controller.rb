@@ -11,6 +11,7 @@ class Admin::ConferencesController < Admin::BaseController
 
   def new
     @conference = Conference.new
+    @conference.admins.build
 
     if params[:slideout]
       render :new_slideout, layout: false
@@ -36,6 +37,8 @@ class Admin::ConferencesController < Admin::BaseController
   end
 
   def edit
+    @conference.admins.build if @conference.admins.empty?
+
     if params[:slideout]
       render :edit_slideout, layout: false
     else
@@ -76,6 +79,9 @@ class Admin::ConferencesController < Admin::BaseController
   end
 
   def conference_params
-    params.require(:conference).permit(:name, :slug, :description, :location, :starts_at, :ends_at, :registration_open)
+    params.require(:conference).permit(
+      :name, :slug, :description, :location, :starts_at, :ends_at, :registration_open,
+      admins_attributes: [ :id, :email, :_destroy ]
+    )
   end
 end
