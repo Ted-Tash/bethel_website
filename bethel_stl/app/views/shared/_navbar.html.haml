@@ -23,5 +23,5 @@
 
 
   .navbar-end
-    - if user_signed_in? && current_user.admin?
-      = link_to 'Admin', admin_dashboard_path, class: 'btn btn-primary btn-sm'
+    - if user_signed_in? && current_user.can_manage_conferences?
+      = link_to 'Admin', admin_home_path, class: 'btn btn-primary btn-sm'

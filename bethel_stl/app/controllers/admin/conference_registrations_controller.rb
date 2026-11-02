@@ -1,4 +1,4 @@
-class Admin::ConferenceRegistrationsController < Admin::BaseController
+class Admin::ConferenceRegistrationsController < Admin::ConferenceBaseController
   before_action :set_conference
   before_action :set_registration, only: [ :show, :edit, :update, :cancel, :reactivate ]
 

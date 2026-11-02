@@ -1,4 +1,4 @@
-class Admin::ConferencesController < Admin::BaseController
+class Admin::ConferencesController < Admin::ConferenceBaseController
   before_action :set_conference, only: [ :show, :edit, :update, :destroy ]
 
   def index
