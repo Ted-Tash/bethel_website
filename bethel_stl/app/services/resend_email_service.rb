@@ -2,9 +2,6 @@ class ResendEmailService
   Result = Struct.new(:status, :provider_id, :error, keyword_init: true)
 
   def self.send_email(delivery:)
-    unless delivery.member.reload.email_consent?
-      return Result.new(status: :skipped, error: "Email disabled for member")
-    end
     if EmailSuppression.exists?(email: delivery.phone_or_email)
       return Result.new(status: :skipped, error: "Email address unsubscribed")
     end

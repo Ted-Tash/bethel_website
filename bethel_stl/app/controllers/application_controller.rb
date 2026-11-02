@@ -8,6 +8,6 @@ class ApplicationController < ActionController::Base
   private
 
   def after_sign_in_path_for(resource)
-    admin_dashboard_path
+    resource.super_admin? ? admin_dashboard_path : admin_conferences_path
   end
 end

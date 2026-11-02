@@ -16,6 +16,8 @@ All code, configuration, and architectural decisions must account for:
 - Ruby version: 3.4.8 (managed via mise)
 
 ## Guidelines
+- Do not write automated tests for this project.
+- Manage user roles exclusively through the production Rails console; do not add user/role management UI or HTTP endpoints.
 - Use Rails 8 SQLite-backed defaults: Solid Queue, Solid Cache, Solid Cable
 - Keep resource usage low — optimize for minimal memory footprint
 - Keep the Dockerfile compatible with the self-hosted Kamal deployment

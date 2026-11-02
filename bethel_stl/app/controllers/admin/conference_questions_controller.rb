@@ -1,4 +1,4 @@
-class Admin::ConferenceQuestionsController < Admin::BaseController
+class Admin::ConferenceQuestionsController < Admin::ConferenceBaseController
   before_action :set_conference
   before_action :set_question, only: [ :edit, :update, :destroy ]
 

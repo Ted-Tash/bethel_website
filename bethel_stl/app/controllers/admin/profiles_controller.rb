@@ -16,6 +16,10 @@ class Admin::ProfilesController < Admin::BaseController
 
   private
 
+  def authorized_for_admin?
+    current_user.can_manage_conferences?
+  end
+
   def profile_params
     params.require(:user).permit(:email, :password, :password_confirmation, :current_password)
   end

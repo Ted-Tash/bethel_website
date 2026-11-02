@@ -81,7 +81,7 @@
           %tbody
             - @deliveries.each do |delivery|
               %tr
-                %td= delivery.member.full_name
+                %td= delivery.member&.full_name || "Deleted member"
                 %td= delivery.phone_or_email
                 %td
                   - case delivery.status

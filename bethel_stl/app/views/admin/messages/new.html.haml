@@ -16,7 +16,7 @@
       .form-control
         %label.label
           %span.label-text Recipients
-        = f.select :contact_group_id, @contact_groups.map { |g| [g.name, g.id] }, { include_blank: "Everyone (members eligible for the selected channel)" }, class: "select select-bordered w-full"
+        = f.select :contact_group_id, @contact_groups.map { |g| [g.name, g.id] }, { include_blank: "Choose a group" }, class: "select select-bordered w-full", required: true
 
       - if ApplicationMailer.delivery_method == :file
         .alert Local emails are captured in tmp/mail_capture, not sent. SMS still uses Twilio.
@@ -32,7 +32,7 @@
         .label
           %span.label-text-alt{ data: { character_count_target: "count" } }
             %span.opacity-60{ data: { message_form_target: "smsHint" } } SMS segments: 1 message = 160 characters. Longer messages use multiple segments.
-        %p.text-sm.opacity-60 New members are enabled for email by default. Unsubscribed addresses are skipped. Body is plain text, also rendered safely as HTML.
+        %p.text-sm.opacity-60 Only eligible members of the selected group receive messages. Unsubscribed email addresses are skipped. Body is plain text, also rendered safely as HTML.
 
       .form-control.max-w-xs
         %label.label

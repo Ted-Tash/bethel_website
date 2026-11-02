@@ -8,7 +8,7 @@ class Member < ApplicationRecord
   validates :last_name, presence: true
 
   scope :with_phone, -> { where.not(phone: [ nil, "" ]) }
-  scope :with_email, -> { where.not(email: [ nil, "" ]).where(email_consent: true) }
+  scope :with_email, -> { where.not(email: [ nil, "" ]) }
 
   def normalized_email
     email.to_s.strip.downcase
