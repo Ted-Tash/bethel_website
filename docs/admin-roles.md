@@ -18,7 +18,7 @@ user.update!(role: :super_admin)
 
 Changes take effect on the user's next request, including existing sessions. Keep at least one super admin when changing roles; the console permits demoting your own account.
 
-Conference notification recipients (`ConferenceAdmin` email addresses) are separate from login accounts and do not grant permissions.
+Conference notification recipients (`ConferenceAdmin` email addresses) are separate from login accounts and do not grant permissions. The conference setup form selects recipients from existing super admin and conference manager accounts. Previously saved recipient addresses remain available on their own rows when editing, even if they no longer match an account. Selections store the email address at the time of saving; later profile email changes do not update notification recipients automatically.
 
 ## Migration
 

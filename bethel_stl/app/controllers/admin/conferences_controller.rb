@@ -1,5 +1,6 @@
 class Admin::ConferencesController < Admin::ConferenceBaseController
   before_action :set_conference, only: [ :show, :edit, :update, :destroy ]
+  before_action :set_admin_emails, only: [ :new, :create, :edit, :update ]
 
   def index
     @conferences = Conference.chronological.includes(:questions, :registrations)
@@ -76,6 +77,10 @@ class Admin::ConferencesController < Admin::ConferenceBaseController
 
   def set_conference
     @conference = Conference.find_by!(slug: params[:id])
+  end
+
+  def set_admin_emails
+    @admin_emails = User.order(:email).pluck(:email)
   end
 
   def conference_params
