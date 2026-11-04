@@ -2,5 +2,6 @@
   = f.hidden_field :_destroy if f.object.persisted?
   = f.label :email, "Admin email", class: "block text-sm font-medium mb-2"
   .flex.items-center.gap-2
-    = f.email_field :email, class: "input input-bordered w-full min-w-0", placeholder: "admin@example.com", autocomplete: "email"
+    - options = (admin_emails + [f.object.email]).compact_blank.uniq.sort
+    = f.select :email, options, { include_blank: "Select an admin" }, class: "select select-bordered w-full min-w-0"
     %button.btn.btn-ghost.btn-sm{ type: "button", data: { action: "nested-form#remove" } } Remove
