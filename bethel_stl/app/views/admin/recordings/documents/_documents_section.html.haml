@@ -5,9 +5,9 @@
 
 .card.bg-base-200.relative{ data: { controller: 'file-drop', file_drop_url_value: admin_recording_documents_path(recording, format: :json), file_drop_frame_id_value: "recording_#{recording.id}_documents", file_drop_param_name_value: 'document[file]' } }
   .card-body.p-4
-    .flex.items-center.justify-between.mb-3
+    .flex.flex-wrap.items-center.justify-between.gap-2.mb-3
       %h3.font-medium.text-base Support Documents
-      %button.btn.btn-ghost.btn-sm{ type: 'button', data: { action: 'click->file-drop#browse' } }
+      %button.btn.btn-ghost.btn-sm.min-h-11{ type: 'button', data: { action: 'click->file-drop#browse' } }
         %svg.w-4.h-4{ xmlns: "http://www.w3.org/2000/svg", fill: "none", viewBox: "0 0 24 24", "stroke-width" => "1.5", stroke: "currentColor" }
           %path{ "stroke-linecap" => "round", "stroke-linejoin" => "round", d: "M12 4.5v15m7.5-7.5h-15" }
         Upload
@@ -16,7 +16,7 @@
     %input{ type: 'file', multiple: true, class: 'hidden', data: { file_drop_target: 'input', action: 'change->file-drop#inputChanged' } }
 
     -# Upload status indicator
-    .text-sm.text-center.py-2.hidden{ data: { file_drop_target: 'status' } }
+    .text-sm.text-center.break-all.py-2.hidden{ data: { file_drop_target: 'status' } }
 
     -# Documents list loaded via turbo-frame
     %turbo-frame{ id: "recording_#{recording.id}_documents", src: admin_recording_documents_path(recording), loading: 'lazy' }
@@ -24,7 +24,7 @@
         %span.loading.loading-spinner.loading-sm
 
     -# Drag hint
-    .text-center.text-xs.opacity-40.mt-2 Drag and drop files here
+    .text-center.text-xs.opacity-60.mt-2 Tap Upload or drag and drop files here
 
   -# Drop overlay (shown during drag)
   .absolute.inset-0.rounded-2xl.border-2.border-dashed.border-primary.flex.items-center.justify-center.hidden{ class: "bg-base-100/90 z-10", data: { file_drop_target: 'overlay' } }

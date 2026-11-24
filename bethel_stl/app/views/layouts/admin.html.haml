@@ -10,11 +10,12 @@
 
   %body.min-h-screen.flex.flex-col.bg-base-200
     = render 'admin/shared/navbar'
-    %main.flex-grow.max-w-7xl.mx-auto.w-full.px-4.py-8
+    %main.flex-grow.min-w-0.max-w-7xl.mx-auto.w-full.px-3.py-5.sm:px-6.sm:py-8{ class: '[overflow-wrap:anywhere] max-sm:[&_.btn]:min-h-11 max-sm:[&_.btn-square]:min-w-11 [&_.card]:min-w-0 [&_.card-body]:min-w-0 [&_.form-control]:min-w-0 [&_.input]:min-w-0 [&_.input]:max-w-full [&_.input]:text-base [&_.select]:min-w-0 [&_.select]:max-w-full [&_.select]:text-base [&_.textarea]:min-w-0 [&_.textarea]:max-w-full [&_.textarea]:text-base [&_.file-input]:min-w-0 [&_.file-input]:max-w-full [&_.file-input]:text-base [&_.label]:whitespace-normal [&_.label]:flex-wrap' }
       - if notice.present?
-        .alert.alert-success.mb-6
+        .alert.alert-success.mb-6.min-w-0
           %span= notice
       - if alert.present?
-        .alert.alert-error.mb-6
+        .alert.alert-error.mb-6.min-w-0
           %span= alert
+      = render 'admin/shared/breadcrumbs'
       = yield

@@ -1,7 +1,7 @@
-%h1.text-3xl.font-bold.mb-8 New Message
+%h1.text-2xl.font-bold.mb-6.sm:text-3xl New Message
 
 .card.bg-base-100.shadow-md
-  .card-body
+  .card-body.min-w-0.p-4.sm:p-6
     = form_with model: [:admin, @message], class: "space-y-6", data: { controller: "message-form" } do |f|
       - if @message.errors.any?
         .alert.alert-error.mb-4
@@ -41,7 +41,7 @@
         .label
           %span.label-text-alt.opacity-60 Leave blank to send immediately.
 
-      .flex.gap-3
+      .flex.flex-col.gap-3.sm:flex-row.sm:flex-wrap
         = f.submit "Send Now", class: "btn btn-primary", data: { message_form_target: "sendNowBtn", turbo_confirm: "Send this message to all recipients right now?" }
         = f.submit "Schedule", class: "btn btn-primary opacity-50", disabled: true, data: { message_form_target: "scheduleBtn" }
         = link_to "Cancel", admin_messages_path, class: "btn btn-ghost"

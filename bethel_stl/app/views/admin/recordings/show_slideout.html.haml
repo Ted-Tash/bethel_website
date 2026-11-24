@@ -14,9 +14,9 @@
     %div
       %h3.font-medium.text-base.mb-3 Audio
       - if @recording.audio.attached?
-        %audio{ controls: true, class: 'w-full' }
+        %audio{ controls: true, class: 'w-full min-w-0 max-w-full' }
           %source{ src: url_for(@recording.audio), type: @recording.audio.content_type }
-        %p.text-sm.opacity-60.mt-1= @recording.audio.filename
+        %p.text-sm.opacity-60.break-all.mt-1= @recording.audio.filename
       - else
         %p.opacity-60 No audio file attached
 
@@ -24,7 +24,7 @@
     = render 'admin/recordings/documents/documents_section', recording: @recording
 
     -# Actions
-    .flex.items-center.gap-3.border-t.border-base-300.pt-4.mt-4
+    .flex.flex-wrap.items-center.gap-3.border-t.border-base-300.pt-4.mt-4
       %button.btn.btn-ghost{ type: 'button', data: { controller: 'modal', action: 'click->modal#open', modal_target_param: 'edit_recording_slideout', base_url: edit_admin_recording_path(@recording, slideout: true) }, onclick: "this.closest('dialog').close()" } Edit
       - if @recording.audio.attached?
         = link_to 'Edit Audio', editor_admin_recording_path(@recording), class: 'btn btn-ghost', data: { turbo_frame: '_top' }

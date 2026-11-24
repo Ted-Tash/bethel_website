@@ -36,13 +36,13 @@
         %p.text-sm.opacity-60 Registrants
         %p.text-2xl.font-semibold= @conference.registrations.size
 
-    %div
+    .flex.flex-wrap.items-center.gap-2
       %span.badge{ class: @conference.registration_open? ? "badge-success" : "badge-ghost" }
         = @conference.registration_open? ? "Registration open" : "Registration closed"
       - if @conference.registration_open?
-        = link_to "View public form ↗", register_for_conference_path(@conference), class: "link link-primary text-sm ml-2", target: "_blank"
+        = link_to "View public form ↗", register_for_conference_path(@conference), class: "link link-primary text-sm py-2", target: "_blank"
 
-    .flex.flex-wrap.items-center.gap-2.border-t.border-base-300.pt-4
+    .flex.flex-col.gap-3.border-t.border-base-300.pt-4.sm:flex-row.sm:flex-wrap.sm:items-center
       = link_to "Manage registrations", admin_conference_registrations_path(@conference), class: "btn btn-primary", data: { turbo_frame: "_top" }
       = link_to "Manage conference", admin_conference_path(@conference), class: "btn btn-outline", data: { turbo_frame: "_top" }
       %button.btn.btn-ghost{ type: "button", data: { controller: "modal", action: "click->modal#open", modal_target_param: "edit_conference_slideout", base_url: edit_admin_conference_path(@conference, slideout: true) }, onclick: "this.closest('dialog').close()" } Edit

@@ -1,28 +1,30 @@
 %tr.cursor-pointer.hover:bg-base-200{ data: { controller: 'modal', action: 'click->modal#open', modal_target_param: 'view_recording_slideout', base_url: admin_recording_path(recording, slideout: true) } }
-  %td.font-semibold= recording.title
-  %td= recording.speaker_name
-  %td
+  %td.font-semibold{ data: { label: 'Title' } }= recording.title
+  %td{ data: { label: 'Speaker' } }= recording.speaker_name
+  %td{ data: { label: 'Recorded on' } }
     - if recording.recorded_on
       = recording.recorded_on.strftime('%b %-d, %Y')
     - else
       %span.opacity-40 —
-  %td
+  %td.break-all{ data: { label: 'File' } }
     - if recording.audio.attached?
       %span.text-sm= recording.audio.filename
     - else
       %span.opacity-40 None
-  %td
+  %td{ data: { label: 'Duration' } }
     - if recording.duration_seconds.present?
       %span.text-sm= "#{recording.duration_seconds / 60}:#{'%02d' % (recording.duration_seconds % 60)}"
     - else
       %span.opacity-40 —
-  %td
+  %td{ data: { label: 'Documents' } }
     - if recording.documents.any?
       %span.badge.badge-info.badge-sm
         = pluralize(recording.documents.size, 'file')
     - else
       %span.opacity-40 None
-  %td.text-right.flex.gap-1.justify-end
-    - if recording.audio.attached?
-      = link_to 'Edit Audio', editor_admin_recording_path(recording), class: 'btn btn-ghost btn-sm', data: { turbo_frame: '_top' }, onclick: 'event.stopPropagation()'
-    %button.btn.btn-ghost.btn-sm{ type: 'button', data: { controller: 'modal', action: 'click->modal#open', modal_target_param: 'edit_recording_slideout', base_url: edit_admin_recording_path(recording, slideout: true) } } Edit
+  %td
+    .flex.flex-wrap.items-center.gap-2{ class: '@3xl:justify-end' }
+      %button.btn.btn-outline.btn-sm.min-h-11{ type: 'button', data: { controller: 'modal', action: 'click->modal#open:stop', modal_target_param: 'view_recording_slideout', base_url: admin_recording_path(recording, slideout: true) } } View
+      - if recording.audio.attached?
+        = link_to 'Edit Audio', editor_admin_recording_path(recording), class: 'btn btn-ghost btn-sm min-h-11', data: { turbo_frame: '_top' }, onclick: 'event.stopPropagation()'
+      %button.btn.btn-ghost.btn-sm.min-h-11{ type: 'button', data: { controller: 'modal', action: 'click->modal#open:stop', modal_target_param: 'edit_recording_slideout', base_url: edit_admin_recording_path(recording, slideout: true) } } Edit

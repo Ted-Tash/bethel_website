@@ -40,9 +40,9 @@
         = f.text_field :zip, class: 'input input-bordered w-full'
 
   .mb-6
-    .flex.justify-between.items-center.mb-3
+    .flex.flex-wrap.justify-between.items-center.gap-3.mb-3
       %h3.font-medium.text-base Members
-      %button.btn.btn-outline.btn-sm{ type: 'button', data: { nested_form_target: 'addButton', action: 'nested-form#add' } }
+      %button.btn.btn-outline.btn-sm.min-h-11{ type: 'button', data: { nested_form_target: 'addButton', action: 'nested-form#add' } }
         + Add Member
 
     .space-y-4{ data: { nested_form_target: 'container' } }
@@ -53,8 +53,7 @@
       = f.fields_for :members, Member.new, child_index: 'NEW_RECORD' do |member_form|
         = render 'admin/households/member_fields', f: member_form
 
-  .flex.items-center.gap-3
-    .flex-1
+  .flex.flex-col-reverse.gap-3.sm:flex-row.sm:items-center.sm:justify-end
     - if slideout
       %button.btn.btn-ghost{ type: 'button', onclick: "this.closest('dialog').close()" } Cancel
     - else

@@ -30,9 +30,9 @@ Rails.application.routes.draw do
     delete 'events/sources/:id', to: 'events#destroy_source', as: :events_destroy_source
 
     resources :households
-    resources :contact_groups, except: [:show]
+    resources :contact_groups
     resources :conferences do
-      resources :questions, controller: "conference_questions", except: [ :index, :show ] do
+      resources :questions, controller: "conference_questions", except: [ :index ] do
         patch :reorder, on: :collection
       end
       resources :registrations, controller: "conference_registrations", only: [ :index, :show, :edit, :update ] do

@@ -1,6 +1,10 @@
 class Admin::ConferenceQuestionsController < Admin::ConferenceBaseController
   before_action :set_conference
-  before_action :set_question, only: [ :edit, :update, :destroy ]
+  before_action :set_question, only: [ :show, :edit, :update, :destroy ]
+
+  def show
+    render :show_slideout, layout: params[:slideout] ? false : "admin"
+  end
 
   def new
     @question = @conference.questions.build(position: next_position)

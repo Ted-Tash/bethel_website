@@ -1,0 +1,26 @@
+%turbo-frame#view_question_content
+  .space-y-6
+    %div
+      %h3.text-xl.font-semibold= @question.label
+      %p.text-sm.opacity-60.mt-1= @conference.name
+
+    %dl.space-y-4
+      %div
+        %dt.text-sm.opacity-60 Answer type
+        %dd.font-medium= ConferenceQuestion::TYPES.fetch(@question.question_type)
+      %div
+        %dt.text-sm.opacity-60 Required
+        %dd= @question.required? ? "Yes" : "No"
+      - if @question.choice_type?
+        %div
+          %dt.text-sm.opacity-60.mb-2 Choice options
+          %dd
+            %ul.list-disc.pl-5.space-y-2
+              - @question.choice_options.each do |option|
+                %li.break-words= option
+
+    - if params[:slideout]
+      .border-t.border-base-300.pt-4
+        %button.btn.btn-outline.min-h-11{ type: "button", data: { controller: "modal", action: "click->modal#open", modal_target_param: "edit_question_slideout", base_url: edit_admin_conference_question_path(@conference, @question, slideout: true) }, onclick: "this.closest('dialog').close()" } Edit question
+    - else
+      = link_to "Back to conference", admin_conference_path(@conference), class: "btn btn-ghost min-h-11"

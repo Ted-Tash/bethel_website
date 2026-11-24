@@ -1,17 +1,17 @@
 - if households.any?
   .card.bg-base-100.shadow-md
-    .overflow-x-auto
-      %table.table
-        %thead
-          %tr
-            %th Household
-            %th Members
-            %th Contact
-            %th Address
-            %th
-        %tbody
-          - households.each do |household|
-            = render 'admin/households/household_row', household: household
+    = render layout: 'admin/shared/responsive_table', locals: { label: 'Directory households' } do
+      %thead
+        %tr
+          %th{ scope: 'col' } Household
+          %th{ scope: 'col' } Members
+          %th{ scope: 'col' } Contact
+          %th{ scope: 'col' } Address
+          %th{ scope: 'col' }
+            %span.sr-only Actions
+      %tbody
+        - households.each do |household|
+          = render 'admin/households/household_row', household: household
 - else
   .card.bg-base-100.shadow-md
     .card-body.items-center.text-center.py-16

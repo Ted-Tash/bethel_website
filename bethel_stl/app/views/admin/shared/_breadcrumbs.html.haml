@@ -1,0 +1,20 @@
+- breadcrumbs = admin_breadcrumbs
+- if breadcrumbs.size > 1
+  %nav.mb-4.min-w-0{ aria: { label: "Breadcrumb" } }
+    - back_label, back_path = admin_back_destination(breadcrumbs)
+    = link_to back_path, class: "inline-flex min-h-11 max-w-full items-center gap-2 rounded-lg py-2 pr-3 text-sm font-medium text-primary hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 sm:hidden" do
+      %svg.h-4.w-4.shrink-0{ xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", "stroke-width" => "2", aria: { hidden: "true" } }
+        %path{ d: "m15 18-6-6 6-6", "stroke-linecap" => "round", "stroke-linejoin" => "round" }
+      %span.min-w-0= "Back to #{back_label}"
+
+    %ol.hidden.min-w-0.flex-wrap.items-center.gap-x-2.gap-y-1.text-sm.sm:flex
+      - breadcrumbs.each_with_index do |(label, path), index|
+        %li.flex.min-w-0.max-w-full.items-center.gap-2
+          - unless index.zero?
+            %svg.h-4.w-4.shrink-0.opacity-40{ xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", "stroke-width" => "1.5", aria: { hidden: "true" } }
+              %path{ d: "m9 6 6 6-6 6", "stroke-linecap" => "round", "stroke-linejoin" => "round" }
+          - if index == breadcrumbs.size - 1
+            %span.block.max-w-xs.truncate.py-2.font-medium{ aria: { current: "page" }, title: label }= label
+          - else
+            = link_to path, class: "inline-flex min-h-11 min-w-0 max-w-full items-center rounded-lg py-2 text-primary hover:underline focus-visible:outline-2 focus-visible:outline-offset-2", title: label do
+              %span.block.max-w-56.truncate= label

@@ -1,21 +1,21 @@
 - if questions.any?
   .card.bg-base-100.shadow-md{ data: { controller: "sortable", sortable_url_value: reorder_admin_conference_questions_path(conference) } }
-    .flex.items-center.justify-between.gap-4.px-4.py-3.border-b.border-base-300
+    .flex.flex-col.gap-2.px-4.py-3.border-b.border-base-300.sm:flex-row.sm:items-center.sm:justify-between
       %p.text-sm.opacity-60 Drag questions by the handle to change their order.
       %span.text-sm.opacity-60{ aria: { live: "polite" }, data: { sortable_target: "status" } }
-    .overflow-x-auto
-      %table.table
-        %thead
-          %tr
-            %th.w-12
-              %span.sr-only Reorder
-            %th Question
-            %th Type
-            %th Required
-            %th
-        %tbody{ data: { sortable_target: "list" } }
-          - questions.each do |question|
-            = render "admin/conference_questions/question_row", conference: conference, question: question
+    = render layout: 'admin/shared/responsive_table', locals: { label: 'Registration questions' } do
+      %thead
+        %tr
+          %th.w-12{ scope: 'col' }
+            %span.sr-only Reorder
+          %th{ scope: 'col' } Question
+          %th{ scope: 'col' } Type
+          %th{ scope: 'col' } Required
+          %th{ scope: 'col' }
+            %span.sr-only Actions
+      %tbody{ data: { sortable_target: "list" } }
+        - questions.each do |question|
+          = render "admin/conference_questions/question_row", conference: conference, question: question
 - else
   .card.bg-base-100.shadow-md
     .card-body.items-center.text-center.py-12

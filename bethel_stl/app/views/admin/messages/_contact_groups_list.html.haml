@@ -1,19 +1,21 @@
 - if contact_groups.any?
-  .overflow-x-auto
-    %table.table
-      %thead
-        %tr
-          %th Name
-          %th Members
-          %th
-      %tbody
-        - contact_groups.each do |group|
-          %tr.cursor-pointer.hover:bg-base-200{ data: { controller: 'modal', action: 'click->modal#open', modal_target_param: 'edit_contact_group_slideout', base_url: edit_admin_contact_group_path(group, slideout: true) } }
-            %td.font-semibold= group.name
-            %td
-              .badge.badge-neutral= pluralize(group.members.count, "member")
-            %td.text-right
-              %button.btn.btn-xs.btn-ghost{ type: 'button', data: { controller: 'modal', action: 'click->modal#open', modal_target_param: 'edit_contact_group_slideout', base_url: edit_admin_contact_group_path(group, slideout: true) } } Edit
+  = render layout: 'admin/shared/responsive_table', locals: { label: 'Contact groups' } do
+    %thead
+      %tr
+        %th{ scope: 'col' } Name
+        %th{ scope: 'col' } Members
+        %th{ scope: 'col' }
+          %span.sr-only Actions
+    %tbody
+      - contact_groups.each do |group|
+        %tr.cursor-pointer.hover:bg-base-200{ data: { controller: 'modal', action: 'click->modal#open', modal_target_param: 'view_contact_group_slideout', base_url: admin_contact_group_path(group, slideout: true) } }
+          %td.font-semibold{ data: { label: 'Name' } }= group.name
+          %td{ data: { label: 'Members' } }
+            .badge.badge-neutral= pluralize(group.members.count, "member")
+          %td
+            .flex.flex-wrap.items-center.gap-2{ class: '@3xl:justify-end' }
+              %button.btn.btn-outline.btn-sm.min-h-11{ type: 'button', data: { controller: 'modal', action: 'click->modal#open:stop', modal_target_param: 'view_contact_group_slideout', base_url: admin_contact_group_path(group, slideout: true) } } View
+              %button.btn.btn-sm.btn-ghost.min-h-11{ type: 'button', data: { controller: 'modal', action: 'click->modal#open:stop', modal_target_param: 'edit_contact_group_slideout', base_url: edit_admin_contact_group_path(group, slideout: true) } } Edit
 - else
   .text-center.py-6
     %p.opacity-60 No contact groups yet.

@@ -1,20 +1,14 @@
 -# Full-page audio editor for a recording
-.mb-4
-  = link_to admin_recordings_path, class: 'btn btn-ghost btn-sm gap-1' do
-    %svg.w-4.h-4{ xmlns: "http://www.w3.org/2000/svg", fill: "none", viewBox: "0 0 24 24", "stroke-width" => "1.5", stroke: "currentColor" }
-      %path{ "stroke-linecap" => "round", "stroke-linejoin" => "round", d: "M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" }
-    Back to Sermons
-
-.flex.justify-between.items-start.mb-6
-  %div
-    %h1.text-3xl.font-bold= @recording.title
+.flex.flex-col.gap-4.mb-6.lg:flex-row.lg:items-start.lg:justify-between
+  .min-w-0
+    %h1.text-2xl.font-bold.sm:text-3xl= @recording.title
     %p.opacity-60.mt-1
       = @recording.speaker_name
       %span.mx-2 &middot;
       = @recording.audio.filename
 
   -# Original file safety notice — always visible
-  .alert.alert-success.py-2.px-4{ class: "max-w-sm" }
+  .alert.alert-success.py-2.px-4{ class: "w-full lg:max-w-sm lg:shrink-0" }
     %svg.w-5.h-5.shrink-0{ xmlns: "http://www.w3.org/2000/svg", fill: "none", viewBox: "0 0 24 24", "stroke-width" => "1.5", stroke: "currentColor" }
       %path{ "stroke-linecap" => "round", "stroke-linejoin" => "round", d: "M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z" }
     %div
@@ -29,7 +23,7 @@
       .rounded-lg.bg-base-200.p-2{ data: { audio_editor_target: 'waveform' } }
 
       -# Time display + status
-      .flex.justify-between.items-center.mt-3
+      .flex.flex-wrap.justify-between.items-center.gap-2.mt-3
         .font-mono.text-lg
           %span{ data: { audio_editor_target: 'currentTime' } } 0:00.0
           %span.opacity-40 /
@@ -39,7 +33,7 @@
   -# Transport controls
   .card.bg-base-100.shadow-md.mb-4
     .card-body.p-4
-      .flex.flex-wrap.items-center.gap-3
+      .flex.flex-wrap.items-center.gap-3{ class: '[&_.btn]:min-h-11 [&_.btn]:min-w-11' }
 
         -# Playback
         .flex.items-center.gap-1
@@ -54,14 +48,14 @@
           -# Stop
           %button.btn.btn-sm{ type: 'button', data: { action: 'audio-editor#stop' } } Stop
 
-        .divider.divider-horizontal.mx-0
+        .divider.divider-horizontal.mx-0.hidden.sm:flex
 
         -# Playback speed toggle
         .flex.items-center.gap-2
           %span.text-xs.opacity-50 Speed
           %button.btn.btn-sm.btn-outline.font-mono{ type: 'button', data: { action: 'audio-editor#toggleSpeed', audio_editor_target: 'speedBtn' }, title: 'Toggle playback speed (1x / 0.75x / 0.5x)' } 1x
 
-        .divider.divider-horizontal.mx-0
+        .divider.divider-horizontal.mx-0.hidden.sm:flex
 
         -# Zoom
         .flex.items-center.gap-2
@@ -80,7 +74,7 @@
       %h3.font-medium.text-sm.uppercase.tracking-wide.opacity-50.mb-3 Editing Tools
 
       -# Cursor-based tools + undo
-      .flex.flex-wrap.gap-2.mb-4
+      .flex.flex-col.gap-2.mb-4.sm:flex-row.sm:flex-wrap{ class: '[&_.btn]:min-h-11' }
         %button.btn.btn-sm.btn-outline{ type: 'button', data: { action: 'audio-editor#trimStart' }, title: 'Remove everything before the cursor position' }
           Trim Before Cursor
         %button.btn.btn-sm.btn-outline{ type: 'button', data: { action: 'audio-editor#trimEnd' }, title: 'Remove everything after the cursor position' }
@@ -97,8 +91,8 @@
       -# Region controls (shown when a region is selected)
       .hidden{ data: { audio_editor_target: 'regionControls' } }
         .bg-base-200.rounded-lg.p-3
-          .flex.items-center.justify-between.mb-3
-            .flex.items-center.gap-4.text-sm
+          .flex.flex-col.items-start.gap-3.mb-3.sm:flex-row.sm:justify-between
+            .flex.flex-wrap.items-center.gap-x-4.gap-y-2.text-sm
               %span.font-medium Selection:
               %span
                 %span.opacity-60 Start:
@@ -109,9 +103,9 @@
               %span
                 %span.opacity-60 Duration:
                 %span.font-mono{ data: { audio_editor_target: 'regionDuration' } } —
-            %button.btn.btn-xs.btn-ghost{ type: 'button', data: { action: 'audio-editor#clearRegion' } } Deselect
+            %button.btn.btn-sm.btn-ghost.min-h-11{ type: 'button', data: { action: 'audio-editor#clearRegion' } } Deselect
 
-          .flex.gap-2
+          .flex.flex-col.gap-2.sm:flex-row.sm:flex-wrap{ class: '[&_.btn]:min-h-11' }
             %button.btn.btn-sm.btn-secondary{ type: 'button', data: { action: 'audio-editor#cutRegion' }, title: 'Remove the selected section, keep everything else' }
               Cut Out Selection
             %button.btn.btn-sm.btn-ghost{ type: 'button', data: { action: 'audio-editor#playRegion' } }
@@ -121,7 +115,7 @@
   .card.bg-base-100.shadow-md.mb-4
     .card-body.p-4
       %h3.font-medium.text-sm.uppercase.tracking-wide.opacity-50.mb-3 Dead Space Detection
-      .flex.flex-wrap.items-end.gap-4.mb-4
+      .grid.grid-cols-1.gap-3.mb-4.sm:grid-cols-2.lg:grid-cols-4.lg:items-end{ class: '[&_.input]:w-full [&_.input]:min-h-11 [&_.btn]:min-h-11' }
         .form-control
           %label.label
             %span.label-text.text-xs Threshold (dB)
@@ -148,7 +142,7 @@
             Found
             %span.font-bold{ data: { audio_editor_target: 'silenceCount' } } 0
             silent regions (shown in red on waveform)
-        .flex.flex-wrap.gap-2.mb-4
+        .flex.flex-col.gap-2.mb-4.sm:flex-row.sm:flex-wrap{ class: '[&_.btn]:min-h-11' }
           %button.btn.btn-sm.btn-secondary{ type: 'button', data: { action: 'audio-editor#trimAllSilence' } }
             Trim All — I Trust You
           %button.btn.btn-sm.btn-outline{ type: 'button', data: { action: 'audio-editor#startReview' } }
@@ -159,14 +153,14 @@
         -# Review panel (hidden until review mode starts)
         .hidden{ data: { audio_editor_target: 'reviewPanel' } }
           .bg-base-200.rounded-lg.p-4
-            .flex.items-center.justify-between.mb-3
-              .flex.items-center.gap-3.text-sm
+            .flex.flex-col.gap-3.mb-3
+              .flex.flex-col.gap-3.text-sm.sm:flex-row.sm:flex-wrap.sm:items-center
                 %span.font-bold
                   Region
                   %span{ data: { audio_editor_target: 'reviewIndex' } } 1
                   of
                   %span{ data: { audio_editor_target: 'reviewTotal' } } 0
-                .flex.items-center.gap-4
+                .flex.flex-wrap.items-center.gap-x-4.gap-y-2
                   %span
                     %span.opacity-60 Start:
                     %span.font-mono{ data: { audio_editor_target: 'reviewStart' } } —
@@ -176,7 +170,7 @@
                   %span
                     %span.opacity-60 Duration:
                     %span.font-mono{ data: { audio_editor_target: 'reviewDuration' } } —
-            .flex.gap-2
+            .flex.flex-wrap.gap-2{ class: '[&_.btn]:min-h-11 [&_.btn]:min-w-11' }
               %button.btn.btn-sm.btn-ghost{ type: 'button', data: { action: 'audio-editor#reviewPrevious' }, title: 'Previous region' }
                 %svg.w-4.h-4{ xmlns: "http://www.w3.org/2000/svg", fill: "none", viewBox: "0 0 24 24", "stroke-width" => "1.5", stroke: "currentColor" }
                   %path{ "stroke-linecap" => "round", "stroke-linejoin" => "round", d: "M15.75 19.5 8.25 12l7.5-7.5" }
@@ -189,19 +183,19 @@
               %button.btn.btn-sm.btn-ghost{ type: 'button', data: { action: 'audio-editor#reviewSkipCurrent' }, title: 'Next region' }
                 %svg.w-4.h-4{ xmlns: "http://www.w3.org/2000/svg", fill: "none", viewBox: "0 0 24 24", "stroke-width" => "1.5", stroke: "currentColor" }
                   %path{ "stroke-linecap" => "round", "stroke-linejoin" => "round", d: "m8.25 4.5 7.5 7.5-7.5 7.5" }
-              .divider.divider-horizontal.mx-0
+              .divider.divider-horizontal.mx-0.hidden.sm:flex
               %button.btn.btn-sm.btn-ghost{ type: 'button', data: { action: 'audio-editor#stopReview' } }
                 Exit Review
 
   -# Save / Restore
   .card.bg-base-100.shadow-md
     .card-body.p-4
-      .flex.items-center.justify-between
-        .flex.items-center.gap-3
+      .flex.flex-col.gap-4.lg:flex-row.lg:items-center.lg:justify-between
+        .flex.flex-col.gap-3.sm:flex-row.sm:flex-wrap.sm:items-center
           %button.btn.btn-primary{ type: 'button', data: { action: 'audio-editor#saveEdit', audio_editor_target: 'saveBtn' } }
             Save Edited Audio
           - if @recording.original_audio.attached?
-            %button.btn.btn-outline.btn-sm{ type: 'button', data: { action: 'audio-editor#restoreOriginal', audio_editor_target: 'restoreBtn' } }
+            %button.btn.btn-outline.btn-sm.min-h-11{ type: 'button', data: { action: 'audio-editor#restoreOriginal', audio_editor_target: 'restoreBtn' } }
               Restore Original Audio
         .text-sm.opacity-50
           - if @recording.original_audio.attached?

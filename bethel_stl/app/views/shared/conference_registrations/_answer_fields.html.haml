@@ -1,6 +1,6 @@
 = answer_form.hidden_field :conference_question_id
-.form-control
-  %label.label
+.form-control.min-w-0
+  %label.label.whitespace-normal
     %span.label-text.font-semibold
       = question.label
       - if question.required?
@@ -15,8 +15,8 @@
   - when "multiple_choice"
     .space-y-2.rounded-lg.border.border-base-300.p-4
       - question.choice_options.each do |choice|
-        %label.flex.items-center.gap-3.cursor-pointer
-          = check_box_tag "#{answer_form.object_name}[value][]", choice, answer_form.object.selected_values.include?(choice), class: "checkbox checkbox-primary"
-          %span= choice
+        %label.flex.min-h-11.items-start.gap-3.py-2.cursor-pointer
+          = check_box_tag "#{answer_form.object_name}[value][]", choice, answer_form.object.selected_values.include?(choice), class: "checkbox checkbox-primary shrink-0 mt-0.5"
+          %span.min-w-0{ class: '[overflow-wrap:anywhere]' }= choice
   - when "yes_no"
     = answer_form.select :value, ["Yes", "No"], { include_blank: "Select an answer" }, class: "select select-bordered w-full", required: question.required?

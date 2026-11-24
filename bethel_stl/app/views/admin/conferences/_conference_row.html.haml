@@ -1,21 +1,23 @@
 %tr.cursor-pointer.hover:bg-base-200{ data: { controller: "modal", action: "click->modal#open", modal_target_param: "view_conference_slideout", base_url: admin_conference_path(conference, slideout: true) } }
-  %td
+  %td{ data: { label: 'Conference' } }
     .font-semibold= conference.name
     .text-sm.opacity-50= conference.slug
-  %td
+  %td{ data: { label: 'Date' } }
     - if conference.starts_at.present?
       .text-sm= conference.starts_at.strftime("%b %-d, %Y")
       .text-xs.opacity-50= conference.starts_at.strftime("%-I:%M %p")
     - else
       %span.opacity-40 Not set
-  %td
+  %td{ data: { label: 'Location' } }
     - if conference.location.present?
       .text-sm= conference.location
     - else
       %span.opacity-40 —
-  %td
+  %td{ data: { label: 'Registration' } }
     %span.badge{ class: conference.registration_open? ? "badge-success" : "badge-ghost" }
       = conference.registration_open? ? "Open" : "Closed"
-  %td= conference.registrations.size
-  %td.text-right
-    %button.btn.btn-ghost.btn-sm{ type: "button", data: { controller: "modal", action: "click->modal#open", modal_target_param: "edit_conference_slideout", base_url: edit_admin_conference_path(conference, slideout: true) } } Edit
+  %td{ data: { label: 'Registrants' } }= conference.registrations.size
+  %td
+    .flex.flex-wrap.items-center.gap-2{ class: '@3xl:justify-end' }
+      %button.btn.btn-outline.btn-sm.min-h-11{ type: "button", data: { controller: "modal", action: "click->modal#open:stop", modal_target_param: "view_conference_slideout", base_url: admin_conference_path(conference, slideout: true) } } View
+      %button.btn.btn-ghost.btn-sm.min-h-11{ type: "button", data: { controller: "modal", action: "click->modal#open:stop", modal_target_param: "edit_conference_slideout", base_url: edit_admin_conference_path(conference, slideout: true) } } Edit

@@ -1,8 +1,6 @@
 = turbo_stream_from "audio_extraction_#{@audio_extraction.id}"
 
 .max-w-2xl.mx-auto
-  = link_to '← Back to Extractions', admin_audio_extractions_path, class: 'btn btn-ghost btn-sm mb-4'
-
   #audio_extraction_container
     - if @audio_extraction.in_progress?
       = render 'admin/audio_extractions/processing', audio_extraction: @audio_extraction

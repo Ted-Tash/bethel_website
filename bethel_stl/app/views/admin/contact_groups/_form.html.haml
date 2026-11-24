@@ -14,16 +14,16 @@
     %label.label
       %span.label-text Members
     %input.input.input-bordered.w-full.mb-3{ type: "search", placeholder: "Search households...", "aria-label" => "Search households", data: { household_filter_target: "query", action: "input->household-filter#filter" } }
-    .bg-base-200.rounded-lg.p-4.max-h-96.overflow-y-auto
+    .bg-base-200.rounded-lg.p-3.sm:p-4.max-h-96.overflow-y-auto.overscroll-contain
       %p.text-sm.opacity-60{ hidden: true, role: "status", data: { household_filter_target: "empty" } } No matching households.
       - @members.each do |household, members|
         .mb-3{ data: { controller: "select-all-household", household_filter_target: "household", household_name: household.name } }
-          .flex.items-center.gap-2.mb-1
+          .flex.flex-wrap.items-center.gap-2.mb-1
             %h4.font-semibold.text-sm.opacity-70= household.name
-            %button.btn.btn-ghost.btn-xs.opacity-50{ type: "button", data: { action: "click->select-all-household#toggleAll" } } select all
-          .ml-4.space-y-1{ data: { "select-all-household-target" => "checkboxes" } }
+            %button.btn.btn-ghost.btn-sm.min-h-11.opacity-70{ type: "button", data: { action: "click->select-all-household#toggleAll" } } select all
+          .sm:ml-4.space-y-1{ data: { "select-all-household-target" => "checkboxes" } }
             - members.each do |member|
-              %label.flex.items-start.gap-2.cursor-pointer
+              %label.flex.min-h-11.items-start.gap-2.py-2.cursor-pointer
                 = check_box_tag "contact_group[member_ids][]", member.id, @contact_group.member_ids.include?(member.id), class: "checkbox checkbox-sm checkbox-primary shrink-0 mt-1"
                 .min-w-0
                   %span.block= member.full_name
@@ -37,6 +37,6 @@
 
   = hidden_field_tag "contact_group[member_ids][]", ""
 
-  .flex.gap-3
+  .flex.flex-col.gap-3.sm:flex-row
     = f.submit class: "btn btn-primary"
     = link_to "Cancel", admin_contact_groups_path, class: "btn btn-ghost"

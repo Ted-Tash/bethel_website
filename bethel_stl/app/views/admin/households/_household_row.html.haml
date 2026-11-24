@@ -1,15 +1,17 @@
 %tr.cursor-pointer.hover:bg-base-200{ data: { controller: 'modal', action: 'click->modal#open', modal_target_param: 'view_household_slideout', base_url: admin_household_path(household, slideout: true) } }
-  %td.font-semibold= household.name
-  %td
+  %td.font-semibold{ data: { label: 'Household' } }= household.name
+  %td{ data: { label: 'Members' } }
     - household.members.each do |member|
       .text-sm= member.full_name
-  %td
+  %td{ data: { label: 'Contact' } }
     - household.members.each do |member|
-      .text-sm
+      .text-sm.break-all
         - if member.email.present?
           = member.email
         - if member.phone.present?
           %span.opacity-60= " | #{member.phone}"
-  %td.text-sm.opacity-60= household.full_address.presence || "\u2014"
-  %td.text-right
-    %button.btn.btn-ghost{ type: 'button', data: { controller: 'modal', action: 'click->modal#open', modal_target_param: 'edit_household_slideout', base_url: edit_admin_household_path(household, slideout: true) } } Edit
+  %td.text-sm.opacity-60{ data: { label: 'Address' } }= household.full_address.presence || "\u2014"
+  %td
+    .flex.flex-wrap.items-center.gap-2{ class: '@3xl:justify-end' }
+      %button.btn.btn-outline.btn-sm.min-h-11{ type: 'button', data: { controller: 'modal', action: 'click->modal#open:stop', modal_target_param: 'view_household_slideout', base_url: admin_household_path(household, slideout: true) } } View
+      %button.btn.btn-ghost.min-h-11{ type: 'button', data: { controller: 'modal', action: 'click->modal#open:stop', modal_target_param: 'edit_household_slideout', base_url: edit_admin_household_path(household, slideout: true) } } Edit

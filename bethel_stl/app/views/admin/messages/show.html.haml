@@ -1,12 +1,11 @@
-%h1.text-3xl.font-bold.mb-8 Message Details
+%h1.text-2xl.font-bold.mb-6.sm:text-3xl Message Details
 
-.flex.items-center.gap-3.mb-6
-  = link_to "← Back to Messages", admin_messages_path, class: "btn btn-ghost btn-sm"
-  - if @message.scheduled?
+- if @message.scheduled?
+  .mb-6
     = button_to "Cancel Message", cancel_admin_message_path(@message), method: :patch, class: "btn btn-error btn-sm btn-outline", data: { turbo_confirm: "Cancel this scheduled message?" }
 
 .card.bg-base-100.shadow-md.mb-8
-  .card-body
+  .card-body.min-w-0.p-4.sm:p-6
     .grid.grid-cols-1.md:grid-cols-2.gap-4.mb-6
       %div
         %h3.font-semibold.text-sm.opacity-60 Recipients
@@ -60,48 +59,47 @@
       %p.mb-4= @message.subject
 
     %h3.font-semibold.mb-2 Message Body
-    .bg-base-200.rounded-lg.p-4.whitespace-pre-wrap= @message.body
+    .bg-base-200.rounded-lg.p-4.whitespace-pre-wrap{ class: '[overflow-wrap:anywhere]' }= @message.body
 
 -# ==================== DELIVERY LOG ====================
 .card.bg-base-100.shadow-md
-  .card-body
+  .card-body.min-w-0.p-4.sm:p-6
     %h2.card-title.mb-4 Delivery Log
 
     - if @deliveries.any?
-      .overflow-x-auto
-        %table.table
-          %thead
+      = render layout: 'admin/shared/responsive_table', locals: { label: 'Message delivery log' } do
+        %thead
+          %tr
+            %th{ scope: 'col' } Member
+            %th{ scope: 'col' } Destination
+            %th{ scope: 'col' } Status
+            %th{ scope: 'col' } Error
+            %th{ scope: 'col' } Provider ID
+            %th{ scope: 'col' } Accepted At
+        %tbody
+          - @deliveries.each do |delivery|
             %tr
-              %th Member
-              %th Destination
-              %th Status
-              %th Error
-              %th Provider ID
-              %th Accepted At
-          %tbody
-            - @deliveries.each do |delivery|
-              %tr
-                %td= delivery.member&.full_name || "Deleted member"
-                %td= delivery.phone_or_email
-                %td
-                  - case delivery.status
-                  - when "pending"
-                    .badge.badge-ghost.badge-sm Pending
-                  - when "sent"
-                    .badge.badge-success.badge-sm Accepted
-                  - when "captured"
-                    .badge.badge-info.badge-sm Captured
-                  - when "skipped"
-                    .badge.badge-neutral.badge-sm Skipped
-                  - when "failed"
-                    .badge.badge-error.badge-sm Failed
-                %td
-                  - if delivery.error_message.present?
-                    %span.text-error.text-sm= delivery.error_message
-                  - else
-                    %span.opacity-30 —
-                %td= delivery.provider_id || "—"
-                %td= delivery.delivered_at&.strftime("%b %-d %-I:%M %p") || "—"
+              %td{ data: { label: 'Member' } }= delivery.member&.full_name || "Deleted member"
+              %td.break-all{ data: { label: 'Destination' } }= delivery.phone_or_email
+              %td{ data: { label: 'Status' } }
+                - case delivery.status
+                - when "pending"
+                  .badge.badge-ghost.badge-sm Pending
+                - when "sent"
+                  .badge.badge-success.badge-sm Accepted
+                - when "captured"
+                  .badge.badge-info.badge-sm Captured
+                - when "skipped"
+                  .badge.badge-neutral.badge-sm Skipped
+                - when "failed"
+                  .badge.badge-error.badge-sm Failed
+              %td{ data: { label: 'Error' } }
+                - if delivery.error_message.present?
+                  %span.text-error.text-sm= delivery.error_message
+                - else
+                  %span.opacity-30 —
+              %td.break-all{ data: { label: 'Provider ID' } }= delivery.provider_id || "—"
+              %td{ data: { label: 'Accepted at' } }= delivery.delivered_at&.strftime("%b %-d %-I:%M %p") || "—"
     - else
       .text-center.py-8
         %p.opacity-60

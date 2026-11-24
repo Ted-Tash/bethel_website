@@ -1,20 +1,19 @@
 - if registrations.any?
   .card.bg-base-100.shadow-sm.overflow-hidden
-    .overflow-x-auto
-      %table.table.table-sm
-        %thead.bg-base-200
-          %tr
-            %th{ scope: "col" } Name
-            %th{ scope: "col" } Status
-            %th{ scope: "col" } Contact
-            %th{ scope: "col" } Submitted
-            - questions.each do |question|
-              %th{ scope: "col", class: "min-w-40 max-w-56 whitespace-normal" }= question.label
-            %th{ scope: "col" }
-              %span.sr-only Actions
-        %tbody
-          - registrations.each do |registration|
-            = render "admin/conference_registrations/registration_row", conference: conference, registration: registration, questions: questions
+    = render layout: 'admin/shared/responsive_table', locals: { label: 'Conference registrations' } do
+      %thead.bg-base-200
+        %tr
+          %th{ scope: "col" } Name
+          %th{ scope: "col" } Status
+          %th{ scope: "col" } Contact
+          %th{ scope: "col" } Submitted
+          - questions.each do |question|
+            %th{ scope: "col", class: "min-w-40 max-w-56 whitespace-normal" }= question.label
+          %th{ scope: "col" }
+            %span.sr-only Actions
+      %tbody
+        - registrations.each do |registration|
+          = render "admin/conference_registrations/registration_row", conference: conference, registration: registration, questions: questions
 - else
   .card.bg-base-100.shadow-sm
     .card-body.items-center.text-center.py-12

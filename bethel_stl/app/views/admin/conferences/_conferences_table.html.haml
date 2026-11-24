@@ -1,18 +1,18 @@
 - if conferences.any?
   .card.bg-base-100.shadow-md
-    .overflow-x-auto
-      %table.table
-        %thead
-          %tr
-            %th Conference
-            %th Date
-            %th Location
-            %th Registration
-            %th Registrants
-            %th
-        %tbody
-          - conferences.each do |conference|
-            = render "admin/conferences/conference_row", conference: conference
+    = render layout: 'admin/shared/responsive_table', locals: { label: 'Conferences' } do
+      %thead
+        %tr
+          %th{ scope: 'col' } Conference
+          %th{ scope: 'col' } Date
+          %th{ scope: 'col' } Location
+          %th{ scope: 'col' } Registration
+          %th{ scope: 'col' } Registrants
+          %th{ scope: 'col' }
+            %span.sr-only Actions
+      %tbody
+        - conferences.each do |conference|
+          = render "admin/conferences/conference_row", conference: conference
 - else
   .card.bg-base-100.shadow-md
     .card-body.items-center.text-center.py-16

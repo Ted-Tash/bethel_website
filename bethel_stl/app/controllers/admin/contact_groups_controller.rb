@@ -1,9 +1,14 @@
 class Admin::ContactGroupsController < Admin::BaseController
-  before_action :set_contact_group, only: [:edit, :update, :destroy]
+  before_action :set_contact_group, only: [ :show, :edit, :update, :destroy ]
   before_action :set_members, only: [:new, :create, :edit, :update]
 
   def index
     @contact_groups = ContactGroup.all.order(:name)
+  end
+
+  def show
+    @group_members = @contact_group.members.includes(:household).order(:last_name, :first_name)
+    render :show_slideout, layout: params[:slideout] ? false : "admin"
   end
 
   def new

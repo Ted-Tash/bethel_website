@@ -1,16 +1,19 @@
 %tr.cursor-pointer.hover:bg-base-200{ id: dom_id(registration), data: { controller: "modal", action: "click->modal#open", modal_target_param: "view_registration_slideout", base_url: admin_conference_registration_path(conference, registration, slideout: true) } }
-  %td.font-semibold.whitespace-nowrap.py-3= registration.full_name
-  %td
+  %td.font-semibold.whitespace-nowrap.py-3{ data: { label: 'Name' } }= registration.full_name
+  %td{ data: { label: 'Status' } }
     %span.badge.badge-sm.badge-soft{ class: registration.cancelled? ? "badge-warning" : "badge-success" }
       = registration.cancelled? ? "Cancelled" : "Active"
-  %td.whitespace-nowrap
-    %div= mail_to registration.email
+  %td{ data: { label: 'Contact' } }
+    .break-all= mail_to registration.email
     .text-xs.opacity-60.mt-1= registration.phone
-  %td.whitespace-nowrap
+  %td.whitespace-nowrap{ data: { label: 'Submitted' } }
     .text-sm= registration.created_at.strftime("%b %-d, %Y")
     .text-xs.opacity-50= registration.created_at.strftime("%-I:%M %p")
   - questions.each do |question|
     - answer = registration.answer_for(question)
-    %td{ class: "min-w-40 max-w-56 whitespace-pre-wrap break-words" }= answer&.display_value.presence || "—"
-  %td.text-right
-    %button.btn.btn-ghost.btn-sm{ type: "button", data: { controller: "modal", action: "click->modal#open", modal_target_param: "edit_registration_slideout", base_url: edit_admin_conference_registration_path(conference, registration, slideout: true) } } Edit
+    %td{ class: "@3xl:min-w-40 @3xl:max-w-56", data: { label: question.label } }
+      .whitespace-pre-wrap.break-words= answer&.display_value.presence || "—"
+  %td
+    .flex.flex-wrap.items-center.gap-2{ class: '@3xl:justify-end' }
+      %button.btn.btn-outline.btn-sm.min-h-11{ type: "button", data: { controller: "modal", action: "click->modal#open:stop", modal_target_param: "view_registration_slideout", base_url: admin_conference_registration_path(conference, registration, slideout: true) } } View
+      %button.btn.btn-ghost.btn-sm.min-h-11{ type: "button", data: { controller: "modal", action: "click->modal#open:stop", modal_target_param: "edit_registration_slideout", base_url: edit_admin_conference_registration_path(conference, registration, slideout: true) } } Edit

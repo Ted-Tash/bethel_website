@@ -1,0 +1,19 @@
+-# One set of rows for both layouts, so Turbo updates and sorting stay in sync.
+-# Container queries also keep tables readable inside narrow desktop slideouts.
+-# Give each data cell a data-label matching its column heading.
+:ruby
+  table_classes = [
+    "table w-full @max-3xl:block @3xl:table",
+    "[&_thead]:sr-only @3xl:[&_thead]:not-sr-only @3xl:[&_thead]:table-header-group",
+    "[&_tbody]:block @3xl:[&_tbody]:table-row-group",
+    "[&_tbody>tr]:grid [&_tbody>tr]:grid-cols-1 [&_tbody>tr]:gap-3 [&_tbody>tr]:p-4 @sm:[&_tbody>tr]:grid-cols-2 @3xl:[&_tbody>tr]:table-row @3xl:[&_tbody>tr]:p-0",
+    "@max-3xl:[&_tbody>tr]:border-b @max-3xl:[&_tbody>tr]:border-base-300 @max-3xl:[&_tbody>tr:last-child]:border-b-0",
+    "@max-3xl:[&_td]:block @max-3xl:[&_td]:min-w-0 @max-3xl:[&_td]:max-w-none @max-3xl:[&_td]:p-0 @max-3xl:[&_td]:whitespace-normal @max-3xl:[&_td]:text-left",
+    "@max-3xl:[&_td]:[overflow-wrap:anywhere] @max-3xl:[&_td:first-child]:col-span-full @max-3xl:[&_td:last-child]:col-span-full",
+    "@max-3xl:[&_td[data-label]]:before:mb-1 @max-3xl:[&_td[data-label]]:before:block @max-3xl:[&_td[data-label]]:before:text-xs @max-3xl:[&_td[data-label]]:before:font-medium @max-3xl:[&_td[data-label]]:before:text-base-content/60 @max-3xl:[&_td[data-label]]:before:content-[attr(data-label)]"
+  ].join(" ")
+
+.@container.min-w-0.max-w-full
+  .overflow-x-auto
+    %table{ class: table_classes, role: "table", aria: { label: label } }
+      = yield

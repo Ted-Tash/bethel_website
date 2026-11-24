@@ -1,6 +1,6 @@
-%tr.hover:bg-base-200{ data: { question_id: question.id } }
+%tr.cursor-pointer.hover:bg-base-200{ data: { question_id: question.id, controller: "modal", action: "click->modal#open", modal_target_param: "view_question_slideout", base_url: admin_conference_question_path(conference, question, slideout: true) } }
   %td
-    %button.btn.btn-ghost.btn-sm.btn-square.cursor-grab.active:cursor-grabbing{ type: "button", title: "Drag to reorder", aria: { label: "Drag #{question.label} to reorder" }, data: { sortable_handle: true } }
+    %button.btn.btn-ghost.btn-square.min-h-11.touch-none.cursor-grab.active:cursor-grabbing{ type: "button", title: "Drag to reorder", aria: { label: "Drag #{question.label} to reorder" }, data: { sortable_handle: true } }
       %svg.w-5.h-5{ xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 24 24", fill: "currentColor", aria: { hidden: "true" } }
         %circle{ cx: "9", cy: "6", r: "1.5" }
         %circle{ cx: "15", cy: "6", r: "1.5" }
@@ -8,15 +8,17 @@
         %circle{ cx: "15", cy: "12", r: "1.5" }
         %circle{ cx: "9", cy: "18", r: "1.5" }
         %circle{ cx: "15", cy: "18", r: "1.5" }
-  %td
+  %td{ class: '@max-3xl:col-span-full', data: { label: 'Question' } }
     .font-semibold= question.label
     - if question.choice_type?
       .text-sm.opacity-50= question.choice_options.join(", ")
-  %td= ConferenceQuestion::TYPES.fetch(question.question_type)
-  %td
+  %td{ data: { label: 'Type' } }= ConferenceQuestion::TYPES.fetch(question.question_type)
+  %td{ data: { label: 'Required' } }
     - if question.required?
       %span.badge.badge-neutral Required
     - else
       %span.opacity-40 Optional
-  %td.text-right
-    %button.btn.btn-ghost.btn-sm{ type: "button", data: { controller: "modal", action: "click->modal#open", modal_target_param: "edit_question_slideout", base_url: edit_admin_conference_question_path(conference, question, slideout: true) } } Edit
+  %td
+    .flex.flex-wrap.items-center.gap-2{ class: '@3xl:justify-end' }
+      %button.btn.btn-outline.btn-sm.min-h-11{ type: "button", data: { controller: "modal", action: "click->modal#open:stop", modal_target_param: "view_question_slideout", base_url: admin_conference_question_path(conference, question, slideout: true) } } View
+      %button.btn.btn-ghost.btn-sm.min-h-11{ type: "button", data: { controller: "modal", action: "click->modal#open:stop", modal_target_param: "edit_question_slideout", base_url: edit_admin_conference_question_path(conference, question, slideout: true) } } Edit

@@ -1,18 +1,19 @@
-.flex.items-center.justify-between.mb-8
-  %h1.text-3xl.font-bold YouTube Audio Extractor
+.flex.flex-col.gap-4.mb-6.sm:flex-row.sm:items-center.sm:justify-between
+  %h1.text-2xl.font-bold.sm:text-3xl YouTube Audio Extractor
   = link_to 'New Extraction', new_admin_audio_extraction_path, class: 'btn btn-primary'
 
 - if @audio_extractions.any?
-  .overflow-x-auto
-    %table.table.table-zebra.bg-base-100
+  .card.bg-base-100.shadow-md
+    = render layout: 'admin/shared/responsive_table', locals: { label: 'Audio extractions' } do
       %thead
         %tr
-          %th URL
-          %th Time Range
-          %th Status
-          %th File
-          %th Created
-          %th
+          %th{ scope: 'col' } URL
+          %th{ scope: 'col' } Time Range
+          %th{ scope: 'col' } Status
+          %th{ scope: 'col' } File
+          %th{ scope: 'col' } Created
+          %th{ scope: 'col' }
+            %span.sr-only Actions
       %tbody
         - @audio_extractions.each do |extraction|
           = render 'extraction_row', extraction: extraction

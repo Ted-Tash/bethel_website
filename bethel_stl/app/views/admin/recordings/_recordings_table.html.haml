@@ -1,19 +1,19 @@
 - if recordings.any?
   .card.bg-base-100.shadow-md
-    .overflow-x-auto
-      %table.table
-        %thead
-          %tr
-            %th Title
-            %th Speaker
-            %th Recorded On
-            %th File
-            %th Duration
-            %th Documents
-            %th
-        %tbody
-          - recordings.each do |recording|
-            = render 'admin/recordings/recording_row', recording: recording
+    = render layout: 'admin/shared/responsive_table', locals: { label: 'Sermon recordings' } do
+      %thead
+        %tr
+          %th{ scope: 'col' } Title
+          %th{ scope: 'col' } Speaker
+          %th{ scope: 'col' } Recorded On
+          %th{ scope: 'col' } File
+          %th{ scope: 'col' } Duration
+          %th{ scope: 'col' } Documents
+          %th{ scope: 'col' }
+            %span.sr-only Actions
+      %tbody
+        - recordings.each do |recording|
+          = render 'admin/recordings/recording_row', recording: recording
 - else
   .card.bg-base-100.shadow-md
     .card-body.items-center.text-center.py-16

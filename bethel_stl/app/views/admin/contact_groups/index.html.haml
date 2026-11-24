@@ -1,32 +1,38 @@
-%h1.text-3xl.font-bold.mb-8 Contact Groups
+%h1.text-2xl.font-bold.mb-6.sm:text-3xl Contact Groups
 
 - if notice.present?
   .alert.alert-success.mb-6
     %span= notice
 
-.flex.justify-end.mb-6
+.flex.flex-col.mb-6.sm:items-end
   = link_to "New Group", new_admin_contact_group_path, class: "btn btn-primary"
 
 .card.bg-base-100.shadow-md
-  .card-body
+  .card-body.min-w-0.p-4.sm:p-6
     - if @contact_groups.any?
-      .overflow-x-auto
-        %table.table
-          %thead
-            %tr
-              %th Name
-              %th Members
-              %th Actions
-          %tbody
-            - @contact_groups.each do |group|
-              %tr
-                %td.font-semibold= group.name
-                %td
-                  .badge.badge-neutral= pluralize(group.members.count, "member")
-                %td.flex.gap-2
-                  = link_to "Edit", edit_admin_contact_group_path(group), class: "btn btn-sm btn-outline"
-                  = button_to "Delete", admin_contact_group_path(group), method: :delete, class: "btn btn-sm btn-error btn-outline", data: { turbo_confirm: "Delete '#{group.name}'?" }
+      = render layout: 'admin/shared/responsive_table', locals: { label: 'Contact groups' } do
+        %thead
+          %tr
+            %th{ scope: 'col' } Name
+            %th{ scope: 'col' } Members
+            %th{ scope: 'col' } Actions
+        %tbody
+          - @contact_groups.each do |group|
+            %tr.cursor-pointer.hover:bg-base-200{ data: { controller: 'modal', action: 'click->modal#open', modal_target_param: 'view_contact_group_slideout', base_url: admin_contact_group_path(group, slideout: true) } }
+              %td.font-semibold{ data: { label: 'Name' } }= group.name
+              %td{ data: { label: 'Members' } }
+                .badge.badge-neutral= pluralize(group.members.count, "member")
+              %td
+                .flex.flex-wrap.gap-2
+                  %button.btn.btn-outline.btn-sm.min-h-11{ type: 'button', data: { controller: 'modal', action: 'click->modal#open:stop', modal_target_param: 'view_contact_group_slideout', base_url: admin_contact_group_path(group, slideout: true) } } View
+                  = link_to "Edit", edit_admin_contact_group_path(group), class: "btn btn-sm btn-outline min-h-11"
+                  = button_to "Delete", admin_contact_group_path(group), method: :delete, class: "btn btn-sm btn-error btn-outline min-h-11", data: { turbo_confirm: "Delete '#{group.name}'?" }
     - else
       .text-center.py-8
         %p.text-lg.opacity-60 No contact groups yet.
         %p.opacity-40.mt-1 Create a group to organize members for messaging.
+
+= render 'admin/shared/slideout', id: 'view_contact_group_slideout',
+    title: 'Contact Group Details', size: :lg,
+    turbo_frame: 'view_contact_group_content',
+    turbo_src: '#'

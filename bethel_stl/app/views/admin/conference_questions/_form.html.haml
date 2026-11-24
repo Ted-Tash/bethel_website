@@ -23,11 +23,11 @@
     = f.select :question_type, ConferenceQuestion::TYPES.map { |value, label| [label, value] }, {}, class: "select select-bordered w-full", data: { question_options_target: "type", action: "change->question-options#toggle" }
 
   .space-y-3{ data: { question_options_target: "section" } }
-    .flex.items-center.justify-between
+    .flex.flex-wrap.items-center.justify-between.gap-3
       %div
         %p.font-semibold Choice options
         %p.text-sm.opacity-60 Add at least two options.
-      %button.btn.btn-outline.btn-sm{ type: "button", data: { nested_form_target: "addButton", action: "nested-form#add" } }
+      %button.btn.btn-outline.btn-sm.min-h-11{ type: "button", data: { nested_form_target: "addButton", action: "nested-form#add" } }
         + Add option
 
     .space-y-2{ data: { nested_form_target: "container" } }
@@ -37,14 +37,13 @@
     %template{ data: { nested_form_target: "template" } }
       = render "admin/conference_questions/option_field", value: ""
 
-  %label.flex.items-center.gap-3.cursor-pointer.rounded-lg.bg-base-200.p-4
-    = f.check_box :required, class: "checkbox checkbox-primary"
+  %label.flex.items-start.gap-3.cursor-pointer.rounded-lg.bg-base-200.p-4
+    = f.check_box :required, class: "checkbox checkbox-primary shrink-0 mt-0.5"
     %span
       %span.block.font-semibold Require an answer
       %span.block.text-sm.opacity-60 Registrants cannot submit the form without answering.
 
-  .flex.items-center.gap-3
-    .flex-1
+  .flex.flex-col-reverse.gap-3.sm:flex-row.sm:items-center.sm:justify-end
     - if slideout
       %button.btn.btn-ghost{ type: "button", onclick: "this.closest('dialog').close()" } Cancel
     - else

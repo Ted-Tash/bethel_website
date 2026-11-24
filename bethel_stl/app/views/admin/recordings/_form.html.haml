@@ -29,14 +29,13 @@
       %label.label
         %span.label-text Audio File
       - if recording.persisted?
-        %div.input.input-bordered.w-full.flex.items-center.text-sm{ style: 'opacity: 0.8; cursor: not-allowed;' }
+        %div.rounded-lg.border.border-base-300.bg-base-200.p-3.text-sm.break-all.opacity-80
           = recording.audio.attached? ? recording.audio.filename : 'No audio file'
       - else
         = f.file_field :audio, accept: 'audio/*', class: 'file-input file-input-bordered w-full', data: { action: 'change->audio-duration#extract', audio_duration_target: 'input' }
         = f.hidden_field :duration_seconds, data: { audio_duration_target: 'field' }
 
-  .flex.items-center.gap-3
-    .flex-1
+  .flex.flex-col-reverse.gap-3.sm:flex-row.sm:items-center.sm:justify-end
     - if slideout
       %button.btn.btn-ghost{ type: 'button', onclick: "this.closest('dialog').close()" } Cancel
     - else

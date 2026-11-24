@@ -1,14 +1,14 @@
 .flex.flex-col.md:flex-row.justify-between.md:items-center.gap-4.mb-8
-  %div
-    %h1.text-3xl.font-bold= @conference.name
+  .min-w-0
+    %h1.text-2xl.font-bold.sm:text-3xl= @conference.name
     %p.opacity-60= @conference.starts_at&.to_fs(:long) || "Date not set"
-  .flex.flex-wrap.gap-2
+  .flex.flex-col.gap-2.sm:flex-row.sm:flex-wrap
     = link_to "Public form", register_for_conference_path(@conference), class: "btn btn-outline", target: "_blank"
     %button.btn.btn-outline{ type: "button", data: { controller: "modal", action: "click->modal#open", modal_target_param: "edit_conference_slideout", base_url: edit_admin_conference_path(@conference, slideout: true, context: "show") } } Edit conference
 
 .grid.grid-cols-1.lg:grid-cols-3.gap-6.mb-8
   .card.bg-base-100.shadow-md.lg:col-span-2
-    .card-body
+    .card-body.min-w-0.p-4.sm:p-6
       %h2.card-title Details
       - if @conference.description.present?
         .whitespace-pre-wrap= @conference.description
@@ -31,7 +31,7 @@
         - else
           %p.text-sm.opacity-60 No admins configured. Registration notifications will not be sent.
   .card.bg-base-100.shadow-md
-    .card-body
+    .card-body.min-w-0.p-4.sm:p-6
       %h2.card-title Registrations
       %p.text-4xl.font-bold= @conference.registrations.active.count
       %p.text-sm.opacity-60 Active registrations
@@ -43,9 +43,9 @@
       = link_to "Manage registrations", admin_conference_registrations_path(@conference), class: "btn btn-primary mt-2"
       = link_to "Download CSV", admin_conference_registrations_path(@conference, format: :csv), class: "btn btn-outline"
 
-.flex.justify-between.items-center.mb-4
-  %h2.text-2xl.font-bold Registration Questions
-  %button.btn.btn-primary.btn-sm{ type: "button", data: { controller: "modal", action: "click->modal#open", modal_target_param: "add_question_slideout" } }
+.flex.flex-col.gap-3.mb-4.sm:flex-row.sm:items-center.sm:justify-between
+  %h2.text-xl.font-bold.sm:text-2xl Registration Questions
+  %button.btn.btn-primary.btn-sm.min-h-11{ type: "button", data: { controller: "modal", action: "click->modal#open", modal_target_param: "add_question_slideout" } }
     + Add Question
 
 #conference_questions_table
@@ -55,6 +55,11 @@
     title: "Add Registration Question", size: :lg,
     turbo_frame: "add_question_form",
     turbo_src: new_admin_conference_question_path(@conference, slideout: true)
+
+= render "admin/shared/slideout", id: "view_question_slideout",
+    title: "Registration Question Details", size: :lg,
+    turbo_frame: "view_question_content",
+    turbo_src: "#"
 
 = render "admin/shared/slideout", id: "edit_question_slideout",
     title: "Edit Registration Question", size: :lg,

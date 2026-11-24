@@ -1,7 +1,7 @@
 #audio_extraction_container
   .card.bg-base-100.shadow-md
-    .card-body
-      .flex.items-center.justify-between.mb-6
+    .card-body.min-w-0.p-4.sm:p-6
+      .flex.flex-col.items-start.gap-3.mb-6.sm:flex-row.sm:items-center.sm:justify-between
         %h2.card-title= audio_extraction.display_name
         - if audio_extraction.completed?
           %span.badge.badge-success.badge-lg Completed
@@ -9,7 +9,7 @@
           %span.badge.badge-error.badge-lg Failed
 
       .space-y-4
-        .grid.grid-cols-2.gap-4
+        .grid.grid-cols-1.gap-4.sm:grid-cols-2
           %div
             %p.text-sm.font-semibold.opacity-60 YouTube URL
             %p= link_to audio_extraction.youtube_url, audio_extraction.youtube_url, target: '_blank', class: 'link link-primary break-all'
@@ -22,8 +22,8 @@
 
         - if audio_extraction.completed? && audio_extraction.audio_file.attached?
           .divider
-          .flex.items-center.gap-4
-            = link_to rails_blob_path(audio_extraction.audio_file, disposition: 'attachment'), class: 'btn btn-primary' do
+          .flex.flex-col.gap-3.sm:flex-row.sm:items-center
+            = link_to rails_blob_path(audio_extraction.audio_file, disposition: 'attachment'), class: 'btn btn-primary h-auto min-h-12 flex-wrap py-3' do
               Download MP3
               - if audio_extraction.file_size
                 %span.badge.badge-ghost.ml-2= number_to_human_size(audio_extraction.file_size)
@@ -35,4 +35,4 @@
               %p.font-semibold Error
               %p.text-sm= audio_extraction.error_message
           .mt-4
-            = link_to 'Try Again', new_admin_audio_extraction_path(youtube_url: audio_extraction.youtube_url, start_time: audio_extraction.start_time, end_time: audio_extraction.end_time), class: 'btn btn-primary btn-sm'
+            = link_to 'Try Again', new_admin_audio_extraction_path(youtube_url: audio_extraction.youtube_url, start_time: audio_extraction.start_time, end_time: audio_extraction.end_time), class: 'btn btn-primary btn-sm min-h-11'

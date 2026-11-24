@@ -3,20 +3,20 @@
 
 %div{ class: "flex flex-col gap-4 mb-6 sm:flex-row sm:items-center sm:justify-between" }
   %div
-    %h1.text-3xl.font-bold Registrations
+    %h1.text-2xl.font-bold.sm:text-3xl Registrations
     %p.text-sm.opacity-60.mt-1= @conference.name
-  = link_to "Download CSV", admin_conference_registrations_path(@conference, csv_params), class: "btn btn-outline btn-sm"
+  = link_to "Download CSV", admin_conference_registrations_path(@conference, csv_params), class: "btn btn-outline btn-sm min-h-11 shrink-0"
 
 .card.bg-base-100.shadow-sm.mb-6
   %div{ class: "p-4 sm:p-5" }
-    = form_with url: admin_conference_registrations_path(@conference), method: :get, class: "grid grid-cols-1 gap-3 sm:grid-cols-[minmax(0,1fr)_10rem_auto] sm:items-end" do
+    = form_with url: admin_conference_registrations_path(@conference), method: :get, class: "grid grid-cols-1 gap-3 md:grid-cols-[minmax(0,1fr)_10rem_auto] md:items-end" do
       .min-w-0
         = label_tag :search, "Search registrations", class: "block text-sm font-medium mb-2"
         = search_field_tag :search, @report.search, class: "input input-bordered w-full", placeholder: "Name, email, phone, or answer"
       %div
         = label_tag :status, "Status", class: "block text-sm font-medium mb-2"
         = select_tag :status, options_for_select([["Active", "active"], ["Cancelled", "cancelled"], ["All statuses", "all"]], @report.status), class: "select select-bordered w-full"
-      .flex.items-center.gap-2
+      .flex.flex-wrap.items-center.gap-2{ class: '[&>.btn]:flex-1 md:[&>.btn]:flex-none' }
         = submit_tag "Apply filters", class: "btn btn-primary"
         - if @report.filters_active?
           = link_to "Reset", admin_conference_registrations_path(@conference), class: "btn btn-ghost"
@@ -41,4 +41,4 @@
     turbo_frame: "edit_registration_form",
     turbo_src: "#"
 
-.mt-6= link_to "← #{@conference.name}", admin_conference_path(@conference), class: "btn btn-ghost btn-sm"
+.mt-6= link_to "← #{@conference.name}", admin_conference_path(@conference), class: "btn btn-ghost btn-sm min-h-11 h-auto whitespace-normal py-2 text-left"

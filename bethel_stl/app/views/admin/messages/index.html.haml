@@ -1,63 +1,63 @@
-%h1.text-3xl.font-bold.mb-8 Messages
+%h1.text-2xl.font-bold.mb-6.sm:text-3xl Messages
 
 - if notice.present?
   .alert.alert-success.mb-6
     %span= notice
 
-.flex.justify-end.mb-6
+.flex.flex-col.mb-6.sm:items-end
   = link_to "New Message", new_admin_message_path, class: "btn btn-primary"
 
 -# ==================== MESSAGES LIST ====================
 .card.bg-base-100.shadow-md.mb-8
-  .card-body
+  .card-body.min-w-0.p-4.sm:p-6
     %h2.card-title.mb-4 Sent & Scheduled
     - if @messages.any?
-      .overflow-x-auto
-        %table.table
-          %thead
+      = render layout: 'admin/shared/responsive_table', locals: { label: 'Sent and scheduled messages' } do
+        %thead
+          %tr
+            %th{ scope: 'col' } Message
+            %th{ scope: 'col' } Recipients
+            %th{ scope: 'col' } Schedule
+            %th{ scope: 'col' } Status
+            %th{ scope: 'col' } Accepted / Failed / Captured / Skipped
+            %th{ scope: 'col' }
+              %span.sr-only Actions
+        %tbody
+          - @messages.each do |message|
             %tr
-              %th Message
-              %th Recipients
-              %th Schedule
-              %th Status
-              %th Accepted / Failed / Captured / Skipped
-              %th
-          %tbody
-            - @messages.each do |message|
-              %tr
-                %td
-                  = link_to admin_message_path(message), class: "link link-hover" do
-                    = truncate(message.body, length: 60)
-                %td= message.recipient_label
-                %td.whitespace-nowrap
-                  - if message.scheduled_at.present?
-                    = message.scheduled_at.strftime("%b %-d, %Y %-I:%M %p")
-                  - else
-                    %span.opacity-50 Immediate
-                %td
-                  - case message.status
-                  - when "scheduled"
-                    .badge.badge-info.badge-sm Scheduled
-                  - when "sending"
-                    .badge.badge-warning.badge-sm Sending
-                  - when "sent"
-                    .badge.badge-success.badge-sm Sent
-                  - when "captured"
-                    .badge.badge-info.badge-sm Captured locally
-                  - when "failed"
-                    .badge.badge-error.badge-sm Failed
-                  - when "cancelled"
-                    .badge.badge-neutral.badge-sm Cancelled
-                %td
-                  %span.text-success= message.sent_count
-                  \/
-                  %span.text-error= message.failed_count
-                  \/
-                  = message.captured_count
-                  \/
-                  = message.skipped_count
-                %td
-                  = link_to "View", admin_message_path(message), class: "btn btn-sm btn-ghost"
+              %td{ data: { label: 'Message' } }
+                = link_to admin_message_path(message), class: "link link-hover" do
+                  = truncate(message.body, length: 60)
+              %td{ data: { label: 'Recipients' } }= message.recipient_label
+              %td.whitespace-nowrap{ data: { label: 'Schedule' } }
+                - if message.scheduled_at.present?
+                  = message.scheduled_at.strftime("%b %-d, %Y %-I:%M %p")
+                - else
+                  %span.opacity-50 Immediate
+              %td{ data: { label: 'Status' } }
+                - case message.status
+                - when "scheduled"
+                  .badge.badge-info.badge-sm Scheduled
+                - when "sending"
+                  .badge.badge-warning.badge-sm Sending
+                - when "sent"
+                  .badge.badge-success.badge-sm Sent
+                - when "captured"
+                  .badge.badge-info.badge-sm Captured locally
+                - when "failed"
+                  .badge.badge-error.badge-sm Failed
+                - when "cancelled"
+                  .badge.badge-neutral.badge-sm Cancelled
+              %td{ data: { label: 'Accepted / Failed / Captured / Skipped' } }
+                %span.text-success= message.sent_count
+                \/
+                %span.text-error= message.failed_count
+                \/
+                = message.captured_count
+                \/
+                = message.skipped_count
+              %td
+                = link_to "View", admin_message_path(message), class: "btn btn-sm btn-ghost min-h-11"
     - else
       .text-center.py-8
         %p.text-lg.opacity-60 No messages yet.
@@ -65,10 +65,10 @@
 
 -# ==================== CONTACT GROUPS ====================
 .card.bg-base-100.shadow-md
-  .card-body
-    .flex.items-center.justify-between.mb-4
+  .card-body.min-w-0.p-4.sm:p-6
+    .flex.flex-col.gap-3.mb-4.sm:flex-row.sm:items-center.sm:justify-between
       %h2.card-title Contact Groups
-      %button.btn.btn-sm.btn-outline{ type: 'button', data: { controller: 'modal', action: 'click->modal#open', modal_target_param: 'new_contact_group_slideout' } }
+      %button.btn.btn-sm.btn-outline.min-h-11{ type: 'button', data: { controller: 'modal', action: 'click->modal#open', modal_target_param: 'new_contact_group_slideout' } }
         + New Group
 
     #contact_groups_list
@@ -79,6 +79,11 @@
     title: 'New Contact Group', size: :lg,
     turbo_frame: 'new_contact_group_form',
     turbo_src: new_admin_contact_group_path(slideout: true)
+
+= render 'admin/shared/slideout', id: 'view_contact_group_slideout',
+    title: 'Contact Group Details', size: :lg,
+    turbo_frame: 'view_contact_group_content',
+    turbo_src: '#'
 
 -# Edit Contact Group slideout (src set dynamically per row)
 = render 'admin/shared/slideout', id: 'edit_contact_group_slideout',
